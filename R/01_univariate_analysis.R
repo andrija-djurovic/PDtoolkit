@@ -26,12 +26,12 @@
 #' \itemize{
 #'   \item rf.name: Risk factor name.
 #'   \item rf.type: Risk factor type. This metric is equal to one of \code{character}, 
-			  \code{factor} or \code{logical}.
+#'			  \code{factor} or \code{logical}.
 #'   \item bin.type: Bin type - special or complete cases.
 #'   \item bin: Bin type. If a \code{sc.method} argument is equl to \code{"together"} then 
-		    \code{bin} and \code{bin.type} have the same value. If the \code{sc.method} argument
-		    is equal to  \code{"separately"} then \code{bin} bin will contain all special cases that
-		    exist for analyized risk factor (e.g. \code{NA}, \code{NaN}, \code{Inf}).
+#'		    \code{bin} and \code{bin.type} have the same value. If the \code{sc.method} argument
+#'		    is equal to  \code{"separately"} then \code{bin} bin will contain all special cases that
+#'		    exist for analyized risk factor (e.g. \code{NA}, \code{NaN}, \code{Inf}).
 #'   \item pct: Percentage of observations in each \code{bin}.
 #'   \item cnt.unique: Number of unique values per \code{bin}.
 
@@ -43,7 +43,7 @@
 #'@param sc.g Define how special cases will be treated, all together or in separate bins. Possible values are "together", "separately".
 #' 
 #'@return The command \code{univariate} returns the data frame with explained univariate metrics for numeric,
-	    character, factor and logical class of risk factors.
+#'	    character, factor and logical class of risk factors.
 #'@example
 #' suppressMessages(library(monobin))
 #' data(gcd)
