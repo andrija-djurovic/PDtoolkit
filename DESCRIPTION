@@ -1,5 +1,5 @@
 Package: PDtoolkit
-Title: Collection of Tools for Building PD rating models
+Title: Collection of Tools for Building PD credit rating models.
 Version: 0.0.9
 Authors@R: 
     person(given = "Andrija",
