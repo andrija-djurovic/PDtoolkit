@@ -20,7 +20,7 @@
 #'   \item neg: Number of negative values.    
 #'   \item pos: Number of positive values.   
 #'   \item cnt.outliers: Number of outliers. 
-#'Records above \code{Q75 + 1.5 * IQR}, where \code{IQR = Q75 - Q25} 	
+#'Records above or below \code{Q75 \eqn{\pm} 1.5 * IQR}, where \code{IQR = Q75 - Q25} 	
 #'}
 #' For categorical risk factors univariate report includes:
 #' \itemize{
