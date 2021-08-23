@@ -3,7 +3,7 @@
 #' \code{univariate} returns the univariate statistics for risk factors supplied in data frame \code{db}. \cr
 #' For numeric risk factors univariate report includes:
 #' \itemize{
-#'   \item rf.name: Risk factor name.
+#'   \item rf: Risk factor.
 #'   \item rf.type: Risk factor class. This metric is always equal to \code{numeric}.
 #'   \item bin.type: Bin type - special or complete cases.
 #'   \item bin: Bin type. If a \code{sc.method} argument is equl to \code{"together"} then 
@@ -24,7 +24,7 @@
 #'}
 #' For categorical risk factors univariate report includes:
 #' \itemize{
-#'   \item rf.name: Risk factor name.
+#'   \item rf: Risk factor.
 #'   \item rf.type: Risk factor class. This metric is equal to one of: \code{character}, 
 #'			  \code{factor} or \code{logical}.
 #'   \item bin.type: Bin type - special or complete cases.
@@ -124,7 +124,7 @@ univariate.num <- function(db, x) {
 				  ))
 		 )
 	res <- data.frame(res)
-	res <- cbind.data.frame(rf.name = x, rf.type = "numeric", res)
+	res <- cbind.data.frame(rf = x, rf.type = "numeric", res)
 return(res)
 }
 
@@ -142,7 +142,7 @@ univariate.cat <- function(db, x) {
 				  ))
 		 )
 	res <- data.frame(res)
-	res <- cbind.data.frame(rf.name = x, rf.type = class(db[, x]), res)
+	res <- cbind.data.frame(rf = x, rf.type = class(db[, x]), res)
 return(res)
 }
 
