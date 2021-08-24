@@ -1,5 +1,5 @@
 Package: PDtoolkit
-Title: Collection of Tools for Building PD credit rating models
+Title: Collection of tools for PD rating model development
 Version: 0.0.9
 Authors@R: 
     person(given = "Andrija",
@@ -7,12 +7,13 @@ Authors@R:
            role = c("aut", "cre"),
            email = "djandrija@gmail.com")
 Maintainer: Andrija Djurovic <djandrija@gmail.com>
-Description: Provides set of tools for building PD rating models.
+Description: It provides tools for PD model development.
 License: GPL (>= 3)
-URL: https://github.com/andrija-djurovic/PDtoolkit
+URL: https://github.com/andrija-djurovic/monobinShiny
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends: monobin
 Imports: dplyr	
+	 
