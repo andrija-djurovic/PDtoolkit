@@ -5,8 +5,8 @@
 #' categorized. Additionally, maximum number of groups per risk factor is set to 10, so risk factors with more than
 #' 10 categories will not be processed automatically, but manual inspection can be still done using \code{woe.tbl} 
 #' and \code{auc.model} functions in order to produce the same statistics. Results of both checks (risk factor class and 
-#' number of categories), if identified, will be reported in second element of function output - info data frame. \cr
-#' Bivariate report (first element of function output - results data frame) includes:
+#' number of categories), if identified, will be reported in second element of function output - \code{info} data frame. \cr
+#' Bivariate report (first element of function output - \code{results} data frame) includes:
 #' \itemize{
 #'   \item rf: Risk factor name.
 #'   \item bin: Risk factor group (bin).
@@ -14,9 +14,9 @@
 #'   \item ng: Number of good cases (where target is equal to 0) per bin.
 #'   \item nb: Number of bad cases (where target is equal to 1) per bin. 
 #'   \item dr: Default rate per bin.   
-#'   \item so: Sum of all observations.   
-#'   \item sg: Sum of all good cases.  	
-#'   \item sb: Sum of all bad cases. 
+#'   \item so: Number of all observations.   
+#'   \item sg: Number of all good cases.  	
+#'   \item sb: Number of all bad cases. 
 #'   \item dist.g: Distribution of good cases per bin. 
 #'   \item dist.b: Distribution of bad cases per bin. 
 #'   \item woe: WoE value. 
@@ -25,7 +25,7 @@
 #'   \item auc: Area under curve of simple logistic regression model estimated as \code{y ~ x}, 
 #'		    where \code{y} is selected target variable and \code{x} is categorical risk factor. 
 #'}
-#' Additional info report (second element of function output - info data frame), if produced, includes:
+#' Additional info report (second element of function output - \code{info} data frame), if produced, includes:
 #' \itemize{
 #'   \item rf: Risk factor name.
 #'   \item reason.code: Reason code takes value 1 if inappropriate class of risk factor is identified, while 
@@ -35,7 +35,8 @@
 #'@param db Data frame of risk factors and target variable supplied for bivariate analysis.
 #'@param target Name of target variable within \code{db} argument.
 #'@return The command \code{bivariate} returns the list of two data frames. The first one contains bivariate metrics 
-#'	  while the second data frame reports results of above explained validations (class of the risk factors and number of categories).
+#'	  while the second data frame reports results of above explained validations 
+#' (class of the risk factors and number of categories).
 #'@seealso \code{\link{woe.tbl}} and \code{\link{auc.model}} for manual bivariate analysis.
 #'@examples
 #'suppressMessages(library(monobin))
@@ -76,13 +77,13 @@ bivariate <- function(db, target) {
 		stop("Target is not 0/1 variable.")
 		}
 	rf <- names(db)[!names(db)%in%target]
-	rf.l <- length(rf)
-	if	(rf.l == 0) {
+	rfl <- length(rf)
+	if	(rfl == 0) {
 		stop("There are no risk factors in supplied db.")
 		}
-	res <- vector("list", rf.l)
-	info <- vector("list", rf.l)
-	for	(i in 1:rf.l) {
+	res <- vector("list", rfl)
+	info <- vector("list", rfl)
+	for	(i in 1:rfl) {
 		xl <- rf[i]
 		x <- db[, xl]
 		cond.01 <- !(is.character(x) | is.factor(x) | is.logical(x))
@@ -129,9 +130,9 @@ return(list(results = res, info = info))
 #'   \item ng: Number of good cases (where target is equal to 0) per bin.
 #'   \item nb: Number of bad cases (where target is equal to 1) per bin. 
 #'   \item dr: Default rate per bin.   
-#'   \item so: Sum of all observations.   
-#'   \item sg: Sum of all good cases.  	
-#'   \item sb: Sum of all bad cases. 
+#'   \item so: Number of all observations.   
+#'   \item sg: Number of all good cases.  	
+#'   \item sb: Number of all bad cases. 
 #'   \item dist.g: Distribution of good cases per bin. 
 #'   \item dist.b: Distribution of bad cases per bin. 
 #'   \item woe: WoE value. 
@@ -141,8 +142,7 @@ return(list(results = res, info = info))
 #'@param tbl Data frame which contains target variable (\code{y}) and analyzed risk factor (\code{x}).
 #'@param x Selected risk factor.
 #'@param y Selected target variable.
-#'@return The command \code{woe.tbl} returns the data frame WoE and information value calculation along with accompanied
-#' metrics.
+#'@return The command \code{woe.tbl} returns the data frame with WoE and information value calculations along with accompanied metrics.
 #'@seealso \code{\link{bivariate}} for automatic bivariate analysis.
 #'@examples
 #'suppressMessages(library(monobin))
@@ -155,6 +155,20 @@ return(list(results = res, info = info))
 #'@import dplyr
 #'@export
 woe.tbl <- function(tbl, x, y) {
+	if	(!is.data.frame(tbl)) {
+		stop("tbl is not a data frame.")
+		}
+	if	(!y%in%names(tbl)) {
+		stop("y (target variable) does not exist in supplied tbl.")
+		}
+	if	(!x%in%names(tbl)) {
+		stop("x (risk factor) does not exist in supplied tbl.")
+		}
+	target <- tbl[, y]
+	cond.00 <- !sum(target[!is.na(target)]%in%c(0, 1)) == length(target[!is.na(target)])
+	if	(cond.00 ) {
+		stop("y (target variable) is not 0/1 variable.")
+		}
 	res <- tbl %>% 
 		 group_by_at(c("bin" = x)) %>%
 		 summarise(no = n(),
@@ -175,15 +189,15 @@ return(data.frame(res))
 
 #' Area under curve (AUC)
 #'
-#' \code{auc.model} calculates area under curve (AUC) for a given predicted value and observed target variable.
+#' \code{auc.model} calculates area under curve (AUC) for a given predicted values and observed target variable.
 #'@param predictions Model predictions.
-#'@param observed Observed value of target variable.
+#'@param observed Observed values of target variable.
 #'@return The command \code{auc.model} returns value of AUC.
 #'@seealso \code{\link{bivariate}} for automatic bivariate analysis.
 #'@examples
 #'suppressMessages(library(monobin))
 #'data(gcd)
-#'#categorize numeric risk factors
+#'#categorize numeric risk factor
 #'gcd$maturity.bin <- ndr.bin(x = gcd$maturity, y = gcd$qual, y.type = "bina")[[2]]
 #'#estimate simple logistic regression model
 #'lr <- glm(qual ~ maturity.bin, family = "binomial", data = gcd)
@@ -203,4 +217,90 @@ auc.model <- function(predictions, observed) {
 	auc <- 1 - u / n1 / n2
 return(auc)
 }
+
+
+#' Replace modalities of risk factor with weights of evidence (WoE) value
+#'
+#' \code{replace.woe} replaces modalities of risk factor with calculated WoE value. This function process only
+#' categorical risk factors, thus it is assumed that numerical risk factors are previously categorized.
+#' Additional info report (second element of function output - \code{info} data frame), if produced, includes:
+#' \itemize{
+#'   \item rf: Risk factor name.
+#'   \item reason.code: Reason code takes value 1 if inappropriate class of risk factor is identified, while 
+#'				for check of maximum number of categories it takes value 2.
+#'   \item comment: Reason description.
+#'}
+#'@param db Data frame of categorical risk factors and target variable supplied for WoE coding.
+#'@param target Name of target variable within \code{db} argument..
+#'@return The command \code{replace.woe} returns the list of two data frames. The first one contains WoE replacement 
+#'	    of analyzed risk factors' modalities, while the second data frame reports results of above 
+#'         validations regarding class of the risk factors and number of modalities.
+#'@examples
+#'suppressMessages(library(monobin))
+#'data(gcd)
+#'#categorize numeric risk factor
+#'gcd$maturity.bin <- ndr.bin(x = gcd$maturity, y = gcd$qual, y.type = "bina")[[2]]
+#'gcd$amount.bin <- ndr.bin(x = gcd$amount, y = gcd$qual, y.type = "bina")[[2]]
+#'gcd$age.bin <- ndr.bin(x = gcd$age, y = gcd$qual, y.type = "bina")[[2]]
+#'head(gcd)
+#'#replace modalities with WoE values
+#'woe.rep <- replace.woe(db = gcd, target = "qual")
+#'#results overview
+#'head(woe.rep[[1]])
+#'woe.rep[[2]]
+#'@import monobin
+#'@import dplyr
+#'@export
+
+replace.woe <- function(db, target) {
+	if	(!is.data.frame(db)) {
+		stop("db is not a data frame.")
+		}
+	if	(!target%in%names(db)) {
+		stop("Target variable does not exist in supplied db.")
+		}
+	y <- db[, target]
+	cond.00 <- !sum(y[!is.na(y)]%in%c(0, 1)) == length(y[!is.na(y)])
+	if	(cond.00 ) {
+		stop("Target is not 0/1 variable.")
+		}
+	rf <- names(db)[!names(db)%in%target]
+	rfl <- length(rf)
+	if	(rfl == 0) {
+		stop("There are no risk factors in supplied db.")
+		}
+	res <- vector("list", rfl)
+	info <- vector("list", rfl)
+	for	(i in 1:rfl) {
+		xl <- rf[i]
+		x <- db[, xl]
+		cond.01 <- !(is.character(x) | is.factor(x) | is.logical(x))
+		cond.02 <- length(unique(x)) > 10
+		if	(cond.01) {
+			info[[i]] <- data.frame(rf = xl, 
+							reason.code = 1, 
+							comment = "Inappropriate class. It has to be one of:
+									character, factor or logical.")
+			next
+			}
+		if	(cond.02) {
+			info[[i]] <- data.frame(rf = xl, 
+							reason.code = 2,
+							comment = "More than 10 categories.")
+			next
+			}
+		woe.res <- woe.tbl(tbl = db, x = xl, y = target)
+		woe.val <- woe.res$woe
+		names(woe.val) <- woe.res$bin	
+		woe.rep <- unname(woe.val[x])
+		res[[i]] <- data.frame(woe.rep)	
+		names(res[[i]]) <- xl
+		}
+	res <- data.frame(bind_cols(res), check.names = FALSE)
+	res <- cbind.data.frame(db[, target, drop = FALSE], res)
+	info <- data.frame(bind_rows(info))
+return(list(results = res, info = info))
+}
+
+
 
