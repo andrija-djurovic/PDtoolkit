@@ -30,6 +30,9 @@ Bivariate report (first element of function output - \code{results} data frame) 
 \item no: Number of observations per bin.
 \item ng: Number of good cases (where target is equal to 0) per bin.
 \item nb: Number of bad cases (where target is equal to 1) per bin.
+\item pct.o: Percentage of observations per bin.
+\item pct.g: Percentage of good cases (where target is equal to 0) per bin.
+\item pct.b: Percentage of bad cases (where target is equal to 1) per bin.
 \item dr: Default rate per bin.
 \item so: Number of all observations.
 \item sg: Number of all good cases.
@@ -51,7 +54,7 @@ for check of maximum number of categories it takes value 2.
 }
 }
 \examples{
-suppressMessages(library(monobin))
+suppressMessages(library(PDtoolkit))
 data(gcd)
 #categorize numeric risk factors
 gcd$age.bin <- ndr.bin(x = gcd$age, y = gcd$qual)[[2]]

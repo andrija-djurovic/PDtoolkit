@@ -18,7 +18,7 @@ The command \code{auc.model} returns value of AUC.
 \code{auc.model} calculates area under curve (AUC) for a given predicted values and observed target variable.
 }
 \examples{
-suppressMessages(library(monobin))
+suppressMessages(library(PDtoolkit))
 data(gcd)
 #categorize numeric risk factor
 gcd$maturity.bin <- ndr.bin(x = gcd$maturity, y = gcd$qual, y.type = "bina")[[2]]

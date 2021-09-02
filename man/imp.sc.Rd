@@ -37,7 +37,7 @@ number of imputed observations (\code{imputation.num}) and imputed mode
 \code{imp.sc} imputes value for special cases.
 }
 \examples{
-suppressMessages(library(monobin))
+suppressMessages(library(PDtoolkit))
 data(gcd)
 gcd$age[1:20] <- NA
 gcd$age.bin <- ndr.bin(x = gcd$age, y = gcd$qual, sc.method = "separately", y.type = "bina")[[2]]

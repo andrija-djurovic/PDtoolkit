@@ -7,7 +7,7 @@
 cat.bin(
   x,
   y,
-  sc,
+  sc = NA,
   sc.merge = "none",
   min.pct.obs = 0.05,
   min.avg.rate = 0.01,
@@ -30,7 +30,8 @@ bin will be determined based on alphabetic order (if \code{force.trend} is selec
 on minimum or maximum default rate (if \code{force.trend} is selected as \code{"dr"}).
 If \code{"closest"} is selected, then the special case will be merged with the bin
 that is closest based on default rate. Merging of the special cases with other bins is performed at the
-beginning i.e. before running any of three-stage procedures.}
+beginning i.e. before running any of three-stage procedures.
+Default value is \code{"none"}.}
 
 \item{min.pct.obs}{Minimum percentage of observations per bin. Default is 0.05 or minimum 30 observations.}
 

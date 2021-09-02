@@ -4,7 +4,7 @@
 \alias{woe.tbl}
 \title{Weights of evidence (WoE) table}
 \usage{
-woe.tbl(tbl, x, y)
+woe.tbl(tbl, x, y, y.check = TRUE)
 }
 \arguments{
 \item{tbl}{Data frame which contains target variable (\code{y}) and analyzed risk factor (\code{x}).}
@@ -12,6 +12,11 @@ woe.tbl(tbl, x, y)
 \item{x}{Selected risk factor.}
 
 \item{y}{Selected target variable.}
+
+\item{y.check}{Logical, if target variable (\code{y}) should be checked for 0/1 values.
+Default value is \code{TRUE}.
+Change of this parameter to \code{FALSE} can be handy for calculation of WoE based on model
+predictions. Concretely, it is used only in calculation of marginal information value (MIV) in \code{\link{stepMIV}}.}
 }
 \value{
 The command \code{woe.tbl} returns the data frame with WoE and information value calculations along with accompanied metrics.
@@ -25,6 +30,9 @@ WoE table reports:
 \item no: Number of observations per bin.
 \item ng: Number of good cases (where target is equal to 0) per bin.
 \item nb: Number of bad cases (where target is equal to 1) per bin.
+\item pct.o: Percentage of observations per bin.
+\item pct.g: Percentage of good cases (where target is equal to 0) per bin.
+\item pct.b: Percentage of bad cases (where target is equal to 1) per bin.
 \item dr: Default rate per bin.
 \item so: Number of all observations.
 \item sg: Number of all good cases.
@@ -37,7 +45,7 @@ WoE table reports:
 }
 }
 \examples{
-suppressMessages(library(monobin))
+suppressMessages(library(PDtoolkit))
 data(gcd)
 #categorize numeric risk factors
 gcd$age.bin <- woe.bin(x = gcd$age, y = gcd$qual, y.type = "bina")[[2]]

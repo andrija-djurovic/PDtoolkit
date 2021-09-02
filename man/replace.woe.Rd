@@ -14,7 +14,7 @@ replace.woe(db, target)
 \value{
 The command \code{replace.woe} returns the list of two data frames. The first one contains WoE replacement
 of analyzed risk factors' modalities, while the second data frame reports results of above
-validations regarding class of the risk factors and number of modalities.
+mentioned validations regarding class of the risk factors, number of modalities and WoE calculation.
 }
 \description{
 \code{replace.woe} replaces modalities of risk factor with calculated WoE value. This function process only
@@ -22,13 +22,16 @@ categorical risk factors, thus it is assumed that numerical risk factors are pre
 Additional info report (second element of function output - \code{info} data frame), if produced, includes:
 \itemize{
 \item rf: Risk factor name.
-\item reason.code: Reason code takes value 1 if inappropriate class of risk factor is identified, while
-for check of maximum number of categories it takes value 2.
+\item reason.code: Reason code takes value 1 if inappropriate class of risk factor is identified.
+It takes value 2 if maximum number of categories exceeds 10, while 3 if
+there are any problem with weights of evidence (WoE) calculations
+(usually if any bin contains only good or bad cases).
+If validation 1 and 3 are observed, risk factor is not process for WoE replacement.
 \item comment: Reason description.
 }
 }
 \examples{
-suppressMessages(library(monobin))
+suppressMessages(library(PDtoolkit))
 data(gcd)
 #categorize numeric risk factor
 gcd$maturity.bin <- ndr.bin(x = gcd$maturity, y = gcd$qual, y.type = "bina")[[2]]

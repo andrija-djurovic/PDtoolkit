@@ -49,7 +49,7 @@ number of imputed observations (\code{imputation.num.upper} and \code{imputation
 extreme values. This procedure is applicable only to the numeric risk factors.
 }
 \examples{
-suppressMessages(library(monobin))
+suppressMessages(library(PDtoolkit))
 data(gcd)
 gcd$age[1:20] <- NA
 gcd$age.bin <- ndr.bin(x = gcd$age, y = gcd$qual, sc.method = "separately", y.type = "bina")[[2]]

@@ -69,7 +69,7 @@ exist for analyzed risk factor (e.g. \code{NA}, \code{NaN}, \code{Inf}).
 }
 }
 \examples{
-suppressMessages(library(monobin))
+suppressMessages(library(PDtoolkit))
 data(gcd)
 gcd$age[100:120] <- NA
 gcd$age.bin <- ndr.bin(x = gcd$age, y = gcd$qual, y.type = "bina")[[2]]
