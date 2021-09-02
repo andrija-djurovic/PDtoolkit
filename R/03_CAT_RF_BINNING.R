@@ -17,6 +17,7 @@
 #'	   If \code{"closest"} is selected, then the special case will be merged with the bin 
 #'	   that is closest based on default rate. Merging of the special cases with other bins is performed at the 
 #'	   beginning i.e. before running any of three-stage procedures. 
+#'	   Default value is \code{"none"}.
 #'@param min.pct.obs Minimum percentage of observations per bin. Default is 0.05 or minimum 30 observations.
 #'@param min.avg.rate Minimum default rate. Default is 0.01 or minimum 1 bad case for \code{y} 0/1.
 #'@param max.groups Maximum number of bins (groups) allowed for analyzed risk factor. If in the first two stages
@@ -89,7 +90,7 @@
 #'@import monobin
 #'@import dplyr
 #'@export
-cat.bin <- function(x, y, sc, sc.merge = "none", min.pct.obs = 0.05, min.avg.rate = 0.01,
+cat.bin <- function(x, y, sc = NA, sc.merge = "none", min.pct.obs = 0.05, min.avg.rate = 0.01,
 			  max.groups = NA, force.trend = "modalities") {	
 	cond.00 <- !sum(y[!is.na(y)]%in%c(0, 1)) == length(y[!is.na(y)])
 	if	(cond.00 ) {

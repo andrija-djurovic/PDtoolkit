@@ -50,7 +50,7 @@
 #'@return The command \code{univariate} returns the data frame with explained univariate metrics for numeric,
 #'	    character, factor and logical class of risk factors.
 #'@examples
-#' suppressMessages(library(monobin))
+#' suppressMessages(library(PDtoolkit))
 #' data(gcd)
 #' gcd$age[100:120] <- NA
 #' gcd$age.bin <- ndr.bin(x = gcd$age, y = gcd$qual, y.type = "bina")[[2]]
@@ -174,7 +174,7 @@ return(res)
 #' number of imputed observations (\code{imputation.num}) and imputed mode
 #' (\code{imputed.mode} - applicable only for numeric risk factors) for each risk factor.
 #'@examples
-#'suppressMessages(library(monobin))
+#'suppressMessages(library(PDtoolkit))
 #'data(gcd)
 #'gcd$age[1:20] <- NA
 #'gcd$age.bin <- ndr.bin(x = gcd$age, y = gcd$qual, sc.method = "separately", y.type = "bina")[[2]]
@@ -321,7 +321,7 @@ return(res)
 #' imputed value (\code{imputation.val.upper} and \code{imputation.val.lower}), 
 #' number of imputed observations (\code{imputation.num.upper} and \code{imputation.num.lower}).
 #'@examples
-#'suppressMessages(library(monobin))
+#'suppressMessages(library(PDtoolkit))
 #'data(gcd)
 #'gcd$age[1:20] <- NA
 #'gcd$age.bin <- ndr.bin(x = gcd$age, y = gcd$qual, sc.method = "separately", y.type = "bina")[[2]]

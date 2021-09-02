@@ -13,6 +13,9 @@
 #'   \item no: Number of observations per bin.
 #'   \item ng: Number of good cases (where target is equal to 0) per bin.
 #'   \item nb: Number of bad cases (where target is equal to 1) per bin. 
+#'   \item pct.o: Percentage of observations per bin. 
+#'   \item pct.g: Percentage of good cases (where target is equal to 0) per bin. 
+#'   \item pct.b: Percentage of bad cases (where target is equal to 1) per bin. 
 #'   \item dr: Default rate per bin.   
 #'   \item so: Number of all observations.   
 #'   \item sg: Number of all good cases.  	
@@ -39,7 +42,7 @@
 #' (class of the risk factors and number of categories).
 #'@seealso \code{\link{woe.tbl}} and \code{\link{auc.model}} for manual bivariate analysis.
 #'@examples
-#'suppressMessages(library(monobin))
+#'suppressMessages(library(PDtoolkit))
 #'data(gcd)
 #'#categorize numeric risk factors
 #'gcd$age.bin <- ndr.bin(x = gcd$age, y = gcd$qual)[[2]]
@@ -73,7 +76,7 @@ bivariate <- function(db, target) {
 		}
 	y <- db[, target]
 	cond.00 <- !sum(y[!is.na(y)]%in%c(0, 1)) == length(y[!is.na(y)])
-	if	(cond.00 ) {
+	if	(cond.00) {
 		stop("Target is not 0/1 variable.")
 		}
 	rf <- names(db)[!names(db)%in%target]
@@ -129,6 +132,9 @@ return(list(results = res, info = info))
 #'   \item no: Number of observations per bin.
 #'   \item ng: Number of good cases (where target is equal to 0) per bin.
 #'   \item nb: Number of bad cases (where target is equal to 1) per bin. 
+#'   \item pct.o: Percentage of observations per bin. 
+#'   \item pct.g: Percentage of good cases (where target is equal to 0) per bin. 
+#'   \item pct.b: Percentage of bad cases (where target is equal to 1) per bin. 
 #'   \item dr: Default rate per bin.   
 #'   \item so: Number of all observations.   
 #'   \item sg: Number of all good cases.  	
@@ -142,10 +148,14 @@ return(list(results = res, info = info))
 #'@param tbl Data frame which contains target variable (\code{y}) and analyzed risk factor (\code{x}).
 #'@param x Selected risk factor.
 #'@param y Selected target variable.
+#'@param y.check Logical, if target variable (\code{y}) should be checked for 0/1 values. 
+#'		     Default value is \code{TRUE}.
+#'		     Change of this parameter to \code{FALSE} can be handy for calculation of WoE based on model 
+#'		     predictions. Concretely, it is used only in calculation of marginal information value (MIV) in \code{\link{stepMIV}}.
 #'@return The command \code{woe.tbl} returns the data frame with WoE and information value calculations along with accompanied metrics.
 #'@seealso \code{\link{bivariate}} for automatic bivariate analysis.
 #'@examples
-#'suppressMessages(library(monobin))
+#'suppressMessages(library(PDtoolkit))
 #'data(gcd)
 #'#categorize numeric risk factors
 #'gcd$age.bin <- woe.bin(x = gcd$age, y = gcd$qual, y.type = "bina")[[2]]
@@ -154,7 +164,7 @@ return(list(results = res, info = info))
 #'@import monobin
 #'@import dplyr
 #'@export
-woe.tbl <- function(tbl, x, y) {
+woe.tbl <- function(tbl, x, y, y.check = TRUE) {
 	if	(!is.data.frame(tbl)) {
 		stop("tbl is not a data frame.")
 		}
@@ -164,19 +174,27 @@ woe.tbl <- function(tbl, x, y) {
 	if	(!x%in%names(tbl)) {
 		stop("x (risk factor) does not exist in supplied tbl.")
 		}
+	if	(!is.logical(y.check)) {
+		stop("y.check has to be of logical type.")
+		}
 	target <- tbl[, y]
-	cond.00 <- !sum(target[!is.na(target)]%in%c(0, 1)) == length(target[!is.na(target)])
-	if	(cond.00 ) {
-		stop("y (target variable) is not 0/1 variable.")
+	if	(y.check) {
+		cond.00 <- !sum(target[!is.na(target)]%in%c(0, 1)) == length(target[!is.na(target)])
+		if	(cond.00) {
+			stop("y (target variable) is not 0/1 variable.")
+			}
 		}
 	res <- tbl %>% 
 		 group_by_at(c("bin" = x)) %>%
 		 summarise(no = n(),
-			     ng = sum(!!sym(y)%in%0),
+			     ng = sum(1 - !!sym(y)),
 			     nb = sum(!!sym(y))) %>%
-			     mutate(dr = nb / no) %>%
-			     ungroup() %>%
-		 mutate(so = sum(no),
+		 ungroup() %>%
+		 mutate(pct.o = no / sum(no),
+			  pct.g = ng / sum(ng),
+			  pct.b = nb / sum(nb),
+			  dr = nb / no,
+			  so = sum(no),
 			  sg = sum(ng),
 			  sb = sum(nb), 
 			  dist.g = ng / sg,
@@ -195,7 +213,7 @@ return(data.frame(res))
 #'@return The command \code{auc.model} returns value of AUC.
 #'@seealso \code{\link{bivariate}} for automatic bivariate analysis.
 #'@examples
-#'suppressMessages(library(monobin))
+#'suppressMessages(library(PDtoolkit))
 #'data(gcd)
 #'#categorize numeric risk factor
 #'gcd$maturity.bin <- ndr.bin(x = gcd$maturity, y = gcd$qual, y.type = "bina")[[2]]
@@ -226,17 +244,20 @@ return(auc)
 #' Additional info report (second element of function output - \code{info} data frame), if produced, includes:
 #' \itemize{
 #'   \item rf: Risk factor name.
-#'   \item reason.code: Reason code takes value 1 if inappropriate class of risk factor is identified, while 
-#'				for check of maximum number of categories it takes value 2.
+#'   \item reason.code: Reason code takes value 1 if inappropriate class of risk factor is identified. 
+#'				It takes value 2 if maximum number of categories exceeds 10, while 3 if 
+#'				there are any problem with weights of evidence (WoE) calculations 
+#'				(usually if any bin contains only good or bad cases).
+#'				If validation 1 and 3 are observed, risk factor is not process for WoE replacement.
 #'   \item comment: Reason description.
 #'}
 #'@param db Data frame of categorical risk factors and target variable supplied for WoE coding.
 #'@param target Name of target variable within \code{db} argument..
 #'@return The command \code{replace.woe} returns the list of two data frames. The first one contains WoE replacement 
 #'	    of analyzed risk factors' modalities, while the second data frame reports results of above 
-#'         validations regarding class of the risk factors and number of modalities.
+#'        mentioned validations regarding class of the risk factors, number of modalities and WoE calculation.
 #'@examples
-#'suppressMessages(library(monobin))
+#'suppressMessages(library(PDtoolkit))
 #'data(gcd)
 #'#categorize numeric risk factor
 #'gcd$maturity.bin <- ndr.bin(x = gcd$maturity, y = gcd$qual, y.type = "bina")[[2]]
@@ -251,7 +272,6 @@ return(auc)
 #'@import monobin
 #'@import dplyr
 #'@export
-
 replace.woe <- function(db, target) {
 	if	(!is.data.frame(db)) {
 		stop("db is not a data frame.")
@@ -261,7 +281,7 @@ replace.woe <- function(db, target) {
 		}
 	y <- db[, target]
 	cond.00 <- !sum(y[!is.na(y)]%in%c(0, 1)) == length(y[!is.na(y)])
-	if	(cond.00 ) {
+	if	(cond.00) {
 		stop("Target is not 0/1 variable.")
 		}
 	rf <- names(db)[!names(db)%in%target]
@@ -281,15 +301,25 @@ replace.woe <- function(db, target) {
 							reason.code = 1, 
 							comment = "Inappropriate class. It has to be one of:
 									character, factor or logical.")
+			res[[i]] <- x
+			names(res[[i]]) <- xl
 			next
 			}
 		if	(cond.02) {
 			info[[i]] <- data.frame(rf = xl, 
 							reason.code = 2,
 							comment = "More than 10 categories.")
-			next
 			}
 		woe.res <- woe.tbl(tbl = db, x = xl, y = target)
+		cond.03 <- any(woe.res$woe%in%c(NA, NaN, Inf))
+		if	(cond.03) {
+			info[[i]] <- data.frame(rf = xl, 
+							reason.code = 3,
+							comment = "Problem with WoE calculation (NA, NaN, Inf)")
+			res[[i]] <- data.frame(x)
+			names(res[[i]]) <- xl
+			next
+			}
 		woe.val <- woe.res$woe
 		names(woe.val) <- woe.res$bin	
 		woe.rep <- unname(woe.val[x])
