@@ -236,7 +236,6 @@ auc.model <- function(predictions, observed) {
 return(auc)
 }
 
-
 #' Replace modalities of risk factor with weights of evidence (WoE) value
 #'
 #' \code{replace.woe} replaces modalities of risk factor with calculated WoE value. This function process only

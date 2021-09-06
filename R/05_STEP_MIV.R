@@ -22,9 +22,9 @@
 #'	    The warnings refer to the following checks: if risk factor has more than 10 modalities,
 #'	    if any of the bins (groups) has less then 5% of observations and 
 #'	    if there are problems with WoE calculations.\cr
-#'	    The final, fifth, object is returned only is \code{coding} is selected as \code{"WoE"}. In that case
-#'	    data frame with replaced WoE values for risk factors that are selected in the final model with be
-#'	    returned.
+#'	    The final, fifth, object \code{dev.db} is returned only is \code{coding} is selected as \code{"WoE"}. 
+#'	    In that case data frame with replaced WoE values for risk factors that are selected in the 
+#'	    final model with be returned.
 #'@references 
 #'Scallan, G. (2013). Measuring Lack of Fit in Logistic Regression,  
 #'			    Edinburgh Credit Scoring Conference, downloaded from 
@@ -59,13 +59,12 @@
 #'res$warnings
 #'#print head of coded development data
 #'head(res$dev.db)
-#'#calculate AUC  res$dev.db
+#'#calculate AUC
 #'auc.model(predictions = predict(final.model, type = "response", newdata = res$dev.db),
 #'	    observed = res$dev.db$Creditability)
 #'@import monobin
 #'@importFrom stats formula
 #'@export
-
 stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, db) {
 	#check arguments
 	if	(!is.data.frame(db)) {
@@ -113,6 +112,16 @@ stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, db) {
 		warn.rep <- data.frame(rf = check.mod, comment = "More than 10 modalities.")
 		warn.tbl <- bind_rows(warn.tbl, warn.rep)
 		}
+	#check for numeric risk factors
+	num.type <- sapply(db[, rf.rest, drop = FALSE], is.numeric)
+	check.num <- names(num.type)[num.type ]
+	if	(length(check.num) > 0) {
+		msg <- "Numeric type. Risk factor is excluded from further process."
+		warn.rep <- data.frame(rf = check.num, comment = msg)
+		warn.tbl <- bind_rows(warn.tbl, warn.rep)
+		rf.rest <- rf.rest[!rf.rest%in%check.num]
+		rf.restl <- length(rf.rest)
+		}
 	#generate woe table
 	rf.woe.o <- vector("list", rf.restl) 
 	for	(i in 1:rf.restl) {
@@ -146,7 +155,7 @@ stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, db) {
 		woe.rep.check <- woe.rep[[2]]
 		if	(nrow(woe.rep.check) > 0) {
 			msg <- "Problem with the WoE calculations for the starting model. 
-				  Check the variable class and the following risk factors for NA or Inf values:  "
+				  Check the variable class and the following risk factors for NA or Inf values: "
 			msg <- paste0(msg, paste(woe.rep.check$rf, collapse = ", "), ".")
 			stop(msg)
 			}

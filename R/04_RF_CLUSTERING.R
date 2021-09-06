@@ -5,15 +5,15 @@
 #'@param db Data frame of risk factors supplied for clustering analysis.
 #'@param metric Correlation metric used for distance calculation. Available options are:
 #'\itemize{
-#'	  \item \code{"raw pearson"} - calculated distance \code{dist(cor(db, method = "pearson"))};
-#'	  \item \code{"raw spearman"} - calculated distance \code{dist(cor(db, method = "spearman"))};
-#'	  \item \code{"common pearson"} - calculated distance \code{dist((1 - cor(db, method = "pearson")) / 2)};
-#'	  \item \code{"common spearman"} - calculated distance \code{dist((1 - cor(db, method = "spearman")) / 2)};
-#'	  \item \code{"absolute pearson"} - calculated distance \code{dist(1 - abs(cor(db, method = "pearson")))};
-#'	  \item \code{"absolute spearman"} - calculated distance \code{dist(1 - abs(cor(db, method = "spearman")))};
-#'	  \item \code{"sqrt pearson"} - calculated distance \code{dist(sqrt(1 - cor(db, method = "pearson")))};
-#'	  \item \code{"sqrt spearman"} - calculated distance \code{dist(sqrt(1 - cor(db, method = "spearman")))};
-#'	  \item \code{"x2y"} - calculated distance \code{dist(dx2y(d = db)[[2]]))}.
+#'	  \item \code{"raw pearson"} - calculated distance \code{as.dist(1 - cor(db, method = "pearson"))};
+#'	  \item \code{"raw spearman"} - calculated distance \code{as.dist(1 - cor(db, method = "spearman"))};
+#'	  \item \code{"common pearson"} - calculated distance \code{as.dist((1 - cor(db, method = "pearson")) / 2)};
+#'	  \item \code{"common spearman"} - calculated distance \code{as.dist((1 - cor(db, method = "spearman")) / 2)};
+#'	  \item \code{"absolute pearson"} - calculated distance \code{as.dist(1 - abs(cor(db, method = "pearson")))};
+#'	  \item \code{"absolute spearman"} - calculated distance \code{as.dist(1 - abs(cor(db, method = "spearman")))};
+#'	  \item \code{"sqrt pearson"} - calculated distance \code{as.dist(sqrt(1 - cor(db, method = "pearson")))};
+#'	  \item \code{"sqrt spearman"} - calculated distance \code{as.dist(sqrt(1 - cor(db, method = "spearman")))};
+#'	  \item \code{"x2y"} - calculated distance \code{as.dist(1 - dx2y(d = db)[[2]]))}.
 #'}
 #'\code{x2y} metric is proposed by Professor Rama Ramakrishnan and details can be found on this 
 #' \href{https://rama100.github.io/lecture-notes/x2y.nb.html}{link}. This metric is especially handy if 
@@ -60,7 +60,6 @@
 #'@importFrom stats hclust cor cutree dist pchisq pnorm xtabs
 #'@importFrom utils combn
 #'@export
-
 rf.clustering <- function(db, metric, k = NA) {
 	db.ncol <- ncol(db)
 	if	(db.ncol < 4) {
@@ -86,15 +85,15 @@ rf.clustering <- function(db, metric, k = NA) {
 			stop(msg)
 			}
 		}
-	distance <- switch(metric, "raw pearson" = dist(cor(db, method = "pearson")), 
-					   "raw spearman" = dist(cor(db, method = "spearman")),
-					   "common pearson" = dist((1 - cor(db, method = "pearson")) / 2), 
-					   "common spearman" = dist((1 - cor(db, method = "spearman")) / 2),
-					   "absolute pearson" = dist(1 - abs(cor(db, method = "pearson"))), 
-					   "absolute spearman" = dist(1 - abs(cor(db, method = "spearman"))),
-					   "sqrt pearson" = dist(sqrt(1 - cor(db, method = "pearson"))), 
-					   "sqrt spearman" = dist(sqrt(1 - cor(db, method = "spearman"))),
-					   "x2y" = dist(dx2y(d = db)[[2]]))
+	distance <- switch(metric, "raw pearson" = as.dist(1 - cor(db, method = "pearson")), 
+					   "raw spearman" = as.dist(1 - cor(db, method = "spearman")),
+					   "common pearson" = as.dist((1 - cor(db, method = "pearson")) / 2), 
+					   "common spearman" = as.dist((1 - cor(db, method = "spearman")) / 2),
+					   "absolute pearson" = as.dist(1 - abs(cor(db, method = "pearson"))), 
+					   "absolute spearman" = as.dist(1 - abs(cor(db, method = "spearman"))),
+					   "sqrt pearson" = as.dist(sqrt(1 - cor(db, method = "pearson"))), 
+					   "sqrt spearman" = as.dist(sqrt(1 - cor(db, method = "spearman"))),
+					   "x2y" = as.dist(1 - dx2y(d = db)[[2]]))
 	clust <- hclust(distance, method = "centroid")
 	if	(is.na(k)) {
 		min.g <- 3
@@ -157,7 +156,6 @@ x2y.inner <- function(x, y) {
 		calc.misclass.reduction(y.hat = preds, y.actual = y)
 		}
 }
-
 
 x2y <- function(x, y) {
 	missing <-  is.na(x) | is.na(y)
