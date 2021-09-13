@@ -3,7 +3,7 @@
 #' \code{dp.testing} performs testing of discriminatory power of the model in use applied to application portfolio
 #' in comparison to the discriminatory power from the moment of development. Testing is performed based on area
 #' under curve (AUC) from the application portfolio and development sample under assumption that former is a 
-#' deterministic (as given) and that test statistics follow the normal distribution. 
+#' deterministic (as given) and that test statistic follow the normal distribution. 
 #' Standard error of AUC for application portfolio is calculated as proposed by
 #' Hanley and McNeil (see References).
 #'@param app.port Application portfolio (data frame) which contains default indicator (0/1) and
