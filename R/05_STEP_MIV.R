@@ -112,7 +112,7 @@ stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, db) {
 		warn.rep <- data.frame(rf = check.mod, comment = "More than 10 modalities.")
 		warn.tbl <- bind_rows(warn.tbl, warn.rep)
 		}
-	#check for numeric risk factors
+	#check for numeric risk factors (change the order of numeric check and num of modalities)
 	num.type <- sapply(db[, rf.rest, drop = FALSE], is.numeric)
 	check.num <- names(num.type)[num.type ]
 	if	(length(check.num) > 0) {

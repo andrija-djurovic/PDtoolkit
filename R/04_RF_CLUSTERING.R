@@ -57,7 +57,7 @@
 #'@import monobin
 #'@import dplyr
 #'@import rpart
-#'@importFrom stats hclust cor cutree dist pchisq pnorm xtabs
+#'@importFrom stats hclust cor cutree dist pchisq pnorm xtabs as.dist
 #'@importFrom utils combn
 #'@export
 rf.clustering <- function(db, metric, k = NA) {

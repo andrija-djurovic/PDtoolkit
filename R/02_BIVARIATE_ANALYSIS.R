@@ -94,8 +94,7 @@ bivariate <- function(db, target) {
 		if	(cond.01) {
 			info[[i]] <- data.frame(rf = xl, 
 							reason.code = 1, 
-							comment = "Inappropriate class. It has to be one of:
-									character, factor or logical.")
+							comment = "Inappropriate class. It has to be one of: character, factor or logical.")
 			next
 			}
 		if	(cond.02) {
@@ -298,9 +297,8 @@ replace.woe <- function(db, target) {
 		if	(cond.01) {
 			info[[i]] <- data.frame(rf = xl, 
 							reason.code = 1, 
-							comment = "Inappropriate class. It has to be one of:
-									character, factor or logical.")
-			res[[i]] <- x
+							comment = "Inappropriate class. It has to be one of: character, factor or logical.")
+			res[[i]] <- data.frame(x)
 			names(res[[i]]) <- xl
 			next
 			}
