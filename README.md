@@ -66,7 +66,79 @@ str(loans)
     ##  $ Telephone                        : chr  "1" "1" "1" "1" ...
     ##  $ Foreign Worker                   : chr  "1" "1" "1" "2" ...
 
-Test:
+Note that name of the variables (columns) has some special characters
+which is not usually the good practice and case in real studies, but for
+this example we will use it as provided originally in data source.
+
+Usually this is the first step in model development is the univariate
+analysis. Let’s first perform univariate analysis using function
+`univariate` from the `PDtoolkit` package:
+
+``` r
+univariate(db = loans)
+```
+
+    ##                                   rf   rf.type       bin.type            bin  cnt pct cnt.unique min     p1
+    ## 1                      Creditability   numeric complete cases complete cases 1000   1          2   0   0.00
+    ## 2                    Account Balance character complete cases complete cases 1000   1          4  NA     NA
+    ## 3         Duration of Credit (month)   numeric complete cases complete cases 1000   1         33   4   6.00
+    ## 4  Payment Status of Previous Credit character complete cases complete cases 1000   1          5  NA     NA
+    ## 5                            Purpose character complete cases complete cases 1000   1         10  NA     NA
+    ## 6                      Credit Amount   numeric complete cases complete cases 1000   1        923 250 425.83
+    ## 7               Value Savings/Stocks character complete cases complete cases 1000   1          5  NA     NA
+    ## 8       Length of current employment character complete cases complete cases 1000   1          5  NA     NA
+    ## 9                Instalment per cent character complete cases complete cases 1000   1          4  NA     NA
+    ## 10              Sex & Marital Status character complete cases complete cases 1000   1          4  NA     NA
+    ## 11                        Guarantors character complete cases complete cases 1000   1          3  NA     NA
+    ## 12       Duration in Current address character complete cases complete cases 1000   1          4  NA     NA
+    ## 13     Most valuable available asset character complete cases complete cases 1000   1          4  NA     NA
+    ## 14                       Age (years)   numeric complete cases complete cases 1000   1         53  19  20.00
+    ## 15                Concurrent Credits character complete cases complete cases 1000   1          3  NA     NA
+    ## 16                 Type of apartment character complete cases complete cases 1000   1          3  NA     NA
+    ## 17        No of Credits at this Bank character complete cases complete cases 1000   1          4  NA     NA
+    ## 18                        Occupation character complete cases complete cases 1000   1          4  NA     NA
+    ## 19                  No of dependents character complete cases complete cases 1000   1          2  NA     NA
+    ## 20                         Telephone character complete cases complete cases 1000   1          2  NA     NA
+    ## 21                    Foreign Worker character complete cases complete cases 1000   1          2  NA     NA
+    ##        p5    p25    p50      avg      avg.se     p75    p95      p99   max neg  pos cnt.outliers sc.ind
+    ## 1    0.00    0.0    0.0    0.300  0.01449863    1.00    1.0     1.00     1   0  300            0      0
+    ## 2      NA     NA     NA       NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 3    6.00   12.0   18.0   20.903  0.38133320   24.00   48.0    60.00    72   0 1000           70      0
+    ## 4      NA     NA     NA       NA          NA      NA     NA       NA    NA   0  960           NA      0
+    ## 5      NA     NA     NA       NA          NA      NA     NA       NA    NA   0  766           NA      0
+    ## 6  708.95 1365.5 2319.5 3271.248 89.26324831 3972.25 9162.7 14180.39 18424   0 1000           72      0
+    ## 7      NA     NA     NA       NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 8      NA     NA     NA       NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 9      NA     NA     NA       NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 10     NA     NA     NA       NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 11     NA     NA     NA       NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 12     NA     NA     NA       NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 13     NA     NA     NA       NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 14  22.00   27.0   33.0   35.542  0.35900295   42.00   60.0    67.01    75   0 1000           23      0
+    ## 15     NA     NA     NA       NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 16     NA     NA     NA       NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 17     NA     NA     NA       NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 18     NA     NA     NA       NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 19     NA     NA     NA       NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 20     NA     NA     NA       NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 21     NA     NA     NA       NA          NA      NA     NA       NA    NA   0 1000           NA      0
+
+For results interpretation and additional arguments of `univariate`
+function, check help page `?univariate`.
+
+From the structure and univariate results, we see that there are 4
+numeric variables, while the rest are categorical. One of the numeric
+variables `Creditability` presents binary indicator (0/1) of default
+status which will serve as our dependent variables for PD model
+development example. The rest of numeric variables are:
+`Duration of Credit (month)`, `Credit Amount` and `Age (years)` and
+along with other categorical variables present potential risk factors
+for the PD model. Usually, when building PD models numeric risk factors
+are discretized, so we will proceed next with that step. For that
+purpose we will use one of the binning procedures from the `monobin`
+package which serves exactly this purpose. Details about this package
+can be found
+[here](https://cran.r-project.org/web//packages/monobinShiny/monobinShiny.pdf).
 
 ``` r
 #identify numeric risk factors
@@ -75,6 +147,7 @@ num.rf <- names(num.rf)[!names(num.rf)%in%"Creditability" & num.rf]
 #discretized numeric risk factors using ndr.bin from monobin package
 loans[, num.rf] <- sapply(num.rf, function(x) 
 ndr.bin(x = loans[, x], y = loans[, "Creditability"])[[2]])
+#check loans structure again and confirm binning was sucessful
 str(loans)
 ```
 
@@ -100,153 +173,3 @@ str(loans)
     ##  $ No of dependents                 : chr  "1" "2" "1" "2" ...
     ##  $ Telephone                        : chr  "1" "1" "1" "1" ...
     ##  $ Foreign Worker                   : chr  "1" "1" "1" "2" ...
-
-``` r
-#run stepMIV
-res <- stepMIV(start.model = Creditability ~ 1, 
-       miv.threshold = 0.02, 
-       m.ch.p.val = 0.05,
-       coding = "WoE",
-       db = loans)
-```
-
-    ## [1] "Running iteration: 1"
-    ## [1] "Running iteration: 2"
-    ## [1] "Running iteration: 3"
-    ## [1] "Running iteration: 4"
-    ## [1] "Running iteration: 5"
-    ## [1] "Running iteration: 6"
-    ## [1] "Running iteration: 7"
-    ## [1] "Running iteration: 8"
-    ## [1] "Running iteration: 9"
-
-``` r
-#check output elements
-names(res)
-```
-
-    ## [1] "model"    "steps"    "miv.iter" "warnings" "dev.db"
-
-``` r
-#extract the final model
-final.model <- res$model
-#print coefficients
-summary(final.model)$coefficients
-```
-
-    ##                                       Estimate Std. Error    z value     Pr(>|z|)
-    ## (Intercept)                         -0.8514882 0.08231964 -10.343682 4.470231e-25
-    ## `Account Balance`                   -0.8254011 0.10337123  -7.984824 1.407229e-15
-    ## `Duration of Credit (month)`        -0.9314410 0.16625192  -5.602588 2.111752e-08
-    ## `Payment Status of Previous Credit` -0.7496373 0.15243106  -4.917878 8.748753e-07
-    ## Purpose                             -1.0103552 0.20289369  -4.979727 6.367398e-07
-    ## `Value Savings/Stocks`              -0.7550344 0.19396980  -3.892536 9.920180e-05
-    ## `Age (years)`                       -0.7014161 0.24873716  -2.819909 4.803728e-03
-    ## `Foreign Worker`                    -1.0398828 0.46998781  -2.212574 2.692703e-02
-    ## Guarantors                          -1.1169885 0.43579548  -2.563103 1.037414e-02
-
-``` r
-#print steps of stepwise
-res$steps
-```
-
-    ##          target                            rf.miv        miv m.chiq.stat        p.val
-    ## 1 Creditability                   Account Balance 0.66601150  131.335922 2.787203e-28
-    ## 2 Creditability        Duration of Credit (month) 0.23256790   39.904108 1.116562e-08
-    ## 3 Creditability Payment Status of Previous Credit 0.18497903   23.606619 9.576571e-05
-    ## 4 Creditability                           Purpose 0.13598559   27.962661 9.676664e-04
-    ## 5 Creditability              Value Savings/Stocks 0.11535298   14.099760 6.983375e-03
-    ## 6 Creditability                       Age (years) 0.05489906    6.690154 3.525750e-02
-    ## 7 Creditability                    Foreign Worker 0.03587842    5.118958 2.366582e-02
-    ## 8 Creditability                        Guarantors 0.02833412    6.112445 4.706516e-02
-
-``` r
-#print head of all iteration details
-head(res$miv.iter)
-```
-
-    ##   iter                                rf bin no.o ng.o nb.o      woe.o no.e  ng.e  nb.e
-    ## 1    1                   Account Balance   1  274  139  135 -0.8180987  274 191.8  82.2
-    ## 2    1                   Account Balance   2  269  164  105 -0.4013918  269 188.3  80.7
-    ## 3    1                   Account Balance   3   63   49   14  0.4054651   63  44.1  18.9
-    ## 4    1                   Account Balance   4  394  348   46  1.1762632  394 275.8 118.2
-    ## 5    1 Payment Status of Previous Credit   0   40   15   25 -1.3581235   40  28.0  12.0
-    ## 6    1 Payment Status of Previous Credit   1   49   21   28 -1.1349799   49  34.3  14.7
-    ##                      woe.e      delta miv.val.g  miv.val.b       miv m.chiq.gb m.chiq.stat
-    ## 1 0.0000000000000000000000 -0.8180987 0.3566620 -0.3093495 0.6660115 22.221016   131.33592
-    ## 2 0.0000000000000000000000 -0.4013918 0.3566620 -0.3093495 0.6660115  4.978405   131.33592
-    ## 3 0.0000000000000000000000  0.4054651 0.3566620 -0.3093495 0.6660115  0.961201   131.33592
-    ## 4 0.0000000000000002220446  1.1762632 0.3566620 -0.3093495 0.6660115 37.507338   131.33592
-    ## 5 0.0000000000000002220446 -1.3581235 0.1387143 -0.1545192 0.2932335  8.986915    60.46711
-    ## 6 0.0000000000000002220446 -1.1349799 0.1387143 -0.1545192 0.2932335  7.738915    60.46711
-    ##          p.val
-    ## 1 2.787203e-28
-    ## 2 2.787203e-28
-    ## 3 2.787203e-28
-    ## 4 2.787203e-28
-    ## 5 2.313958e-12
-    ## 6 2.313958e-12
-
-``` r
-#print warnings
-res$warnings
-```
-
-    ##                                  rf                                comment
-    ## 1 Payment Status of Previous Credit At least one pct per bin less then 5%.
-    ## 2                           Purpose At least one pct per bin less then 5%.
-    ## 3              Value Savings/Stocks At least one pct per bin less then 5%.
-    ## 4                        Guarantors At least one pct per bin less then 5%.
-    ## 5                Concurrent Credits At least one pct per bin less then 5%.
-    ## 6        No of Credits at this Bank At least one pct per bin less then 5%.
-    ## 7                        Occupation At least one pct per bin less then 5%.
-    ## 8                    Foreign Worker At least one pct per bin less then 5%.
-
-``` r
-#print head of coded development data
-head(res$dev.db)
-```
-
-    ##   Creditability Account Balance Duration of Credit (month) Payment Status of Previous Credit
-    ## 1             0      -0.8180987                 -0.1959478                        0.73374058
-    ## 2             0      -0.8180987                  0.3466246                        0.73374058
-    ## 3             0      -0.4013918                  0.3466246                       -0.08831862
-    ## 4             0      -0.8180987                  0.3466246                        0.73374058
-    ## 5             0      -0.8180987                  0.3466246                        0.73374058
-    ## 6             0      -0.8180987                  0.3466246                        0.73374058
-    ##       Purpose Credit Amount Value Savings/Stocks Length of current employment Instalment per cent
-    ## 1 -0.09555652 01 [250,3914)           -0.2713578                            2                   4
-    ## 2 -0.35920049 01 [250,3914)           -0.2713578                            3                   2
-    ## 3 -0.23052366 01 [250,3914)           -0.1395519                            4                   2
-    ## 4 -0.35920049 01 [250,3914)           -0.2713578                            3                   3
-    ## 5 -0.35920049 01 [250,3914)           -0.2713578                            3                   4
-    ## 6 -0.35920049 01 [250,3914)           -0.2713578                            2                   1
-    ##   Sex & Marital Status   Guarantors Duration in Current address Most valuable available asset
-    ## 1                    2 0.0005250722                           4                             2
-    ## 2                    3 0.0005250722                           2                             1
-    ## 3                    2 0.0005250722                           4                             1
-    ## 4                    3 0.0005250722                           2                             1
-    ## 5                    3 0.0005250722                           4                             2
-    ## 6                    3 0.0005250722                           3                             1
-    ##   Age (years) Concurrent Credits Type of apartment No of Credits at this Bank Occupation
-    ## 1  -0.5288441                  3                 1                          1          3
-    ## 2   0.3141153                  3                 1                          2          3
-    ## 3  -0.5288441                  3                 1                          1          2
-    ## 4   0.3141153                  3                 1                          2          2
-    ## 5   0.3141153                  1                 2                          2          2
-    ## 6   0.3141153                  3                 1                          2          2
-    ##   No of dependents Telephone Foreign Worker
-    ## 1                1         1    -0.03486727
-    ## 2                2         1    -0.03486727
-    ## 3                1         1    -0.03486727
-    ## 4                2         1     1.26291534
-    ## 5                1         1     1.26291534
-    ## 6                2         1     1.26291534
-
-``` r
-#calculate AUC
-auc.model(predictions = predict(final.model, type = "response", newdata = res$dev.db),
-    observed = res$dev.db$Creditability)
-```
-
-    ## [1] 0.8096214
