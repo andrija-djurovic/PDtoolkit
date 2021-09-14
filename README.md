@@ -1,12 +1,16 @@
-# PDtoolkit
 
-PDtoolkit provides collection of tools for PD rating model development.</br>
-The goal of this package is to cover the most common steps in PD rating model development. </br>
-The main procedures available are those that refers to univariate, bivariate, multivariate analysis and calibration. </br>
-Along with accompanied 'monobin' and 'monobinShiny' packages, 'PDtoolkit' provides functions which are suitable for different 
-data transformation and modeling tasks such as: 
-imputations, monotonic binning of numeric risk factors, binning of categorical risk factors, weights of evidence (WoE) and 
-information value (IV) calculations, WoE coding (replacement of risk factors modalities with WoE values), risk factor clustering, 
-area under curve (AUC) calculation and others.</br>
-Additionally, set of validation functions are available (homogeneity, 
-heterogeneity as well as predictive power testing of the model on application portfolio).
+## R Markdown
+
+This is an R Markdown document that generates a github readme.md file.
+
+``` r
+summary(iris)
+```
+
+    ##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width          Species  
+    ##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100   setosa    :50  
+    ##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300   versicolor:50  
+    ##  Median :5.800   Median :3.000   Median :4.350   Median :1.300   virginica :50  
+    ##  Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199                  
+    ##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800                  
+    ##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500
