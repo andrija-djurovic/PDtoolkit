@@ -1,16 +1,67 @@
 
-## R Markdown
+## PDtoolkit
 
-This is an R Markdown document that generates a github readme.md file.
+PDtoolkit provides collection of tools for PD rating model development
+and validation.</br> Having in mind the fact that model development
+process is highly iterative and repetitive, of the outmost importance
+for the modelers is to have standardized and automated tools for this
+purpose. The main goal of this package is to cover the most common steps
+of PD model development. As additional contribution author attempted to
+add some functionalities which at the moment of package developemt were
+not presented in `R` package ecosystem for area of credit risk models.
+Procedures available are those that refer to univariate, bivariate,
+multivariate analysis and calibration. </br> Along with accompanied
+`monobin` and `monobinShiny` packages, `PDtoolkit` provides functions
+which are suitable for different data transformation and modeling tasks
+such as: imputations, monotonic binning of numeric risk factors, binning
+of categorical risk factors, weights of evidence (WoE) and information
+value (IV) calculations, WoE coding (replacement of risk factors
+modalities with WoE values), risk factor clustering, area under curve
+(AUC) calculation and others.</br> Beside mentioned features, set of
+validation functions are available (homogeneity, heterogeneity as well
+as discriminatory and predictive model ability testing on application
+portfolio).
+
+Following case study shows usage of `PDtoolkit` package. It is based on
+publicaly available German credit data set which is available and
+downloaded from this
+[link](https://online.stat.psu.edu/stat857/node/215/), but also
+distributed along with `PDtoolkit` package under the data frame `loans`.
+
+First, we will import the libraries needed for this examples.
 
 ``` r
-summary(iris)
+library(PDtoolkit)
+library(rpart)
 ```
 
-    ##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width          Species  
-    ##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100   setosa    :50  
-    ##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300   versicolor:50  
-    ##  Median :5.800   Median :3.000   Median :4.350   Median :1.300   virginica :50  
-    ##  Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199                  
-    ##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800                  
-    ##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500
+Then, let’s import and inspect the structued of the modeling data set -
+`loans`.
+
+``` r
+data(loans)
+str(loans)
+```
+
+    ## 'data.frame':    1000 obs. of  21 variables:
+    ##  $ Creditability                    : num  0 0 0 0 0 0 0 0 0 0 ...
+    ##  $ Account Balance                  : chr  "1" "1" "2" "1" ...
+    ##  $ Duration of Credit (month)       : num  18 9 12 12 12 10 8 6 18 24 ...
+    ##  $ Payment Status of Previous Credit: chr  "4" "4" "2" "4" ...
+    ##  $ Purpose                          : chr  "2" "0" "9" "0" ...
+    ##  $ Credit Amount                    : num  1049 2799 841 2122 2171 ...
+    ##  $ Value Savings/Stocks             : chr  "1" "1" "2" "1" ...
+    ##  $ Length of current employment     : chr  "2" "3" "4" "3" ...
+    ##  $ Instalment per cent              : chr  "4" "2" "2" "3" ...
+    ##  $ Sex & Marital Status             : chr  "2" "3" "2" "3" ...
+    ##  $ Guarantors                       : chr  "1" "1" "1" "1" ...
+    ##  $ Duration in Current address      : chr  "4" "2" "4" "2" ...
+    ##  $ Most valuable available asset    : chr  "2" "1" "1" "1" ...
+    ##  $ Age (years)                      : num  21 36 23 39 38 48 39 40 65 23 ...
+    ##  $ Concurrent Credits               : chr  "3" "3" "3" "3" ...
+    ##  $ Type of apartment                : chr  "1" "1" "1" "1" ...
+    ##  $ No of Credits at this Bank       : chr  "1" "2" "1" "2" ...
+    ##  $ Occupation                       : chr  "3" "3" "2" "2" ...
+    ##  $ No of dependents                 : chr  "1" "2" "1" "2" ...
+    ##  $ Telephone                        : chr  "1" "1" "1" "1" ...
+    ##  $ Foreign Worker                   : chr  "1" "1" "1" "2" ...
