@@ -385,7 +385,7 @@ imp.outliers <- function(db, sc = c(NA, NaN, Inf), method = "iqr", range = 1.5,
 							  imputation.method = NA)
 			next
 			}
-		if	(method%in%"irq") {
+		if	(method%in%"iqr") {
 			bs <- boxplot(complete.c, range = range, plot = FALSE)
 			rf.imp.ub <- max(bs$stats)
 			rf.imp.lb <- min(bs$stats)

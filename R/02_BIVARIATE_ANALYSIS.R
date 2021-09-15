@@ -104,7 +104,7 @@ bivariate <- function(db, target) {
 			next
 			}
 		woe.res <- woe.tbl(tbl = db, x = xl, y = target)
-		mod.formula <- paste0(target, " ~ ", xl)
+		mod.formula <- paste0(target, " ~ ", "`", xl, "`")
 		lr <- try(glm(mod.formula, family = "binomial", data = db), silent = TRUE)	
 		if	("try-error"%in%class(lr)) {
 			auc <- NA

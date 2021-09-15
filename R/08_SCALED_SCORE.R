@@ -5,7 +5,7 @@
 #' predictions of the final model. 
 #'@param probs Model predicted probabilities of default.
 #'@param score Specific score for selected odd (for argument \code{odd}). Default is 600.
-#'@param odd Odd at specific score (for argument \code{score}). Default is 50/1.
+#'@param odd Odd (good/bad) at specific score (for argument \code{score}). Default is 50/1.
 #'@param pdo Points for double the odds. Default is 20.
 #'@return The command \code{scaled.score} returns a vector of scaled scores.
 #'@references 

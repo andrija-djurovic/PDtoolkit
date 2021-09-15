@@ -23,7 +23,7 @@
 #'@references
 #'Tasche, D. (2008). Validation of internal rating systems and PD estimates,
 #'			   The Analytics of Risk Model Validation, Quantitative Finance, 
-#'			   Elsevier B.V., <https://doi.org/10.1016/B978-075068158-2.50014-7>.
+#'			   Elsevier B.V., <https://doi.org/10.1016/B978-075068158-2.50014-7>.\cr
 #'Oesterreichische Nationalbank (2004). Rating Models and Validation,
 #'						    Oesterreichische Nationalbank (OeNB). 
 #'@examples

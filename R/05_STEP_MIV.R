@@ -2,7 +2,7 @@
 #'
 #' \code{stepMIV} performs stepwise logistic regression based on MIV.
 #'@param start.model Formula class that represent starting model. If can include some risk factors, but it can be
-#'			   define only with intercept (\code{y ~ 1} where \code{y} is target variable).
+#'			   defined only with intercept (\code{y ~ 1} where \code{y} is target variable).
 #'@param miv.threshold MIV entrance threshold. Only the risk factors with MIV higher than thresholds are candidate
 #'			     for the new model. Additional criteria is that MIV value should significantly separate
 #'			     good from bad cases measured by marginal chi-square test. 
