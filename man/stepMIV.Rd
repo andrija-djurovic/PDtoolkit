@@ -8,7 +8,7 @@ stepMIV(start.model, miv.threshold, m.ch.p.val, coding, db)
 }
 \arguments{
 \item{start.model}{Formula class that represent starting model. If can include some risk factors, but it can be
-define only with intercept (\code{y ~ 1} where \code{y} is target variable).}
+defined only with intercept (\code{y ~ 1} where \code{y} is target variable).}
 
 \item{miv.threshold}{MIV entrance threshold. Only the risk factors with MIV higher than thresholds are candidate
 for the new model. Additional criteria is that MIV value should significantly separate
@@ -34,9 +34,9 @@ The fourth object (\code{warnings}), is the data frame with warnings if any obse
 The warnings refer to the following checks: if risk factor has more than 10 modalities,
 if any of the bins (groups) has less then 5\% of observations and
 if there are problems with WoE calculations.\cr
-The final, fifth, object is returned only is \code{coding} is selected as \code{"WoE"}. In that case
-data frame with replaced WoE values for risk factors that are selected in the final model with be
-returned.
+The final, fifth, object \code{dev.db} is returned only is \code{coding} is selected as \code{"WoE"}.
+In that case data frame with replaced WoE values for risk factors that are selected in the
+final model with be returned.
 }
 \description{
 \code{stepMIV} performs stepwise logistic regression based on MIV.
@@ -71,7 +71,7 @@ head(res$miv.iter)
 res$warnings
 #print head of coded development data
 head(res$dev.db)
-#calculate AUC  res$dev.db
+#calculate AUC
 auc.model(predictions = predict(final.model, type = "response", newdata = res$dev.db),
     observed = res$dev.db$Creditability)
 }

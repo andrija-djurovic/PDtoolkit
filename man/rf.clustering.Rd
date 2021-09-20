@@ -11,15 +11,15 @@ rf.clustering(db, metric, k = NA)
 
 \item{metric}{Correlation metric used for distance calculation. Available options are:
 \itemize{
-\item \code{"raw pearson"} - calculated distance \code{dist(cor(db, method = "pearson"))};
-\item \code{"raw spearman"} - calculated distance \code{dist(cor(db, method = "spearman"))};
-\item \code{"common pearson"} - calculated distance \code{dist((1 - cor(db, method = "pearson")) / 2)};
-\item \code{"common spearman"} - calculated distance \code{dist((1 - cor(db, method = "spearman")) / 2)};
-\item \code{"absolute pearson"} - calculated distance \code{dist(1 - abs(cor(db, method = "pearson")))};
-\item \code{"absolute spearman"} - calculated distance \code{dist(1 - abs(cor(db, method = "spearman")))};
-\item \code{"sqrt pearson"} - calculated distance \code{dist(sqrt(1 - cor(db, method = "pearson")))};
-\item \code{"sqrt spearman"} - calculated distance \code{dist(sqrt(1 - cor(db, method = "spearman")))};
-\item \code{"x2y"} - calculated distance \code{dist(dx2y(d = db)[[2]]))}.
+\item \code{"raw pearson"} - calculated distance \code{as.dist(1 - cor(db, method = "pearson"))};
+\item \code{"raw spearman"} - calculated distance \code{as.dist(1 - cor(db, method = "spearman"))};
+\item \code{"common pearson"} - calculated distance \code{as.dist((1 - cor(db, method = "pearson")) / 2)};
+\item \code{"common spearman"} - calculated distance \code{as.dist((1 - cor(db, method = "spearman")) / 2)};
+\item \code{"absolute pearson"} - calculated distance \code{as.dist(1 - abs(cor(db, method = "pearson")))};
+\item \code{"absolute spearman"} - calculated distance \code{as.dist(1 - abs(cor(db, method = "spearman")))};
+\item \code{"sqrt pearson"} - calculated distance \code{as.dist(sqrt(1 - cor(db, method = "pearson")))};
+\item \code{"sqrt spearman"} - calculated distance \code{as.dist(sqrt(1 - cor(db, method = "spearman")))};
+\item \code{"x2y"} - calculated distance \code{as.dist(1 - dx2y(d = db)[[2]]))}.
 }
 \code{x2y} metric is proposed by Professor Rama Ramakrishnan and details can be found on this
 \href{https://rama100.github.io/lecture-notes/x2y.nb.html}{link}. This metric is especially handy if
