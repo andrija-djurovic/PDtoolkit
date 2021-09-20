@@ -10,7 +10,7 @@
 #'@return The command \code{scaled.score} returns a vector of scaled scores.
 #'@references 
 #'Siddiqi, N. (2012). Credit Risk Scorecards: Developing and Implementing Intelligent Credit Scoring,  
-#'			    John Wiley & Sons, Inc., <DOI:10.1002/9781119201731>. 
+#'			    John Wiley & Sons, Inc., <doi:10.1002/9781119201731>. 
 #'@examples
 #'suppressMessages(library(PDtoolkit))
 #'data(loans)
