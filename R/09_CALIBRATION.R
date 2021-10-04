@@ -131,15 +131,13 @@ calib.log.odds.a <- function(dr, w, ct, min.pd) {
 	lo.a <- uniroot(f = opt.f, lo = log.odds, w = w, ct = ct, interval = c(-10, 10))
 	a <- lo.a$root
 	pd.calib <- exp(a + log.odds) / (1 + exp(a + log.odds))
-
-
 	check <- pd.calib < min.pd
 	if	(any(check)) {
 		rc.indx <- which(check)
 		log.odds.n <- log.odds
 		log.odds.n[rc.indx] <- NA
 		pd.calib[rc.indx] <- min.pd
-		ct.n <- ct - (pd.calib[rc.indx] * w[rc.indx] / sum(w))
+		ct.n <- ct - sum((pd.calib[rc.indx] * w[rc.indx] / sum(w)))
 		lo.a <- uniroot(f = opt.f, lo = log.odds.n, w = w, ct = ct.n, 
 				    corr = sum(w[is.na(log.odds.n)]), interval = c(-5, 5))
 		a <- lo.a$root	
@@ -150,7 +148,6 @@ calib.log.odds.a <- function(dr, w, ct, min.pd) {
 		}
 return(pd.calib.f)
 }
-
 
 calib.log.odds.ab <- function(dr, w, ct, min.pd) {
 	dr <- ifelse(dr == 1, 1 - 1 / 1e6, dr)
@@ -181,7 +178,7 @@ calib.log.odds.ab <- function(dr, w, ct, min.pd) {
 		log.odds.n <- log.odds
 		log.odds.n[rc.indx] <- NA
 		pd.calib[rc.indx] <- min.pd
-		ct.n <- ct - (pd.calib[rc.indx] * w[rc.indx] / sum(w))
+		ct.n <- ct - sum((pd.calib[rc.indx] * w[rc.indx] / sum(w)))
 		lo.ab <- optim(par = c(0, 1), 
 			   fn = opt.f, 
 			   lo = log.odds.n, 
