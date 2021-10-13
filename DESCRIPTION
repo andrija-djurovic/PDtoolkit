@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "djandrija@gmail.com")
 Maintainer: Andrija Djurovic <djandrija@gmail.com>
-Description: The goal of this package is to cover the most common steps in PD rating model development and validation. 
+Description: The goal of this package is to cover the most common steps in probability of defaulta (PD) rating model development and validation. 
 	     The main procedures available are those that refers to univariate, bivariate, multivariate analysis and calibration. 
 	     Along with accompanied 'monobin' and 'monobinShiny' packages, 'PDtoolkit' provides functions which are suitable for different 
 	     data transformation and modeling tasks such as: 
