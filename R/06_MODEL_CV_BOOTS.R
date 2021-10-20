@@ -63,7 +63,7 @@ kfold.vld <- function(model, k = 10, seed = 1984) {
 		warning("Model equivalent to LOOCV method. AUC cannot be calculated.")
 		}
 	if	(k != nrow(db) & any(table(cv.folds) < 30)) {
-		warning("AUC calculation can be unrealiable for folds with less than 30 observations.")
+		warning("AUC calculation can be unrealiable for the folds with less than 30 observations.")
 		}
 	k.seq <- 1:k
 	res <- vector("list", k)
@@ -132,7 +132,7 @@ boots.vld <- function(model, B = 1000, seed = 1122) {
 		stop("B cannot be negative.")
 		}
 	if	(B > 10e6) {
-		warning("Number of bootstrap samples to high. Process can take to long to complete.")
+		warning("Number of bootstrap samples to high. Process can take too long to complete.")
 		}
 	res <- vector("list", B)
 	for	(i in 1:B) {
