@@ -132,7 +132,7 @@ boots.vld <- function(model, B = 1000, seed = 1122) {
 		stop("B cannot be negative.")
 		}
 	if	(B > 10e6) {
-		warning("Number of bootstrap samples to high. Process can take too long to complete.")
+		warning("Number of bootstrap samples too high. Process can take too long to complete.")
 		}
 	res <- vector("list", B)
 	for	(i in 1:B) {
