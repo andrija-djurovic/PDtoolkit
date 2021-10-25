@@ -172,7 +172,7 @@ return(res)
 #' Using the imputation report, for each risk factor, user can inspect imputed info (\code{info}), 
 #' imputation method (\code{imputation.method}), imputed value (\code{imputed.value}), 
 #' number of imputed observations (\code{imputation.num}) and imputed mode
-#' (\code{imputed.mode} - applicable only for numeric risk factors) for each risk factor.
+#' (\code{imputed.mode} - applicable only for categorical risk factors) for each risk factor.
 #'@examples
 #'suppressMessages(library(PDtoolkit))
 #'data(gcd)
