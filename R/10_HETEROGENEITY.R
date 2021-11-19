@@ -13,7 +13,7 @@
 #' default rate of grade \code{i} is less or greater than default rate of grade \code{i - 1}, where \code{i}
 #' takes the values from 2 to the number of unique grades. 
 #' Direction of alternative hypothesis (less or greater) is determined automatically based on correlation direction
-#' between rating grades and observed default rate. 
+#' of observed default on rating grades. 
 #' Incomplete cases, identified based on default indicator (\code{def.ind}) and rating grade (\code{rating }) 
 #' columns are excluded from the summary table and testing procedure. If identified, warning will be returned.
 #'@return The command \code{heterogeneity} returns a data frame with the following columns:
@@ -87,7 +87,11 @@ heterogeneity <- function(app.port, def.ind, rating, alpha = 0.05) {
 			    nb = sum(!!sym(def.ind))) %>%
 	 	ungroup()%>%
 	 	mutate(dr = nb / no)
-	cor.s <- sign(cor(x = 1:nrow(rs), y = rs$dr, method = "spearman"))
+	cor.df <- app.port[, c(def.ind, rating)]
+	cor.df[, rating] <- as.numeric(factor(cor.df[, rating], 
+							  levels = sort(unique(cor.df[, rating])), 
+							  order = TRUE))
+	cor.s <- sign(cor(x = cor.df[ ,rating], y = cor.df[ ,def.ind], use = "complete.obs"))
 	sts <- ifelse(cor.s <= 0, "less", "greater")
 	res <- t2p.neighbors(rs = rs, sts = sts, alpha = alpha)
 	res <- data.frame(res)
