@@ -1,7 +1,7 @@
 
 ## PDtoolkit 0.0.9
 
-PDtoolkit provides collection of tools for probability of default (PD)
+```PDtoolkit``` provides collection of tools for probability of default (PD)
 rating model development and validation.</br> Having in mind the fact
 that model development is highly iterative and repetitive process, of
 the outmost importance for the analysts is to have standardized and
