@@ -3,28 +3,28 @@
 
 PDtoolkit provides collection of tools for probability of default (PD)
 rating model development and validation.</br> Having in mind the fact
-that model development process is highly iterative and repetitive, of
+that model development is highly iterative and repetitive process, of
 the outmost importance for the analysts is to have standardized and
 automated tools for this purpose. The main goal of this package is to
 cover the most common steps of PD model development. As additional
 contribution we attempted to add some functionalities which at the
-moment of package developmet were not presented in `R` package ecosystem
-in area of credit risk models. The package available functionalities are
-those that refer to univariate, bivariate, multivariate analysis and
-calibration. </br> Along with accompanied `monobin` and `monobinShiny`
-packages, `PDtoolkit` provides functions which are suitable for
-different data transformation and modeling tasks such as: imputations,
-monotonic binning of numeric risk factors, binning of categorical risk
-factors, weights of evidence (WoE) and information value (IV)
-calculations, WoE coding (replacement of risk factors modalities with
-WoE values), risk factor clustering, area under curve (AUC) calculation
-and others.</br> Beside mentioned features, set of validation functions
-are available (homogeneity, heterogeneity as well as discriminatory and
-predictive model ability testing).
+moment of the package developmet were not presented in `R` package
+ecosystem in area of credit risk modeling. The package available
+functionalities are those that refer to univariate, bivariate,
+multivariate analysis, calibration and validation. </br> Along with
+accompanied `monobin` and `monobinShiny` packages, `PDtoolkit` provides
+functions which are suitable for different data transformation and
+modeling tasks such as: imputations, monotonic binning of numeric risk
+factors, binning of categorical risk factors, weights of evidence (WoE)
+and information value (IV) calculations, WoE coding (replacement of risk
+factors modalities with WoE values), risk factor clustering, area under
+curve (AUC) calculation and others.</br> Beside mentioned features, set
+of validation functions are available (homogeneity, heterogeneity as
+well as discriminatory and predictive power testing).
 
-Following case study shows usage of `PDtoolkit` package. The study is
-based on publicaly available German credit data set which is available
-and downloaded from this
+The following case study shows usage of `PDtoolkit` package. The study
+is based on publicaly available German credit data set which is
+available and downloaded from this
 [link](https://online.stat.psu.edu/stat857/node/215/), but also
 distributed along with `PDtoolkit` package under the data frame `loans`.
 Presented examples are simplified, but yet realistic, version of the PD
@@ -99,59 +99,84 @@ package:
 univariate(db = loans)
 ```
 
-    ##                                   rf   rf.type       bin.type            bin  cnt   pct cnt.unique min     p1
-    ## 1                      Creditability   numeric complete cases complete cases 1000 1.000          2   0   0.00
-    ## 2                    Account Balance character complete cases complete cases 1000 1.000          4  NA     NA
-    ## 3         Duration of Credit (month)   numeric complete cases complete cases 1000 1.000         33   4   6.00
-    ## 4  Payment Status of Previous Credit character complete cases complete cases 1000 1.000          5  NA     NA
-    ## 5                            Purpose character  special cases  special cases   21 0.021          1  NA     NA
-    ## 6                            Purpose character complete cases complete cases  979 0.979         10  NA     NA
-    ## 7                      Credit Amount   numeric  special cases  special cases   10 0.010          1 Inf     NA
-    ## 8                      Credit Amount   numeric complete cases complete cases  990 0.990        915 250 424.13
-    ## 9               Value Savings/Stocks character complete cases complete cases 1000 1.000          5  NA     NA
-    ## 10      Length of current employment character complete cases complete cases 1000 1.000          5  NA     NA
-    ## 11               Instalment per cent character complete cases complete cases 1000 1.000          4  NA     NA
-    ## 12              Sex & Marital Status character complete cases complete cases 1000 1.000          4  NA     NA
-    ## 13                        Guarantors character complete cases complete cases 1000 1.000          3  NA     NA
-    ## 14       Duration in Current address character complete cases complete cases 1000 1.000          4  NA     NA
-    ## 15     Most valuable available asset character complete cases complete cases 1000 1.000          4  NA     NA
-    ## 16                       Age (years)   numeric  special cases  special cases   21 0.021          1 Inf     NA
-    ## 17                       Age (years)   numeric complete cases complete cases  979 0.979         53  19  20.00
-    ## 18                Concurrent Credits character complete cases complete cases 1000 1.000          3  NA     NA
-    ## 19                 Type of apartment character complete cases complete cases 1000 1.000          3  NA     NA
-    ## 20        No of Credits at this Bank character complete cases complete cases 1000 1.000          4  NA     NA
-    ## 21                        Occupation character complete cases complete cases 1000 1.000          4  NA     NA
-    ## 22                  No of dependents character complete cases complete cases 1000 1.000          2  NA     NA
-    ## 23                         Telephone character complete cases complete cases 1000 1.000          2  NA     NA
-    ## 24                    Foreign Worker character complete cases complete cases 1000 1.000          2  NA     NA
-    ##        p5     p25  p50        avg      avg.se     p75    p95      p99   max neg  pos cnt.outliers sc.ind
-    ## 1    0.00    0.00    0    0.30000  0.01449863    1.00    1.0     1.00     1   0  300            0      0
-    ## 2      NA      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 3    6.00   12.00   18   20.90300  0.38133320   24.00   48.0    60.00    72   0 1000           70      0
-    ## 4      NA      NA   NA         NA          NA      NA     NA       NA    NA   0  960           NA      0
-    ## 5      NA      NA   NA         NA          NA      NA     NA       NA    NA  NA   NA           NA      0
-    ## 6      NA      NA   NA         NA          NA      NA     NA       NA    NA   0  755           NA      0
-    ## 7      NA      NA   NA        NaN          NA      NA     NA       NA  -Inf  NA   NA            0      0
-    ## 8  708.45 1371.25 2324 3283.24242 90.03256824 3978.25 9219.7 14194.29 18424   0  990           72      0
-    ## 9      NA      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 10     NA      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 11     NA      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 12     NA      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 13     NA      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 14     NA      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 15     NA      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 16     NA      NA   NA        NaN          NA      NA     NA       NA  -Inf  NA   NA            0      0
-    ## 17  22.00   27.00   33   35.52605  0.36315861   42.00   60.0    67.22    75   0  979           23      0
-    ## 18     NA      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 19     NA      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 20     NA      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 21     NA      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 22     NA      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 23     NA      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 24     NA      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ##                                   rf   rf.type       bin.type            bin  cnt   pct
+    ## 1                      Creditability   numeric complete cases complete cases 1000 1.000
+    ## 2                    Account Balance character complete cases complete cases 1000 1.000
+    ## 3         Duration of Credit (month)   numeric complete cases complete cases 1000 1.000
+    ## 4  Payment Status of Previous Credit character complete cases complete cases 1000 1.000
+    ## 5                            Purpose character  special cases  special cases   21 0.021
+    ## 6                            Purpose character complete cases complete cases  979 0.979
+    ## 7                      Credit Amount   numeric  special cases  special cases   10 0.010
+    ## 8                      Credit Amount   numeric complete cases complete cases  990 0.990
+    ## 9               Value Savings/Stocks character complete cases complete cases 1000 1.000
+    ## 10      Length of current employment character complete cases complete cases 1000 1.000
+    ## 11               Instalment per cent character complete cases complete cases 1000 1.000
+    ## 12              Sex & Marital Status character complete cases complete cases 1000 1.000
+    ## 13                        Guarantors character complete cases complete cases 1000 1.000
+    ## 14       Duration in Current address character complete cases complete cases 1000 1.000
+    ## 15     Most valuable available asset character complete cases complete cases 1000 1.000
+    ## 16                       Age (years)   numeric  special cases  special cases   21 0.021
+    ## 17                       Age (years)   numeric complete cases complete cases  979 0.979
+    ## 18                Concurrent Credits character complete cases complete cases 1000 1.000
+    ## 19                 Type of apartment character complete cases complete cases 1000 1.000
+    ## 20        No of Credits at this Bank character complete cases complete cases 1000 1.000
+    ## 21                        Occupation character complete cases complete cases 1000 1.000
+    ## 22                  No of dependents character complete cases complete cases 1000 1.000
+    ## 23                         Telephone character complete cases complete cases 1000 1.000
+    ## 24                    Foreign Worker character complete cases complete cases 1000 1.000
+    ##    cnt.unique min     p1     p5     p25  p50        avg      avg.se     p75    p95      p99
+    ## 1           2   0   0.00   0.00    0.00    0    0.30000  0.01449863    1.00    1.0     1.00
+    ## 2           4  NA     NA     NA      NA   NA         NA          NA      NA     NA       NA
+    ## 3          33   4   6.00   6.00   12.00   18   20.90300  0.38133320   24.00   48.0    60.00
+    ## 4           5  NA     NA     NA      NA   NA         NA          NA      NA     NA       NA
+    ## 5           1  NA     NA     NA      NA   NA         NA          NA      NA     NA       NA
+    ## 6          10  NA     NA     NA      NA   NA         NA          NA      NA     NA       NA
+    ## 7           1 Inf     NA     NA      NA   NA        NaN          NA      NA     NA       NA
+    ## 8         915 250 424.13 708.45 1371.25 2324 3283.24242 90.03256824 3978.25 9219.7 14194.29
+    ## 9           5  NA     NA     NA      NA   NA         NA          NA      NA     NA       NA
+    ## 10          5  NA     NA     NA      NA   NA         NA          NA      NA     NA       NA
+    ## 11          4  NA     NA     NA      NA   NA         NA          NA      NA     NA       NA
+    ## 12          4  NA     NA     NA      NA   NA         NA          NA      NA     NA       NA
+    ## 13          3  NA     NA     NA      NA   NA         NA          NA      NA     NA       NA
+    ## 14          4  NA     NA     NA      NA   NA         NA          NA      NA     NA       NA
+    ## 15          4  NA     NA     NA      NA   NA         NA          NA      NA     NA       NA
+    ## 16          1 Inf     NA     NA      NA   NA        NaN          NA      NA     NA       NA
+    ## 17         53  19  20.00  22.00   27.00   33   35.52605  0.36315861   42.00   60.0    67.22
+    ## 18          3  NA     NA     NA      NA   NA         NA          NA      NA     NA       NA
+    ## 19          3  NA     NA     NA      NA   NA         NA          NA      NA     NA       NA
+    ## 20          4  NA     NA     NA      NA   NA         NA          NA      NA     NA       NA
+    ## 21          4  NA     NA     NA      NA   NA         NA          NA      NA     NA       NA
+    ## 22          2  NA     NA     NA      NA   NA         NA          NA      NA     NA       NA
+    ## 23          2  NA     NA     NA      NA   NA         NA          NA      NA     NA       NA
+    ## 24          2  NA     NA     NA      NA   NA         NA          NA      NA     NA       NA
+    ##      max neg  pos cnt.outliers sc.ind
+    ## 1      1   0  300            0      0
+    ## 2     NA   0 1000           NA      0
+    ## 3     72   0 1000           70      0
+    ## 4     NA   0  960           NA      0
+    ## 5     NA  NA   NA           NA      0
+    ## 6     NA   0  755           NA      0
+    ## 7   -Inf  NA   NA            0      0
+    ## 8  18424   0  990           72      0
+    ## 9     NA   0 1000           NA      0
+    ## 10    NA   0 1000           NA      0
+    ## 11    NA   0 1000           NA      0
+    ## 12    NA   0 1000           NA      0
+    ## 13    NA   0 1000           NA      0
+    ## 14    NA   0 1000           NA      0
+    ## 15    NA   0 1000           NA      0
+    ## 16  -Inf  NA   NA            0      0
+    ## 17    75   0  979           23      0
+    ## 18    NA   0 1000           NA      0
+    ## 19    NA   0 1000           NA      0
+    ## 20    NA   0 1000           NA      0
+    ## 21    NA   0 1000           NA      0
+    ## 22    NA   0 1000           NA      0
+    ## 23    NA   0 1000           NA      0
+    ## 24    NA   0 1000           NA      0
 
-Based on the results we can see that `univariate` treats differently so
-called special and complete cases. For result details and additional
+Based on the results we can see that `univariate` treats differently
+so-called special and complete cases. For result details and additional
 arguments of `univariate` function check help page `?univariate`.
 
 From the structure and univariate results, we conclude that there are 4
@@ -196,9 +221,12 @@ head(imp.sc.res[[1]])
 imp.sc.res[[2]]
 ```
 
-    ##              rf                  info  imputation.method imputed.value imputation.num imputed.mode
-    ## 1 Credit Amount Imputation completed. automatic - median          2324             10         <NA>
-    ## 2       Purpose Imputation completed.               mode            NA             21            3
+    ##              rf                  info  imputation.method imputed.value imputation.num
+    ## 1 Credit Amount Imputation completed. automatic - median          2324             10
+    ## 2       Purpose Imputation completed.               mode            NA             21
+    ##   imputed.mode
+    ## 1         <NA>
+    ## 2            3
 
 ``` r
 #replace Credit Amount and Purpose with new values
@@ -206,20 +234,28 @@ loans[, c("Credit Amount", "Purpose")] <- imp.sc.res[[1]]
 colSums(is.na(loans))
 ```
 
-    ##                     Creditability                   Account Balance        Duration of Credit (month) 
-    ##                                 0                                 0                                 0 
-    ## Payment Status of Previous Credit                           Purpose                     Credit Amount 
-    ##                                 0                                 0                                 0 
-    ##              Value Savings/Stocks      Length of current employment               Instalment per cent 
-    ##                                 0                                 0                                 0 
-    ##              Sex & Marital Status                        Guarantors       Duration in Current address 
-    ##                                 0                                 0                                 0 
-    ##     Most valuable available asset                       Age (years)                Concurrent Credits 
-    ##                                 0                                21                                 0 
-    ##                 Type of apartment        No of Credits at this Bank                        Occupation 
-    ##                                 0                                 0                                 0 
-    ##                  No of dependents                         Telephone                    Foreign Worker 
-    ##                                 0                                 0                                 0
+    ##                     Creditability                   Account Balance 
+    ##                                 0                                 0 
+    ##        Duration of Credit (month) Payment Status of Previous Credit 
+    ##                                 0                                 0 
+    ##                           Purpose                     Credit Amount 
+    ##                                 0                                 0 
+    ##              Value Savings/Stocks      Length of current employment 
+    ##                                 0                                 0 
+    ##               Instalment per cent              Sex & Marital Status 
+    ##                                 0                                 0 
+    ##                        Guarantors       Duration in Current address 
+    ##                                 0                                 0 
+    ##     Most valuable available asset                       Age (years) 
+    ##                                 0                                21 
+    ##                Concurrent Credits                 Type of apartment 
+    ##                                 0                                 0 
+    ##        No of Credits at this Bank                        Occupation 
+    ##                                 0                                 0 
+    ##                  No of dependents                         Telephone 
+    ##                                 0                                 0 
+    ##                    Foreign Worker 
+    ##                                 0
 
 ``` r
 #imputation for outliers for risk factor Credit Amount
@@ -243,10 +279,10 @@ head(imp.out.res[[1]])
 imp.out.res[[2]]
 ```
 
-    ##              rf                  info imputation.method imputation.val.upper imputation.val.lower
-    ## 1 Credit Amount Imputation completed.               iqr                 7865                  250
-    ##   imputation.num.upper imputation.num.lower
-    ## 1                   73                    0
+    ##              rf                  info imputation.method imputation.val.upper
+    ## 1 Credit Amount Imputation completed.               iqr                 7865
+    ##   imputation.val.lower imputation.num.upper imputation.num.lower
+    ## 1                  250                   73                    0
 
 ``` r
 #replace Credit Amount with new values
@@ -302,174 +338,253 @@ bivariate(db = loans, target = "Creditability")
 ```
 
     ## $results
-    ##                                   rf           bin  no  ng  nb pct.o       pct.g       pct.b        dr   so  sg
-    ## 1                    Account Balance             1 274 139 135 0.274 0.198571429 0.450000000 0.4927007 1000 700
-    ## 2                    Account Balance             2 269 164 105 0.269 0.234285714 0.350000000 0.3903346 1000 700
-    ## 3                    Account Balance             3  63  49  14 0.063 0.070000000 0.046666667 0.2222222 1000 700
-    ## 4                    Account Balance             4 394 348  46 0.394 0.497142857 0.153333333 0.1167513 1000 700
-    ## 5         Duration of Credit (month)      01 [4,8)  87  78   9 0.087 0.111428571 0.030000000 0.1034483 1000 700
-    ## 6         Duration of Credit (month)     02 [8,16) 344 264  80 0.344 0.377142857 0.266666667 0.2325581 1000 700
-    ## 7         Duration of Credit (month)    03 [16,45) 499 328 171 0.499 0.468571429 0.570000000 0.3426854 1000 700
-    ## 8         Duration of Credit (month)   04 [45,Inf)  70  30  40 0.070 0.042857143 0.133333333 0.5714286 1000 700
-    ## 9  Payment Status of Previous Credit             0  40  15  25 0.040 0.021428571 0.083333333 0.6250000 1000 700
-    ## 10 Payment Status of Previous Credit             1  49  21  28 0.049 0.030000000 0.093333333 0.5714286 1000 700
-    ## 11 Payment Status of Previous Credit             2 530 361 169 0.530 0.515714286 0.563333333 0.3188679 1000 700
-    ## 12 Payment Status of Previous Credit             3  88  60  28 0.088 0.085714286 0.093333333 0.3181818 1000 700
-    ## 13 Payment Status of Previous Credit             4 293 243  50 0.293 0.347142857 0.166666667 0.1706485 1000 700
-    ## 14                           Purpose             0 224 145  79 0.224 0.207142857 0.263333333 0.3526786 1000 700
-    ## 15                           Purpose             1 102  86  16 0.102 0.122857143 0.053333333 0.1568627 1000 700
-    ## 16                           Purpose            10  12   7   5 0.012 0.010000000 0.016666667 0.4166667 1000 700
-    ## 17                           Purpose             2 177 123  54 0.177 0.175714286 0.180000000 0.3050847 1000 700
-    ## 18                           Purpose             3 300 218  82 0.300 0.311428571 0.273333333 0.2733333 1000 700
-    ## 19                           Purpose             4  12   8   4 0.012 0.011428571 0.013333333 0.3333333 1000 700
-    ## 20                           Purpose             5  21  14   7 0.021 0.020000000 0.023333333 0.3333333 1000 700
-    ## 21                           Purpose             6  49  28  21 0.049 0.040000000 0.070000000 0.4285714 1000 700
-    ## 22                           Purpose             8   9   8   1 0.009 0.011428571 0.003333333 0.1111111 1000 700
-    ## 23                           Purpose             9  94  63  31 0.094 0.090000000 0.103333333 0.3297872 1000 700
-    ## 24                     Credit Amount 01 [250,3914) 739 550 189 0.739 0.785714286 0.630000000 0.2557510 1000 700
-    ## 25                     Credit Amount 02 [3914,Inf) 261 150 111 0.261 0.214285714 0.370000000 0.4252874 1000 700
-    ## 26              Value Savings/Stocks             1 603 386 217 0.603 0.551428571 0.723333333 0.3598673 1000 700
-    ## 27              Value Savings/Stocks             2 103  69  34 0.103 0.098571429 0.113333333 0.3300971 1000 700
-    ## 28              Value Savings/Stocks             3  63  52  11 0.063 0.074285714 0.036666667 0.1746032 1000 700
-    ## 29              Value Savings/Stocks             4  48  42   6 0.048 0.060000000 0.020000000 0.1250000 1000 700
-    ## 30              Value Savings/Stocks             5 183 151  32 0.183 0.215714286 0.106666667 0.1748634 1000 700
-    ## 31      Length of current employment             1  62  39  23 0.062 0.055714286 0.076666667 0.3709677 1000 700
-    ## 32      Length of current employment             2 172 102  70 0.172 0.145714286 0.233333333 0.4069767 1000 700
-    ## 33      Length of current employment             3 339 235 104 0.339 0.335714286 0.346666667 0.3067847 1000 700
-    ## 34      Length of current employment             4 174 135  39 0.174 0.192857143 0.130000000 0.2241379 1000 700
-    ## 35      Length of current employment             5 253 189  64 0.253 0.270000000 0.213333333 0.2529644 1000 700
-    ## 36               Instalment per cent             1 136 102  34 0.136 0.145714286 0.113333333 0.2500000 1000 700
-    ## 37               Instalment per cent             2 231 169  62 0.231 0.241428571 0.206666667 0.2683983 1000 700
-    ## 38               Instalment per cent             3 157 112  45 0.157 0.160000000 0.150000000 0.2866242 1000 700
-    ## 39               Instalment per cent             4 476 317 159 0.476 0.452857143 0.530000000 0.3340336 1000 700
-    ## 40              Sex & Marital Status             1  50  30  20 0.050 0.042857143 0.066666667 0.4000000 1000 700
-    ## 41              Sex & Marital Status             2 310 201 109 0.310 0.287142857 0.363333333 0.3516129 1000 700
-    ## 42              Sex & Marital Status             3 548 402 146 0.548 0.574285714 0.486666667 0.2664234 1000 700
-    ## 43              Sex & Marital Status             4  92  67  25 0.092 0.095714286 0.083333333 0.2717391 1000 700
-    ## 44                        Guarantors             1 907 635 272 0.907 0.907142857 0.906666667 0.2998897 1000 700
-    ## 45                        Guarantors             2  41  23  18 0.041 0.032857143 0.060000000 0.4390244 1000 700
-    ## 46                        Guarantors             3  52  42  10 0.052 0.060000000 0.033333333 0.1923077 1000 700
-    ## 47       Duration in Current address             1 130  94  36 0.130 0.134285714 0.120000000 0.2769231 1000 700
-    ## 48       Duration in Current address             2 308 211  97 0.308 0.301428571 0.323333333 0.3149351 1000 700
-    ## 49       Duration in Current address             3 149 106  43 0.149 0.151428571 0.143333333 0.2885906 1000 700
-    ## 50       Duration in Current address             4 413 289 124 0.413 0.412857143 0.413333333 0.3002421 1000 700
-    ## 51     Most valuable available asset             1 282 222  60 0.282 0.317142857 0.200000000 0.2127660 1000 700
-    ## 52     Most valuable available asset             2 232 161  71 0.232 0.230000000 0.236666667 0.3060345 1000 700
-    ## 53     Most valuable available asset             3 332 230 102 0.332 0.328571429 0.340000000 0.3072289 1000 700
-    ## 54     Most valuable available asset             4 154  87  67 0.154 0.124285714 0.223333333 0.4350649 1000 700
-    ## 55                       Age (years)    01 [19,26) 187 108  79 0.187 0.154285714 0.263333333 0.4224599 1000 700
-    ## 56                       Age (years)    02 [26,35) 349 238 111 0.349 0.340000000 0.370000000 0.3180516 1000 700
-    ## 57                       Age (years)   03 [35,Inf) 443 335 108 0.443 0.478571429 0.360000000 0.2437923 1000 700
-    ## 58                       Age (years)            SC  21  19   2 0.021 0.027142857 0.006666667 0.0952381 1000 700
-    ## 59                Concurrent Credits             1 139  82  57 0.139 0.117142857 0.190000000 0.4100719 1000 700
-    ## 60                Concurrent Credits             2  47  28  19 0.047 0.040000000 0.063333333 0.4042553 1000 700
-    ## 61                Concurrent Credits             3 814 590 224 0.814 0.842857143 0.746666667 0.2751843 1000 700
-    ## 62                 Type of apartment             1 179 109  70 0.179 0.155714286 0.233333333 0.3910615 1000 700
-    ## 63                 Type of apartment             2 714 528 186 0.714 0.754285714 0.620000000 0.2605042 1000 700
-    ## 64                 Type of apartment             3 107  63  44 0.107 0.090000000 0.146666667 0.4112150 1000 700
-    ## 65        No of Credits at this Bank             1 633 433 200 0.633 0.618571429 0.666666667 0.3159558 1000 700
-    ## 66        No of Credits at this Bank             2 333 241  92 0.333 0.344285714 0.306666667 0.2762763 1000 700
-    ## 67        No of Credits at this Bank             3  28  22   6 0.028 0.031428571 0.020000000 0.2142857 1000 700
-    ## 68        No of Credits at this Bank             4   6   4   2 0.006 0.005714286 0.006666667 0.3333333 1000 700
-    ## 69                        Occupation             1  22  15   7 0.022 0.021428571 0.023333333 0.3181818 1000 700
-    ## 70                        Occupation             2 200 144  56 0.200 0.205714286 0.186666667 0.2800000 1000 700
-    ## 71                        Occupation             3 630 444 186 0.630 0.634285714 0.620000000 0.2952381 1000 700
-    ## 72                        Occupation             4 148  97  51 0.148 0.138571429 0.170000000 0.3445946 1000 700
-    ## 73                  No of dependents             1 845 591 254 0.845 0.844285714 0.846666667 0.3005917 1000 700
-    ## 74                  No of dependents             2 155 109  46 0.155 0.155714286 0.153333333 0.2967742 1000 700
-    ## 75                         Telephone             1 596 409 187 0.596 0.584285714 0.623333333 0.3137584 1000 700
-    ## 76                         Telephone             2 404 291 113 0.404 0.415714286 0.376666667 0.2797030 1000 700
-    ## 77                    Foreign Worker             1 963 667 296 0.963 0.952857143 0.986666667 0.3073728 1000 700
-    ## 78                    Foreign Worker             2  37  33   4 0.037 0.047142857 0.013333333 0.1081081 1000 700
-    ##     sb      dist.g      dist.b           woe            iv.b          iv.s       auc
-    ## 1  300 0.198571429 0.450000000 -0.8180987057 0.2056933888604 0.66601150335 0.7077690
-    ## 2  300 0.234285714 0.350000000 -0.4013917827 0.0464467634291 0.66601150335 0.7077690
-    ## 3  300 0.070000000 0.046666667  0.4054651081 0.0094608525225 0.66601150335 0.7077690
-    ## 4  300 0.497142857 0.153333333  1.1762632229 0.4044104985393 0.66601150335 0.7077690
-    ## 5  300 0.111428571 0.030000000  1.3121863890 0.1068494631015 0.26770659621 0.6241762
-    ## 6  300 0.377142857 0.266666667  0.3466246081 0.0382937662266 0.26770659621 0.6241762
-    ## 7  300 0.468571429 0.570000000 -0.1959478085 0.0198747062913 0.26770659621 0.6241762
-    ## 8  300 0.042857143 0.133333333 -1.1349799328 0.1026886605902 0.26770659621 0.6241762
-    ## 9  300 0.021428571 0.083333333 -1.3581234842 0.0840743109238 0.29323354739 0.6268048
-    ## 10 300 0.030000000 0.093333333 -1.1349799328 0.0718820624131 0.29323354739 0.6268048
-    ## 11 300 0.515714286 0.563333333 -0.0883186170 0.0042056484275 0.29323354739 0.6268048
-    ## 12 300 0.085714286 0.093333333 -0.0851578083 0.0006488213969 0.29323354739 0.6268048
-    ## 13 300 0.347142857 0.166666667  0.7337405775 0.1324227042295 0.29323354739 0.6268048
-    ## 14 300 0.207142857 0.263333333 -0.2400119704 0.0134863869101 0.10939307333 0.5821500
-    ## 15 300 0.122857143 0.053333333  0.8344607136 0.0580148877093 0.10939307333 0.5821500
-    ## 16 300 0.010000000 0.016666667 -0.5108256238 0.0034055041584 0.10939307333 0.5821500
-    ## 17 300 0.175714286 0.180000000 -0.0240975516 0.0001032752211 0.10939307333 0.5821500
-    ## 18 300 0.311428571 0.273333333  0.1304779551 0.0049705887671 0.10939307333 0.5821500
-    ## 19 300 0.011428571 0.013333333 -0.1541506798 0.0002936203425 0.10939307333 0.5821500
-    ## 20 300 0.020000000 0.023333333 -0.1541506798 0.0005138355994 0.10939307333 0.5821500
-    ## 21 300 0.040000000 0.070000000 -0.5596157879 0.0167884736381 0.10939307333 0.5821500
-    ## 22 300 0.011428571 0.003333333  1.2321436813 0.0099744964676 0.10939307333 0.5821500
-    ## 23 300 0.090000000 0.103333333 -0.1381503385 0.0018420045131 0.10939307333 0.5821500
-    ## 24 300 0.785714286 0.630000000  0.2208734028 0.0343931441471 0.11944316082 0.5778571
-    ## 25 300 0.214285714 0.370000000 -0.5461927676 0.0850500166697 0.11944316082 0.5778571
-    ## 26 300 0.551428571 0.723333333 -0.2713578445 0.0466477056434 0.19600955690 0.5991429
-    ## 27 300 0.098571429 0.113333333 -0.1395518804 0.0020600515679 0.19600955690 0.5991429
-    ## 28 300 0.074285714 0.036666667  0.7060505854 0.0265609505935 0.19600955690 0.5991429
-    ## 29 300 0.060000000 0.020000000  1.0986122887 0.0439444915467 0.19600955690 0.5991429
-    ## 30 300 0.215714286 0.106666667  0.7042460736 0.0767963575528 0.19600955690 0.5991429
-    ## 31 300 0.055714286 0.076666667 -0.3192304302 0.0066886375849 0.08643363103 0.5808190
-    ## 32 300 0.145714286 0.233333333 -0.4708202892 0.0412528253352 0.08643363103 0.5808190
-    ## 33 300 0.335714286 0.346666667 -0.0321032454 0.0003516069733 0.08643363103 0.5808190
-    ## 34 300 0.192857143 0.130000000  0.3944152719 0.0247918170922 0.08643363103 0.5808190
-    ## 35 300 0.270000000 0.213333333  0.2355660713 0.0133487440411 0.08643363103 0.5808190
-    ## 36 300 0.145714286 0.113333333  0.2513144283 0.0081378005348 0.02632209005 0.5433833
-    ## 37 300 0.241428571 0.206666667  0.1554664695 0.0054043106061 0.02632209005 0.5433833
-    ## 38 300 0.160000000 0.150000000  0.0645385211 0.0006453852114 0.02632209005 0.5433833
-    ## 39 300 0.452857143 0.530000000 -0.1573002887 0.0121345937020 0.02632209005 0.5433833
-    ## 40 300 0.042857143 0.066666667 -0.4418327523 0.0105198274352 0.04467067763 0.5524238
-    ## 41 300 0.287142857 0.363333333 -0.2353408346 0.0179307302520 0.04467067763 0.5524238
-    ## 42 300 0.574285714 0.486666667  0.1655476065 0.0145051236192 0.04467067763 0.5524238
-    ## 43 300 0.095714286 0.083333333  0.1385189341 0.0017149963274 0.04467067763 0.5524238
-    ## 44 300 0.907142857 0.906666667  0.0005250722 0.0000002500344 0.03201932202 0.5256524
-    ## 45 300 0.032857143 0.060000000 -0.6021754024 0.0163447609210 0.03201932202 0.5256524
-    ## 46 300 0.060000000 0.033333333  0.5877866649 0.0156743110641 0.03201932202 0.5256524
-    ## 47 300 0.134285714 0.120000000  0.1124779834 0.0016068283347 0.00358877319 0.5161786
-    ## 48 300 0.301428571 0.323333333 -0.0701507054 0.0015366344996 0.00358877319 0.5161786
-    ## 49 300 0.151428571 0.143333333  0.0549411180 0.0004447614317 0.00358877319 0.5161786
-    ## 50 300 0.412857143 0.413333333 -0.0011527379 0.0000005489228 0.00358877319 0.5161786
-    ## 51 300 0.317142857 0.200000000  0.4610349593 0.0540069523708 0.11263826241 0.5853286
-    ## 52 300 0.230000000 0.236666667 -0.0285733724 0.0001904891496 0.11263826241 0.5853286
-    ## 53 300 0.328571429 0.340000000 -0.0341913647 0.0003907584543 0.11263826241 0.5853286
-    ## 54 300 0.124285714 0.223333333 -0.5860823611 0.0580500624351 0.11263826241 0.5853286
-    ## 55 300 0.154285714 0.263333333 -0.5346144857 0.0582984367772 0.12334106269 0.5890381
-    ## 56 300 0.340000000 0.370000000 -0.0845573880 0.0025367216408 0.12334106269 0.5890381
-    ## 57 300 0.478571429 0.360000000  0.2847014443 0.0337574569686 0.12334106269 0.5890381
-    ## 58 300 0.027142857 0.006666667  1.4039939382 0.0287484473064 0.12334106269 0.5890381
-    ## 59 300 0.117142857 0.190000000 -0.4836298810 0.0352358913269 0.05761454196 0.5481857
-    ## 60 300 0.040000000 0.063333333 -0.4595323294 0.0107224210188 0.05761454196 0.5481857
-    ## 61 300 0.842857143 0.746666667  0.1211786247 0.0116562296099 0.05761454196 0.5481857
-    ## 62 300 0.155714286 0.233333333 -0.4044452202 0.0313926528066 0.08539292555 0.5680619
-    ## 63 300 0.754285714 0.620000000  0.1960517496 0.0263269492328 0.08539292555 0.5680619
-    ## 64 300 0.090000000 0.146666667 -0.4883527679 0.0276733235151 0.08539292555 0.5680619
-    ## 65 300 0.618571429 0.666666667 -0.0748774989 0.0036012511391 0.01326652424 0.5260571
-    ## 66 300 0.344285714 0.306666667  0.1157104961 0.0043529186611 0.01326652424 0.5260571
-    ## 67 300 0.031428571 0.020000000  0.4519851237 0.0051655442713 0.01326652424 0.5260571
-    ## 68 300 0.005714286 0.006666667 -0.1541506798 0.0001468101713 0.01326652424 0.5260571
-    ## 69 300 0.021428571 0.023333333 -0.0851578083 0.0001622053492 0.00876276571 0.5214429
-    ## 70 300 0.205714286 0.186666667  0.0971637485 0.0018507380658 0.00876276571 0.5214429
-    ## 71 300 0.634285714 0.620000000  0.0227800283 0.0003254289762 0.00876276571 0.5214429
-    ## 72 300 0.138571429 0.170000000 -0.2044125146 0.0064243933163 0.00876276571 0.5214429
-    ## 73 300 0.844285714 0.846666667 -0.0028161100 0.0000067050238 0.00004339223 0.5011905
-    ## 74 300 0.155714286 0.153333333  0.0154086254 0.0000366872032 0.00004339223 0.5011905
-    ## 75 300 0.584285714 0.623333333 -0.0646913212 0.0025260420659 0.00637760503 0.5195238
-    ## 76 300 0.415714286 0.376666667  0.0986375881 0.0038515629628 0.00637760503 0.5195238
-    ## 77 300 0.952857143 0.986666667 -0.0348672688 0.0011788457545 0.04387741201 0.5169048
-    ## 78 300 0.047142857 0.013333333  1.2629153400 0.0426985662558 0.04387741201 0.5169048
+    ##                                   rf           bin  no  ng  nb pct.o       pct.g       pct.b
+    ## 1                    Account Balance             1 274 139 135 0.274 0.198571429 0.450000000
+    ## 2                    Account Balance             2 269 164 105 0.269 0.234285714 0.350000000
+    ## 3                    Account Balance             3  63  49  14 0.063 0.070000000 0.046666667
+    ## 4                    Account Balance             4 394 348  46 0.394 0.497142857 0.153333333
+    ## 5         Duration of Credit (month)      01 [4,8)  87  78   9 0.087 0.111428571 0.030000000
+    ## 6         Duration of Credit (month)     02 [8,16) 344 264  80 0.344 0.377142857 0.266666667
+    ## 7         Duration of Credit (month)    03 [16,45) 499 328 171 0.499 0.468571429 0.570000000
+    ## 8         Duration of Credit (month)   04 [45,Inf)  70  30  40 0.070 0.042857143 0.133333333
+    ## 9  Payment Status of Previous Credit             0  40  15  25 0.040 0.021428571 0.083333333
+    ## 10 Payment Status of Previous Credit             1  49  21  28 0.049 0.030000000 0.093333333
+    ## 11 Payment Status of Previous Credit             2 530 361 169 0.530 0.515714286 0.563333333
+    ## 12 Payment Status of Previous Credit             3  88  60  28 0.088 0.085714286 0.093333333
+    ## 13 Payment Status of Previous Credit             4 293 243  50 0.293 0.347142857 0.166666667
+    ## 14                           Purpose             0 224 145  79 0.224 0.207142857 0.263333333
+    ## 15                           Purpose             1 102  86  16 0.102 0.122857143 0.053333333
+    ## 16                           Purpose            10  12   7   5 0.012 0.010000000 0.016666667
+    ## 17                           Purpose             2 177 123  54 0.177 0.175714286 0.180000000
+    ## 18                           Purpose             3 300 218  82 0.300 0.311428571 0.273333333
+    ## 19                           Purpose             4  12   8   4 0.012 0.011428571 0.013333333
+    ## 20                           Purpose             5  21  14   7 0.021 0.020000000 0.023333333
+    ## 21                           Purpose             6  49  28  21 0.049 0.040000000 0.070000000
+    ## 22                           Purpose             8   9   8   1 0.009 0.011428571 0.003333333
+    ## 23                           Purpose             9  94  63  31 0.094 0.090000000 0.103333333
+    ## 24                     Credit Amount 01 [250,3914) 739 550 189 0.739 0.785714286 0.630000000
+    ## 25                     Credit Amount 02 [3914,Inf) 261 150 111 0.261 0.214285714 0.370000000
+    ## 26              Value Savings/Stocks             1 603 386 217 0.603 0.551428571 0.723333333
+    ## 27              Value Savings/Stocks             2 103  69  34 0.103 0.098571429 0.113333333
+    ## 28              Value Savings/Stocks             3  63  52  11 0.063 0.074285714 0.036666667
+    ## 29              Value Savings/Stocks             4  48  42   6 0.048 0.060000000 0.020000000
+    ## 30              Value Savings/Stocks             5 183 151  32 0.183 0.215714286 0.106666667
+    ## 31      Length of current employment             1  62  39  23 0.062 0.055714286 0.076666667
+    ## 32      Length of current employment             2 172 102  70 0.172 0.145714286 0.233333333
+    ## 33      Length of current employment             3 339 235 104 0.339 0.335714286 0.346666667
+    ## 34      Length of current employment             4 174 135  39 0.174 0.192857143 0.130000000
+    ## 35      Length of current employment             5 253 189  64 0.253 0.270000000 0.213333333
+    ## 36               Instalment per cent             1 136 102  34 0.136 0.145714286 0.113333333
+    ## 37               Instalment per cent             2 231 169  62 0.231 0.241428571 0.206666667
+    ## 38               Instalment per cent             3 157 112  45 0.157 0.160000000 0.150000000
+    ## 39               Instalment per cent             4 476 317 159 0.476 0.452857143 0.530000000
+    ## 40              Sex & Marital Status             1  50  30  20 0.050 0.042857143 0.066666667
+    ## 41              Sex & Marital Status             2 310 201 109 0.310 0.287142857 0.363333333
+    ## 42              Sex & Marital Status             3 548 402 146 0.548 0.574285714 0.486666667
+    ## 43              Sex & Marital Status             4  92  67  25 0.092 0.095714286 0.083333333
+    ## 44                        Guarantors             1 907 635 272 0.907 0.907142857 0.906666667
+    ## 45                        Guarantors             2  41  23  18 0.041 0.032857143 0.060000000
+    ## 46                        Guarantors             3  52  42  10 0.052 0.060000000 0.033333333
+    ## 47       Duration in Current address             1 130  94  36 0.130 0.134285714 0.120000000
+    ## 48       Duration in Current address             2 308 211  97 0.308 0.301428571 0.323333333
+    ## 49       Duration in Current address             3 149 106  43 0.149 0.151428571 0.143333333
+    ## 50       Duration in Current address             4 413 289 124 0.413 0.412857143 0.413333333
+    ## 51     Most valuable available asset             1 282 222  60 0.282 0.317142857 0.200000000
+    ## 52     Most valuable available asset             2 232 161  71 0.232 0.230000000 0.236666667
+    ## 53     Most valuable available asset             3 332 230 102 0.332 0.328571429 0.340000000
+    ## 54     Most valuable available asset             4 154  87  67 0.154 0.124285714 0.223333333
+    ## 55                       Age (years)    01 [19,26) 187 108  79 0.187 0.154285714 0.263333333
+    ## 56                       Age (years)    02 [26,35) 349 238 111 0.349 0.340000000 0.370000000
+    ## 57                       Age (years)   03 [35,Inf) 443 335 108 0.443 0.478571429 0.360000000
+    ## 58                       Age (years)            SC  21  19   2 0.021 0.027142857 0.006666667
+    ## 59                Concurrent Credits             1 139  82  57 0.139 0.117142857 0.190000000
+    ## 60                Concurrent Credits             2  47  28  19 0.047 0.040000000 0.063333333
+    ## 61                Concurrent Credits             3 814 590 224 0.814 0.842857143 0.746666667
+    ## 62                 Type of apartment             1 179 109  70 0.179 0.155714286 0.233333333
+    ## 63                 Type of apartment             2 714 528 186 0.714 0.754285714 0.620000000
+    ## 64                 Type of apartment             3 107  63  44 0.107 0.090000000 0.146666667
+    ## 65        No of Credits at this Bank             1 633 433 200 0.633 0.618571429 0.666666667
+    ## 66        No of Credits at this Bank             2 333 241  92 0.333 0.344285714 0.306666667
+    ## 67        No of Credits at this Bank             3  28  22   6 0.028 0.031428571 0.020000000
+    ## 68        No of Credits at this Bank             4   6   4   2 0.006 0.005714286 0.006666667
+    ## 69                        Occupation             1  22  15   7 0.022 0.021428571 0.023333333
+    ## 70                        Occupation             2 200 144  56 0.200 0.205714286 0.186666667
+    ## 71                        Occupation             3 630 444 186 0.630 0.634285714 0.620000000
+    ## 72                        Occupation             4 148  97  51 0.148 0.138571429 0.170000000
+    ## 73                  No of dependents             1 845 591 254 0.845 0.844285714 0.846666667
+    ## 74                  No of dependents             2 155 109  46 0.155 0.155714286 0.153333333
+    ## 75                         Telephone             1 596 409 187 0.596 0.584285714 0.623333333
+    ## 76                         Telephone             2 404 291 113 0.404 0.415714286 0.376666667
+    ## 77                    Foreign Worker             1 963 667 296 0.963 0.952857143 0.986666667
+    ## 78                    Foreign Worker             2  37  33   4 0.037 0.047142857 0.013333333
+    ##           dr   so  sg  sb      dist.g      dist.b           woe            iv.b          iv.s
+    ## 1  0.4927007 1000 700 300 0.198571429 0.450000000 -0.8180987057 0.2056933888604 0.66601150335
+    ## 2  0.3903346 1000 700 300 0.234285714 0.350000000 -0.4013917827 0.0464467634291 0.66601150335
+    ## 3  0.2222222 1000 700 300 0.070000000 0.046666667  0.4054651081 0.0094608525225 0.66601150335
+    ## 4  0.1167513 1000 700 300 0.497142857 0.153333333  1.1762632229 0.4044104985393 0.66601150335
+    ## 5  0.1034483 1000 700 300 0.111428571 0.030000000  1.3121863890 0.1068494631015 0.26770659621
+    ## 6  0.2325581 1000 700 300 0.377142857 0.266666667  0.3466246081 0.0382937662266 0.26770659621
+    ## 7  0.3426854 1000 700 300 0.468571429 0.570000000 -0.1959478085 0.0198747062913 0.26770659621
+    ## 8  0.5714286 1000 700 300 0.042857143 0.133333333 -1.1349799328 0.1026886605902 0.26770659621
+    ## 9  0.6250000 1000 700 300 0.021428571 0.083333333 -1.3581234842 0.0840743109238 0.29323354739
+    ## 10 0.5714286 1000 700 300 0.030000000 0.093333333 -1.1349799328 0.0718820624131 0.29323354739
+    ## 11 0.3188679 1000 700 300 0.515714286 0.563333333 -0.0883186170 0.0042056484275 0.29323354739
+    ## 12 0.3181818 1000 700 300 0.085714286 0.093333333 -0.0851578083 0.0006488213969 0.29323354739
+    ## 13 0.1706485 1000 700 300 0.347142857 0.166666667  0.7337405775 0.1324227042295 0.29323354739
+    ## 14 0.3526786 1000 700 300 0.207142857 0.263333333 -0.2400119704 0.0134863869101 0.10939307333
+    ## 15 0.1568627 1000 700 300 0.122857143 0.053333333  0.8344607136 0.0580148877093 0.10939307333
+    ## 16 0.4166667 1000 700 300 0.010000000 0.016666667 -0.5108256238 0.0034055041584 0.10939307333
+    ## 17 0.3050847 1000 700 300 0.175714286 0.180000000 -0.0240975516 0.0001032752211 0.10939307333
+    ## 18 0.2733333 1000 700 300 0.311428571 0.273333333  0.1304779551 0.0049705887671 0.10939307333
+    ## 19 0.3333333 1000 700 300 0.011428571 0.013333333 -0.1541506798 0.0002936203425 0.10939307333
+    ## 20 0.3333333 1000 700 300 0.020000000 0.023333333 -0.1541506798 0.0005138355994 0.10939307333
+    ## 21 0.4285714 1000 700 300 0.040000000 0.070000000 -0.5596157879 0.0167884736381 0.10939307333
+    ## 22 0.1111111 1000 700 300 0.011428571 0.003333333  1.2321436813 0.0099744964676 0.10939307333
+    ## 23 0.3297872 1000 700 300 0.090000000 0.103333333 -0.1381503385 0.0018420045131 0.10939307333
+    ## 24 0.2557510 1000 700 300 0.785714286 0.630000000  0.2208734028 0.0343931441471 0.11944316082
+    ## 25 0.4252874 1000 700 300 0.214285714 0.370000000 -0.5461927676 0.0850500166697 0.11944316082
+    ## 26 0.3598673 1000 700 300 0.551428571 0.723333333 -0.2713578445 0.0466477056434 0.19600955690
+    ## 27 0.3300971 1000 700 300 0.098571429 0.113333333 -0.1395518804 0.0020600515679 0.19600955690
+    ## 28 0.1746032 1000 700 300 0.074285714 0.036666667  0.7060505854 0.0265609505935 0.19600955690
+    ## 29 0.1250000 1000 700 300 0.060000000 0.020000000  1.0986122887 0.0439444915467 0.19600955690
+    ## 30 0.1748634 1000 700 300 0.215714286 0.106666667  0.7042460736 0.0767963575528 0.19600955690
+    ## 31 0.3709677 1000 700 300 0.055714286 0.076666667 -0.3192304302 0.0066886375849 0.08643363103
+    ## 32 0.4069767 1000 700 300 0.145714286 0.233333333 -0.4708202892 0.0412528253352 0.08643363103
+    ## 33 0.3067847 1000 700 300 0.335714286 0.346666667 -0.0321032454 0.0003516069733 0.08643363103
+    ## 34 0.2241379 1000 700 300 0.192857143 0.130000000  0.3944152719 0.0247918170922 0.08643363103
+    ## 35 0.2529644 1000 700 300 0.270000000 0.213333333  0.2355660713 0.0133487440411 0.08643363103
+    ## 36 0.2500000 1000 700 300 0.145714286 0.113333333  0.2513144283 0.0081378005348 0.02632209005
+    ## 37 0.2683983 1000 700 300 0.241428571 0.206666667  0.1554664695 0.0054043106061 0.02632209005
+    ## 38 0.2866242 1000 700 300 0.160000000 0.150000000  0.0645385211 0.0006453852114 0.02632209005
+    ## 39 0.3340336 1000 700 300 0.452857143 0.530000000 -0.1573002887 0.0121345937020 0.02632209005
+    ## 40 0.4000000 1000 700 300 0.042857143 0.066666667 -0.4418327523 0.0105198274352 0.04467067763
+    ## 41 0.3516129 1000 700 300 0.287142857 0.363333333 -0.2353408346 0.0179307302520 0.04467067763
+    ## 42 0.2664234 1000 700 300 0.574285714 0.486666667  0.1655476065 0.0145051236192 0.04467067763
+    ## 43 0.2717391 1000 700 300 0.095714286 0.083333333  0.1385189341 0.0017149963274 0.04467067763
+    ## 44 0.2998897 1000 700 300 0.907142857 0.906666667  0.0005250722 0.0000002500344 0.03201932202
+    ## 45 0.4390244 1000 700 300 0.032857143 0.060000000 -0.6021754024 0.0163447609210 0.03201932202
+    ## 46 0.1923077 1000 700 300 0.060000000 0.033333333  0.5877866649 0.0156743110641 0.03201932202
+    ## 47 0.2769231 1000 700 300 0.134285714 0.120000000  0.1124779834 0.0016068283347 0.00358877319
+    ## 48 0.3149351 1000 700 300 0.301428571 0.323333333 -0.0701507054 0.0015366344996 0.00358877319
+    ## 49 0.2885906 1000 700 300 0.151428571 0.143333333  0.0549411180 0.0004447614317 0.00358877319
+    ## 50 0.3002421 1000 700 300 0.412857143 0.413333333 -0.0011527379 0.0000005489228 0.00358877319
+    ## 51 0.2127660 1000 700 300 0.317142857 0.200000000  0.4610349593 0.0540069523708 0.11263826241
+    ## 52 0.3060345 1000 700 300 0.230000000 0.236666667 -0.0285733724 0.0001904891496 0.11263826241
+    ## 53 0.3072289 1000 700 300 0.328571429 0.340000000 -0.0341913647 0.0003907584543 0.11263826241
+    ## 54 0.4350649 1000 700 300 0.124285714 0.223333333 -0.5860823611 0.0580500624351 0.11263826241
+    ## 55 0.4224599 1000 700 300 0.154285714 0.263333333 -0.5346144857 0.0582984367772 0.12334106269
+    ## 56 0.3180516 1000 700 300 0.340000000 0.370000000 -0.0845573880 0.0025367216408 0.12334106269
+    ## 57 0.2437923 1000 700 300 0.478571429 0.360000000  0.2847014443 0.0337574569686 0.12334106269
+    ## 58 0.0952381 1000 700 300 0.027142857 0.006666667  1.4039939382 0.0287484473064 0.12334106269
+    ## 59 0.4100719 1000 700 300 0.117142857 0.190000000 -0.4836298810 0.0352358913269 0.05761454196
+    ## 60 0.4042553 1000 700 300 0.040000000 0.063333333 -0.4595323294 0.0107224210188 0.05761454196
+    ## 61 0.2751843 1000 700 300 0.842857143 0.746666667  0.1211786247 0.0116562296099 0.05761454196
+    ## 62 0.3910615 1000 700 300 0.155714286 0.233333333 -0.4044452202 0.0313926528066 0.08539292555
+    ## 63 0.2605042 1000 700 300 0.754285714 0.620000000  0.1960517496 0.0263269492328 0.08539292555
+    ## 64 0.4112150 1000 700 300 0.090000000 0.146666667 -0.4883527679 0.0276733235151 0.08539292555
+    ## 65 0.3159558 1000 700 300 0.618571429 0.666666667 -0.0748774989 0.0036012511391 0.01326652424
+    ## 66 0.2762763 1000 700 300 0.344285714 0.306666667  0.1157104961 0.0043529186611 0.01326652424
+    ## 67 0.2142857 1000 700 300 0.031428571 0.020000000  0.4519851237 0.0051655442713 0.01326652424
+    ## 68 0.3333333 1000 700 300 0.005714286 0.006666667 -0.1541506798 0.0001468101713 0.01326652424
+    ## 69 0.3181818 1000 700 300 0.021428571 0.023333333 -0.0851578083 0.0001622053492 0.00876276571
+    ## 70 0.2800000 1000 700 300 0.205714286 0.186666667  0.0971637485 0.0018507380658 0.00876276571
+    ## 71 0.2952381 1000 700 300 0.634285714 0.620000000  0.0227800283 0.0003254289762 0.00876276571
+    ## 72 0.3445946 1000 700 300 0.138571429 0.170000000 -0.2044125146 0.0064243933163 0.00876276571
+    ## 73 0.3005917 1000 700 300 0.844285714 0.846666667 -0.0028161100 0.0000067050238 0.00004339223
+    ## 74 0.2967742 1000 700 300 0.155714286 0.153333333  0.0154086254 0.0000366872032 0.00004339223
+    ## 75 0.3137584 1000 700 300 0.584285714 0.623333333 -0.0646913212 0.0025260420659 0.00637760503
+    ## 76 0.2797030 1000 700 300 0.415714286 0.376666667  0.0986375881 0.0038515629628 0.00637760503
+    ## 77 0.3073728 1000 700 300 0.952857143 0.986666667 -0.0348672688 0.0011788457545 0.04387741201
+    ## 78 0.1081081 1000 700 300 0.047142857 0.013333333  1.2629153400 0.0426985662558 0.04387741201
+    ##          auc
+    ## 1  0.7077690
+    ## 2  0.7077690
+    ## 3  0.7077690
+    ## 4  0.7077690
+    ## 5  0.6241762
+    ## 6  0.6241762
+    ## 7  0.6241762
+    ## 8  0.6241762
+    ## 9  0.6268048
+    ## 10 0.6268048
+    ## 11 0.6268048
+    ## 12 0.6268048
+    ## 13 0.6268048
+    ## 14 0.5821500
+    ## 15 0.5821500
+    ## 16 0.5821500
+    ## 17 0.5821500
+    ## 18 0.5821500
+    ## 19 0.5821500
+    ## 20 0.5821500
+    ## 21 0.5821500
+    ## 22 0.5821500
+    ## 23 0.5821500
+    ## 24 0.5778571
+    ## 25 0.5778571
+    ## 26 0.5991429
+    ## 27 0.5991429
+    ## 28 0.5991429
+    ## 29 0.5991429
+    ## 30 0.5991429
+    ## 31 0.5808190
+    ## 32 0.5808190
+    ## 33 0.5808190
+    ## 34 0.5808190
+    ## 35 0.5808190
+    ## 36 0.5433833
+    ## 37 0.5433833
+    ## 38 0.5433833
+    ## 39 0.5433833
+    ## 40 0.5524238
+    ## 41 0.5524238
+    ## 42 0.5524238
+    ## 43 0.5524238
+    ## 44 0.5256524
+    ## 45 0.5256524
+    ## 46 0.5256524
+    ## 47 0.5161786
+    ## 48 0.5161786
+    ## 49 0.5161786
+    ## 50 0.5161786
+    ## 51 0.5853286
+    ## 52 0.5853286
+    ## 53 0.5853286
+    ## 54 0.5853286
+    ## 55 0.5890381
+    ## 56 0.5890381
+    ## 57 0.5890381
+    ## 58 0.5890381
+    ## 59 0.5481857
+    ## 60 0.5481857
+    ## 61 0.5481857
+    ## 62 0.5680619
+    ## 63 0.5680619
+    ## 64 0.5680619
+    ## 65 0.5260571
+    ## 66 0.5260571
+    ## 67 0.5260571
+    ## 68 0.5260571
+    ## 69 0.5214429
+    ## 70 0.5214429
+    ## 71 0.5214429
+    ## 72 0.5214429
+    ## 73 0.5011905
+    ## 74 0.5011905
+    ## 75 0.5195238
+    ## 76 0.5195238
+    ## 77 0.5169048
+    ## 78 0.5169048
     ## 
     ## $info
     ## data frame with 0 columns and 0 rows
 
-Based on results of bivariate analysis we can see that risk factor
+Based on results of the bivariate analysis we can see that risk factor
 `Purpose` has 10 modalities, that `Age (years)` has share of special
 cases 2.1% and that there are quite some other risk factors with
 modalitity share less than 5%. In order to correct above potential
-issues, we can further categorize `Purpose` and `Age (years)` in order
-to satisfy the following criteria:
+issues, we can further categorize risk factors `Purpose` and
+`Age (years)` in order to satisfy the following criteria:
 
 -   each modality has at least 5% of the observations or minimum 30
     observations,
@@ -479,7 +594,7 @@ to satisfy the following criteria:
     on default rate).
 
 For this purpose we will use function `cat.bin`. Additional example of
-`cat.bin` function usage can be found in its help page `?cat.bin`.
+`cat.bin` function usage can be found in its help page `?cat.bin`.</br>
 *Note*: Usually in the practice greater attention is paid on this step
 and all risk factors are examined closer.
 
@@ -499,24 +614,24 @@ bivariate(db = loans[, c(rf, "Creditability")], target = "Creditability")
 ```
 
     ## $results
-    ##            rf             bin  no  ng  nb pct.o     pct.g      pct.b        dr   so  sg  sb    dist.g     dist.b
-    ## 1     Purpose         1 [1,8] 111  94  17 0.111 0.1342857 0.05666667 0.1531532 1000 700 300 0.1342857 0.05666667
-    ## 2     Purpose           2 [3] 300 218  82 0.300 0.3114286 0.27333333 0.2733333 1000 700 300 0.3114286 0.27333333
-    ## 3     Purpose           3 [2] 177 123  54 0.177 0.1757143 0.18000000 0.3050847 1000 700 300 0.1757143 0.18000000
-    ## 4     Purpose     4 [0,4,5,9] 351 230 121 0.351 0.3285714 0.40333333 0.3447293 1000 700 300 0.3285714 0.40333333
-    ## 5     Purpose        5 [10,6]  61  35  26 0.061 0.0500000 0.08666667 0.4262295 1000 700 300 0.0500000 0.08666667
-    ## 6 Age (years)  1 [01 [19,26)] 187 108  79 0.187 0.1542857 0.26333333 0.4224599 1000 700 300 0.1542857 0.26333333
-    ## 7 Age (years)  2 [02 [26,35)] 349 238 111 0.349 0.3400000 0.37000000 0.3180516 1000 700 300 0.3400000 0.37000000
-    ## 8 Age (years) 3 [03 [35,Inf)] 464 354 110 0.464 0.5057143 0.36666667 0.2370690 1000 700 300 0.5057143 0.36666667
-    ##           woe         iv.b      iv.s       auc
-    ## 1  0.86278358 0.0669684396 0.1075375 0.5805190
-    ## 2  0.13047796 0.0049705888 0.1075375 0.5805190
-    ## 3 -0.02409755 0.0001032752 0.1075375 0.5805190
-    ## 4 -0.20500910 0.0153268706 0.1075375 0.5805190
-    ## 5 -0.55004634 0.0201683657 0.1075375 0.5805190
-    ## 6 -0.53461449 0.0582984368 0.1055416 0.5857476
-    ## 7 -0.08455739 0.0025367216 0.1055416 0.5857476
-    ## 8  0.32151869 0.0447064079 0.1055416 0.5857476
+    ##            rf             bin  no  ng  nb pct.o     pct.g      pct.b        dr   so  sg  sb
+    ## 1     Purpose         1 [1,8] 111  94  17 0.111 0.1342857 0.05666667 0.1531532 1000 700 300
+    ## 2     Purpose           2 [3] 300 218  82 0.300 0.3114286 0.27333333 0.2733333 1000 700 300
+    ## 3     Purpose           3 [2] 177 123  54 0.177 0.1757143 0.18000000 0.3050847 1000 700 300
+    ## 4     Purpose     4 [0,4,5,9] 351 230 121 0.351 0.3285714 0.40333333 0.3447293 1000 700 300
+    ## 5     Purpose        5 [10,6]  61  35  26 0.061 0.0500000 0.08666667 0.4262295 1000 700 300
+    ## 6 Age (years)  1 [01 [19,26)] 187 108  79 0.187 0.1542857 0.26333333 0.4224599 1000 700 300
+    ## 7 Age (years)  2 [02 [26,35)] 349 238 111 0.349 0.3400000 0.37000000 0.3180516 1000 700 300
+    ## 8 Age (years) 3 [03 [35,Inf)] 464 354 110 0.464 0.5057143 0.36666667 0.2370690 1000 700 300
+    ##      dist.g     dist.b         woe         iv.b      iv.s       auc
+    ## 1 0.1342857 0.05666667  0.86278358 0.0669684396 0.1075375 0.5805190
+    ## 2 0.3114286 0.27333333  0.13047796 0.0049705888 0.1075375 0.5805190
+    ## 3 0.1757143 0.18000000 -0.02409755 0.0001032752 0.1075375 0.5805190
+    ## 4 0.3285714 0.40333333 -0.20500910 0.0153268706 0.1075375 0.5805190
+    ## 5 0.0500000 0.08666667 -0.55004634 0.0201683657 0.1075375 0.5805190
+    ## 6 0.1542857 0.26333333 -0.53461449 0.0582984368 0.1055416 0.5857476
+    ## 7 0.3400000 0.37000000 -0.08455739 0.0025367216 0.1055416 0.5857476
+    ## 8 0.5057143 0.36666667  0.32151869 0.0447064079 0.1055416 0.5857476
     ## 
     ## $info
     ## data frame with 0 columns and 0 rows
@@ -543,34 +658,41 @@ woe.res <- replace.woe(db = loans, target = "Creditability")
 head(woe.res[[1]])
 ```
 
-    ##   Creditability Account Balance Duration of Credit (month) Payment Status of Previous Credit     Purpose
-    ## 1             0      -0.8180987                 -0.1959478                        0.73374058 -0.02409755
-    ## 2             0      -0.8180987                  0.3466246                        0.73374058 -0.20500910
-    ## 3             0      -0.4013918                  0.3466246                       -0.08831862 -0.20500910
-    ## 4             0      -0.8180987                  0.3466246                        0.73374058 -0.20500910
-    ## 5             0      -0.8180987                  0.3466246                        0.73374058 -0.20500910
-    ## 6             0      -0.8180987                  0.3466246                        0.73374058 -0.20500910
-    ##   Credit Amount Value Savings/Stocks Length of current employment Instalment per cent Sex & Marital Status
-    ## 1     0.2208734           -0.2713578                  -0.47082029         -0.15730029           -0.2353408
-    ## 2     0.2208734           -0.2713578                  -0.03210325          0.15546647            0.1655476
-    ## 3     0.2208734           -0.1395519                   0.39441527          0.15546647           -0.2353408
-    ## 4     0.2208734           -0.2713578                  -0.03210325          0.06453852            0.1655476
-    ## 5     0.2208734           -0.2713578                  -0.03210325         -0.15730029            0.1655476
-    ## 6     0.2208734           -0.2713578                  -0.47082029          0.25131443            0.1655476
-    ##     Guarantors Duration in Current address Most valuable available asset Age (years) Concurrent Credits
-    ## 1 0.0005250722                -0.001152738                   -0.02857337  -0.5346145          0.1211786
-    ## 2 0.0005250722                -0.070150705                    0.46103496   0.3215187          0.1211786
-    ## 3 0.0005250722                -0.001152738                    0.46103496  -0.5346145          0.1211786
-    ## 4 0.0005250722                -0.070150705                    0.46103496   0.3215187          0.1211786
-    ## 5 0.0005250722                -0.001152738                   -0.02857337   0.3215187         -0.4836299
-    ## 6 0.0005250722                 0.054941118                    0.46103496   0.3215187          0.1211786
-    ##   Type of apartment No of Credits at this Bank Occupation No of dependents   Telephone
-    ## 1        -0.4044452                 -0.0748775 0.02278003      -0.00281611 -0.06469132
-    ## 2        -0.4044452                  0.1157105 0.02278003       0.01540863 -0.06469132
-    ## 3        -0.4044452                 -0.0748775 0.09716375      -0.00281611 -0.06469132
-    ## 4        -0.4044452                  0.1157105 0.09716375       0.01540863 -0.06469132
-    ## 5         0.1960517                  0.1157105 0.09716375      -0.00281611 -0.06469132
-    ## 6        -0.4044452                  0.1157105 0.09716375       0.01540863 -0.06469132
+    ##   Creditability Account Balance Duration of Credit (month) Payment Status of Previous Credit
+    ## 1             0      -0.8180987                 -0.1959478                        0.73374058
+    ## 2             0      -0.8180987                  0.3466246                        0.73374058
+    ## 3             0      -0.4013918                  0.3466246                       -0.08831862
+    ## 4             0      -0.8180987                  0.3466246                        0.73374058
+    ## 5             0      -0.8180987                  0.3466246                        0.73374058
+    ## 6             0      -0.8180987                  0.3466246                        0.73374058
+    ##       Purpose Credit Amount Value Savings/Stocks Length of current employment
+    ## 1 -0.02409755     0.2208734           -0.2713578                  -0.47082029
+    ## 2 -0.20500910     0.2208734           -0.2713578                  -0.03210325
+    ## 3 -0.20500910     0.2208734           -0.1395519                   0.39441527
+    ## 4 -0.20500910     0.2208734           -0.2713578                  -0.03210325
+    ## 5 -0.20500910     0.2208734           -0.2713578                  -0.03210325
+    ## 6 -0.20500910     0.2208734           -0.2713578                  -0.47082029
+    ##   Instalment per cent Sex & Marital Status   Guarantors Duration in Current address
+    ## 1         -0.15730029           -0.2353408 0.0005250722                -0.001152738
+    ## 2          0.15546647            0.1655476 0.0005250722                -0.070150705
+    ## 3          0.15546647           -0.2353408 0.0005250722                -0.001152738
+    ## 4          0.06453852            0.1655476 0.0005250722                -0.070150705
+    ## 5         -0.15730029            0.1655476 0.0005250722                -0.001152738
+    ## 6          0.25131443            0.1655476 0.0005250722                 0.054941118
+    ##   Most valuable available asset Age (years) Concurrent Credits Type of apartment
+    ## 1                   -0.02857337  -0.5346145          0.1211786        -0.4044452
+    ## 2                    0.46103496   0.3215187          0.1211786        -0.4044452
+    ## 3                    0.46103496  -0.5346145          0.1211786        -0.4044452
+    ## 4                    0.46103496   0.3215187          0.1211786        -0.4044452
+    ## 5                   -0.02857337   0.3215187         -0.4836299         0.1960517
+    ## 6                    0.46103496   0.3215187          0.1211786        -0.4044452
+    ##   No of Credits at this Bank Occupation No of dependents   Telephone
+    ## 1                 -0.0748775 0.02278003      -0.00281611 -0.06469132
+    ## 2                  0.1157105 0.02278003       0.01540863 -0.06469132
+    ## 3                 -0.0748775 0.09716375      -0.00281611 -0.06469132
+    ## 4                  0.1157105 0.09716375       0.01540863 -0.06469132
+    ## 5                  0.1157105 0.09716375      -0.00281611 -0.06469132
+    ## 6                  0.1157105 0.09716375       0.01540863 -0.06469132
 
 ``` r
 loans.woe <- woe.res[[1]]
@@ -609,11 +731,11 @@ clustering can be found in help page `?rf.clustering`, while the details
 about `x2y` metric are presented in this
 [link](https://rama100.github.io/lecture-notes/x2y.nb.html).
 
-Due to the fact that for this example we don’t have to many risk factors
-we will not use results of cluster analysis to shorten the list of
-potential risk factors for the final PD model.
+Due to the fact that for this example we don’t have too many risk
+factors we will not use results of cluster analysis to shorten the list
+of potential risk factors for the final PD model.
 
-Next step is then to perform multivariate analysis and to select the
+The next step is then to perform multivariate analysis and to select the
 final PD model. In order to complete this task we will use function
 `stepMIV`. This function uses concept of marginal information value in
 order to select risk factors in the model. Details can be found on the
@@ -651,10 +773,12 @@ multiv.res$model
     ## Call:  glm(formula = mod.frm, family = "binomial", data = db)
     ## 
     ## Coefficients:
-    ##                         (Intercept)                    `Account Balance`         `Duration of Credit (month)`  
-    ##                             -0.8386                              -0.8516                              -0.9586  
-    ## `Payment Status of Previous Credit`               `Value Savings/Stocks`                              Purpose  
-    ##                             -0.7857                              -0.7754                              -0.9566  
+    ##                         (Intercept)                    `Account Balance`  
+    ##                             -0.8386                              -0.8516  
+    ##        `Duration of Credit (month)`  `Payment Status of Previous Credit`  
+    ##                             -0.9586                              -0.7857  
+    ##              `Value Savings/Stocks`                              Purpose  
+    ##                             -0.7754                              -0.9566  
     ##                          Guarantors  
     ##                             -1.1917  
     ## 
@@ -684,34 +808,41 @@ pd.db <- multiv.res$dev.db
 head(pd.db)
 ```
 
-    ##   Creditability Account Balance Duration of Credit (month) Payment Status of Previous Credit     Purpose
-    ## 1             0      -0.8180987                 -0.1959478                        0.73374058 -0.02409755
-    ## 2             0      -0.8180987                  0.3466246                        0.73374058 -0.20500910
-    ## 3             0      -0.4013918                  0.3466246                       -0.08831862 -0.20500910
-    ## 4             0      -0.8180987                  0.3466246                        0.73374058 -0.20500910
-    ## 5             0      -0.8180987                  0.3466246                        0.73374058 -0.20500910
-    ## 6             0      -0.8180987                  0.3466246                        0.73374058 -0.20500910
-    ##   Credit Amount Value Savings/Stocks Length of current employment Instalment per cent Sex & Marital Status
-    ## 1 01 [250,3914)           -0.2713578                            2                   4                    2
-    ## 2 01 [250,3914)           -0.2713578                            3                   2                    3
-    ## 3 01 [250,3914)           -0.1395519                            4                   2                    2
-    ## 4 01 [250,3914)           -0.2713578                            3                   3                    3
-    ## 5 01 [250,3914)           -0.2713578                            3                   4                    3
-    ## 6 01 [250,3914)           -0.2713578                            2                   1                    3
-    ##     Guarantors Duration in Current address Most valuable available asset     Age (years) Concurrent Credits
-    ## 1 0.0005250722                           4                             2  1 [01 [19,26)]                  3
-    ## 2 0.0005250722                           2                             1 3 [03 [35,Inf)]                  3
-    ## 3 0.0005250722                           4                             1  1 [01 [19,26)]                  3
-    ## 4 0.0005250722                           2                             1 3 [03 [35,Inf)]                  3
-    ## 5 0.0005250722                           4                             2 3 [03 [35,Inf)]                  1
-    ## 6 0.0005250722                           3                             1 3 [03 [35,Inf)]                  3
-    ##   Type of apartment No of Credits at this Bank Occupation No of dependents Telephone
-    ## 1                 1                          1          3                1         1
-    ## 2                 1                          2          3                2         1
-    ## 3                 1                          1          2                1         1
-    ## 4                 1                          2          2                2         1
-    ## 5                 2                          2          2                1         1
-    ## 6                 1                          2          2                2         1
+    ##   Creditability Account Balance Duration of Credit (month) Payment Status of Previous Credit
+    ## 1             0      -0.8180987                 -0.1959478                        0.73374058
+    ## 2             0      -0.8180987                  0.3466246                        0.73374058
+    ## 3             0      -0.4013918                  0.3466246                       -0.08831862
+    ## 4             0      -0.8180987                  0.3466246                        0.73374058
+    ## 5             0      -0.8180987                  0.3466246                        0.73374058
+    ## 6             0      -0.8180987                  0.3466246                        0.73374058
+    ##       Purpose Credit Amount Value Savings/Stocks Length of current employment
+    ## 1 -0.02409755 01 [250,3914)           -0.2713578                            2
+    ## 2 -0.20500910 01 [250,3914)           -0.2713578                            3
+    ## 3 -0.20500910 01 [250,3914)           -0.1395519                            4
+    ## 4 -0.20500910 01 [250,3914)           -0.2713578                            3
+    ## 5 -0.20500910 01 [250,3914)           -0.2713578                            3
+    ## 6 -0.20500910 01 [250,3914)           -0.2713578                            2
+    ##   Instalment per cent Sex & Marital Status   Guarantors Duration in Current address
+    ## 1                   4                    2 0.0005250722                           4
+    ## 2                   2                    3 0.0005250722                           2
+    ## 3                   2                    2 0.0005250722                           4
+    ## 4                   3                    3 0.0005250722                           2
+    ## 5                   4                    3 0.0005250722                           4
+    ## 6                   1                    3 0.0005250722                           3
+    ##   Most valuable available asset     Age (years) Concurrent Credits Type of apartment
+    ## 1                             2  1 [01 [19,26)]                  3                 1
+    ## 2                             1 3 [03 [35,Inf)]                  3                 1
+    ## 3                             1  1 [01 [19,26)]                  3                 1
+    ## 4                             1 3 [03 [35,Inf)]                  3                 1
+    ## 5                             2 3 [03 [35,Inf)]                  1                 2
+    ## 6                             1 3 [03 [35,Inf)]                  3                 1
+    ##   No of Credits at this Bank Occupation No of dependents Telephone
+    ## 1                          1          3                1         1
+    ## 2                          2          3                2         1
+    ## 3                          1          2                1         1
+    ## 4                          2          2                2         1
+    ## 5                          2          2                1         1
+    ## 6                          2          2                2         1
 
 ``` r
 #calculate area under curve (AUC) for the final model
@@ -722,10 +853,10 @@ auc.model(predictions = predict(pd.model, type = "response", newdata = pd.db),
     ## [1] 0.7983738
 
 In practise multivariate analysis is highly iterative process, so
-usually analysts ended up with a few candidate models. After that based
-on diffent statistical validation of these models and business input one
-is selected as the final. For the further process we will assume that
-the model from the previous step is the final and proceed with its
+usually analysts end up with a few candidate models. After that based on
+different statistical and business validations of these models, one is
+selected as the final. For the further process we will assume that the
+model from the previous step is the final and proceed with its
 validation. For that purpose we will apply k-fold cross-validation and
 validation based on bootstrapping. Both methods are implemented in
 `PDtoolkit` package, concretely in functions `kfold.vld` and
@@ -773,11 +904,11 @@ boots.vld.res[[2]]
     ##        amse      rmse       auc
     ## 1 0.1603226 0.4002763 0.7975205
 
-After validating perfmorance metrics on the previous procedures, we
-would like to test if there are some segments within modeling data set
-where our final model significantly overestimate or underestimate
-observed defaults. This can be achieved using function `segment.vld`,
-also implemented in `PDtoolkit` package.
+After validating perfmorance metrics form the previous step, we would
+like to test if there are some segments within modeling data set where
+our final model significantly overestimate or underestimate observed
+defaults. This can be achieved using function `segment.vld`, also
+implemented in `PDtoolkit` package.
 
 ``` r
 segment.vld(model = pd.model, 
@@ -801,7 +932,7 @@ segment.vld(model = pd.model,
     ## NULL
 
 For more examples check help page `?segment.vld`. After decision on the
-final model, analysis usually transforms model probabilities into scaled
+final model, analysts usually transform model probabilities into scaled
 scores and form the rating scale. Next example presents how these two
 tasks can be accomplished using `PDtoolkit` and `monobin` package.
 
@@ -838,13 +969,13 @@ rs
     ## 5 05 [515,547)   267    52   215 0.195 
     ## 6 06 [547,Inf)   266    14   252 0.0526
 
-Often default rate from the modeling data set differs significantly from
-the so-called portfolio central tendency (in practice known as long-run
-average). Without going deeper into reasons and direction of this
-difference we will assume that central tendency for this case study is
-25% and re-calibrate our rating scale. In order to do so, we will used
+Often default rate from the modeling data set differs from the so-called
+portfolio central tendency (in practice known as long-run average).
+Without going deeper into reasons and direction of this difference we
+will assume that central tendency for this case study is 25% and
+re-calibrate our rating scale. In order to do so, we will used
 `rs.calibration` function from `PDtoolkit` package. For details on
-calibration option check its help page `?rs.calibration`.
+calibration options check its help page `?rs.calibration`.
 
 ``` r
 rs$pd <- rs.calibration(rs = rs, 
@@ -896,11 +1027,11 @@ auc.model(predictions = pd.db$pd, observed = pd.db$Creditability)
     ## [1] 0.79465
 
 After PD model developemt is finalized, analysts have to perform regular
-validation of the model performance. Model validation is at least yearly
-process and it is performed on so-called application portfolio.
-`PDtoolkit` has set of functions that are useful for model validations
-and next steps present its usage. Before implementation of any of the
-validation tests, let’s simulate application portfolio.
+validation of the model performance. Model validation is performed at
+least on yearly basis on so-called application portfolio. `PDtoolkit`
+has set of functions that are useful for model validations and next
+steps present its usage. Before implementation of any of the validation
+tests, let’s simulate application portfolio.
 
 ``` r
 set.seed(112233)
@@ -1015,20 +1146,20 @@ pp.testing(rating.label = rs.ap$rating,
          alpha = 0.05)
 ```
 
-    ##         rating  no nb        odr       pdc alpha  binomial   binomial.res   jeffreys   jeffreys.res     zscore
-    ## 1 01 [417,473)  47 36 0.76595745 0.7400826  0.05 0.4159984 H0: ODR <= PDC 0.35159815 H0: ODR <= PDC 0.34293973
-    ## 2 02 [473,482)  35 21 0.60000000 0.6069830  0.05 0.6059111 H0: ODR <= PDC 0.53854844 H0: ODR <= PDC 0.53370338
-    ## 3 03 [482,506)  93 37 0.39784946 0.3750350  0.05 0.3613128 H0: ODR <= PDC 0.32231637 H0: ODR <= PDC 0.32475205
-    ## 4 04 [506,515)  53 15 0.28301887 0.2516151  0.05 0.3479606 H0: ODR <= PDC 0.29276184 H0: ODR <= PDC 0.29914802
-    ## 5 05 [515,547) 131 22 0.16793893 0.1537853  0.05 0.3621511 H0: ODR <= PDC 0.31876653 H0: ODR <= PDC 0.32669329
-    ## 6 06 [547,Inf) 141 11 0.07801418 0.0500000  0.05 0.0966087 H0: ODR <= PDC 0.07085215 H0: ODR <= PDC 0.06346722
-    ##       zscore.res hosmer.lemeshow hosmer.lemeshow.res
-    ## 1 H0: ODR <= PDC       0.7851538      H0: ODR <= PDC
-    ## 2 H0: ODR <= PDC       0.7851538      H0: ODR <= PDC
-    ## 3 H0: ODR <= PDC       0.7851538      H0: ODR <= PDC
-    ## 4 H0: ODR <= PDC       0.7851538      H0: ODR <= PDC
-    ## 5 H0: ODR <= PDC       0.7851538      H0: ODR <= PDC
-    ## 6 H0: ODR <= PDC       0.7851538      H0: ODR <= PDC
+    ##         rating  no nb        odr       pdc alpha  binomial   binomial.res   jeffreys
+    ## 1 01 [417,473)  47 36 0.76595745 0.7400826  0.05 0.4159984 H0: ODR <= PDC 0.35159815
+    ## 2 02 [473,482)  35 21 0.60000000 0.6069830  0.05 0.6059111 H0: ODR <= PDC 0.53854844
+    ## 3 03 [482,506)  93 37 0.39784946 0.3750350  0.05 0.3613128 H0: ODR <= PDC 0.32231637
+    ## 4 04 [506,515)  53 15 0.28301887 0.2516151  0.05 0.3479606 H0: ODR <= PDC 0.29276184
+    ## 5 05 [515,547) 131 22 0.16793893 0.1537853  0.05 0.3621511 H0: ODR <= PDC 0.31876653
+    ## 6 06 [547,Inf) 141 11 0.07801418 0.0500000  0.05 0.0966087 H0: ODR <= PDC 0.07085215
+    ##     jeffreys.res     zscore     zscore.res hosmer.lemeshow hosmer.lemeshow.res
+    ## 1 H0: ODR <= PDC 0.34293973 H0: ODR <= PDC       0.7851538      H0: ODR <= PDC
+    ## 2 H0: ODR <= PDC 0.53370338 H0: ODR <= PDC       0.7851538      H0: ODR <= PDC
+    ## 3 H0: ODR <= PDC 0.32475205 H0: ODR <= PDC       0.7851538      H0: ODR <= PDC
+    ## 4 H0: ODR <= PDC 0.29914802 H0: ODR <= PDC       0.7851538      H0: ODR <= PDC
+    ## 5 H0: ODR <= PDC 0.32669329 H0: ODR <= PDC       0.7851538      H0: ODR <= PDC
+    ## 6 H0: ODR <= PDC 0.06346722 H0: ODR <= PDC       0.7851538      H0: ODR <= PDC
 
 As we can see from the results, all tests rejected the hypotesis of
 underestimation of the calibrated PD in comparison to the observed
@@ -1063,8 +1194,10 @@ power(rating.label = rs.ap$rating,
     ## 6 06 [547,Inf) 141 11 0.07801418 0.0500000    0.287    0.391  0.391       <NA>
     ## 
     ## $hosmer.lemeshow
-    ##                                                                                    rating hosmer.lemeshow
-    ## 1 01 [417,473) + 02 [473,482) + 03 [482,506) + 04 [506,515) + 05 [515,547) + 06 [547,Inf)           0.268
+    ##                                                                                    rating
+    ## 1 01 [417,473) + 02 [473,482) + 03 [482,506) + 04 [506,515) + 05 [515,547) + 06 [547,Inf)
+    ##   hosmer.lemeshow
+    ## 1           0.268
 
 For this application portfolio characheristics we can conclude that in
 average higher power of detecting the real underestimation of calibrated
