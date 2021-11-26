@@ -75,7 +75,7 @@
 #'loans$maturity.bin <- cum.bin(x = loans$maturity, 
 #'					y = loans$Creditability, g = 50)[[2]]
 #'table(loans$maturity.bin)
-#'#run binning procedure
+#'#run binning procedure to decrease number of bins from the previous step
 #'res <- cat.bin(x = loans$maturity.bin, 
 #'		   y = loans$Creditability, 
 #'		   sc = "SC",
@@ -136,10 +136,11 @@ cat.bin <- function(x, y, sc = NA, sc.merge = "none", min.pct.obs = 0.05, min.av
 		ds <- ds[order(ds$dr), ]	
 		}
 	if	(sum(d$x%in%sc) > 0) {
-		d$x[d$x%in%sc] <- switch(sc.merge, "none" = d$x[d$x%in%sc],
-							     "first" = ds$bin[1],
-							     "last" = rev(ds$bin[!ds$bin%in%sc])[1],
-							     "closest" = find.closest(ds = ds, sc = sc))
+		sc.replace <- switch(sc.merge, "none" = d$x[d$x%in%sc],
+							 "first" = ds$bin[!ds$bin%in%sc][1],
+							 "last" = rev(ds$bin[!ds$bin%in%sc])[1],
+							 "closest" = find.closest(ds = ds, sc = sc))
+		d$x[d$x%in%sc] <- sc.replace
 		if	(!sc.merge%in%"none") {
 			ds <- d %>% 
 				group_by(bin = x) %>%
@@ -180,6 +181,13 @@ cat.bin <- function(x, y, sc = NA, sc.merge = "none", min.pct.obs = 0.05, min.av
 		d <- left_join(d[, c("x", "y")], ds[,c("bin", "label")], by = c("x" = "bin"))
 		d$label[d$x%in%sc] <- d$x[d$x%in%sc]
 		summary.tbl <- woe.tbl(tbl = d, x = "label", y = "y")	
+		if	(exists("sc.replace")) {
+			if	(sc.merge%in%"none") {
+				summary.tbl$sc.replace <- "none"
+				} else {
+				summary.tbl$sc.replace <- paste0(sc.merge, " & ", sc.replace)
+				}	
+			}
 		x.trans <- d$label
 		}
 return(list(summary.tbl = summary.tbl, x.trans = x.trans))
