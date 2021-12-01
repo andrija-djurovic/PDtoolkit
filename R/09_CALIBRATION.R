@@ -84,7 +84,7 @@ rs.calibration <- function(rs, dr, w, ct, min.pd, method) {
 	dr <- unname(c(rs[, dr], recursive = TRUE)) 
 	w <- unname(c(rs[, w], recursive = TRUE))
 	if	(any(dr > 1 | dr < 0)) {
-		stop("Default rate has to be withing 0-1 range.")
+		stop("Default rate has to be within 0-1 range.")
 		}
 	pd.calib <- switch(method, "scaling" = calib.scaling(dr = dr, w = w, ct = ct, min.pd = min.pd),
 					   "log.odds.a" = calib.log.odds.a(dr = dr, w = w, ct = ct, min.pd = min.pd),
