@@ -6,7 +6,7 @@
 #'			ratings in use.
 #'@param def.ind Name of the column that represents observed default indicator (0/1).
 #'@param rating Name of the column that represent rating grades in use.
-#'@param alpha Threshold for p-value for two proportion test. Default is 0.05.
+#'@param alpha Significance level of p-value for two proportion test. Default is 0.05.
 #'@details
 #' Testing procedure starts with summarizing the number of observations and defaults per rating grade.
 #' After that, two proportion test is applied on adjacent rating grades. Testing hypothesis is that 
