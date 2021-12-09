@@ -14,7 +14,7 @@
 #'		have to be of the same type (if WoE coding is used it has to be numeric with WoE values).
 #'		Additionally, the rest of the risk factors (these that are supplied in \code{db}, but not used
 #'		for \code{model} development will be used for segment validation.
-#'@param alpha Threshold for p-value for one proportion test. Default is 0.05.
+#'@param alpha Significance level of p-value for one proportion test. Default is 0.05.
 #'@return The command \code{segment.vld} returns a list of three objects.\cr
 #'	    The first object (\code{segment.model}), returns regression tree results (\code{rpart} object).\cr
 #'	    The second object (\code{segment.testing}), is the data frame with segment overview and testing results.\cr
