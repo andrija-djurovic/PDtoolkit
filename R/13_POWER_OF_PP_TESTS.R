@@ -9,7 +9,7 @@
 #'@param pdc Vector of calibrated probabilities of default (PD).
 #'@param no Number of observations per rating grade.
 #'@param nb Number of defaults (bad cases) per rating grade.
-#'@param alpha Threshold for p-value for implemented tests. Default is 0.05.
+#'@param alpha Significance level of p-value for implemented tests. Default is 0.05.
 #'@param sim.num Number of Monte Carlo simulations. Default is 1000.
 #'@param seed Random seed needed for ensuring the result reproducibility. Default is 2211.
 #'@details
