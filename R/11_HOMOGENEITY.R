@@ -14,7 +14,7 @@
 #'		     into \code{segment.num} of groups otherwise is it used as supplied.
 #'@param segment.num Number of groups used for numeric variables supplied as a segment. Only applicable if \code{segment}
 #'			   is of numeric type.
-#'@param alpha Threshold for p-value for two proportion test. Default is 0.05.
+#'@param alpha Significance level of p-value for two proportion test. Default is 0.05.
 #'@details
 #' Testing procedure is implemented for each rating separately comparing default rate from one segment modality to  
 #' the default rate from the rest of segment modalities.
