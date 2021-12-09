@@ -10,7 +10,7 @@
 #'@param pdc Vector of calibrated probabilities of default (PD).
 #'@param no Number of observations per rating grade.
 #'@param nb Number of defaults (bad cases) per rating grade.
-#'@param alpha Threshold for p-value for implemented tests. Default is 0.05.
+#'@param alpha Significance level for p-value for implemented tests. Default is 0.05.
 #'@details
 #' Due to the fact that test of predictive power is usually implemented on the application portfolio,
 #' certain prerequisites are needed to be fulfilled. In the first place model should be developed
@@ -23,7 +23,7 @@
 #'@references
 #'Tasche, D. (2008). Validation of internal rating systems and PD estimates,
 #'			   The Analytics of Risk Model Validation, Quantitative Finance, 
-#'			   Elsevier B.V., <doi:10.1016/B978-075068158-2.50014-7>.\cr
+#'			   Elsevier B.V., \doi{10.1016/B978-075068158-2.50014-7}.\cr
 #'Oesterreichische Nationalbank (2004). Rating Models and Validation,
 #'						    Oesterreichische Nationalbank (OeNB). 
 #'@examples
@@ -101,6 +101,9 @@ pp.testing <- function(rating.label, pdc, no, nb, alpha = 0.05) {
 		}
 	if	(any(nb < 0 | no < 0)) {
 		stop("no and nb arguments cannot be negative.")
+		}
+	if	(alpha > 1 | alpha < 0) {
+		stop("significance level (alpha) has to be between 0 and 1.")
 		}
 	bino.test <- pbinom(nb - 1, no, pdc, lower.tail = FALSE)
 	bino.test.res <- ifelse(bino.test >= alpha, "H0: ODR <= PDC", "H1: ODR > PDC")
