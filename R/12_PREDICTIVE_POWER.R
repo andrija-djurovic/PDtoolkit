@@ -10,7 +10,7 @@
 #'@param pdc Vector of calibrated probabilities of default (PD).
 #'@param no Number of observations per rating grade.
 #'@param nb Number of defaults (bad cases) per rating grade.
-#'@param alpha Significance level for p-value for implemented tests. Default is 0.05.
+#'@param alpha Significance level of p-value for implemented tests. Default is 0.05.
 #'@details
 #' Due to the fact that test of predictive power is usually implemented on the application portfolio,
 #' certain prerequisites are needed to be fulfilled. In the first place model should be developed
