@@ -12,7 +12,7 @@
 #'@param pdc Name of the column that represent calibrated PD in use.
 #'@param auc.test Value of tested AUC (usually AUC from development sample).
 #'@param alternative Alternative hypothesis. Available options are: \code{"less", "greater", "two.sided"}.
-#'@param alpha Threshold for p-value for hypothesis testing. Default is 0.05.
+#'@param alpha Significance level of p-value for hypothesis testing. Default is 0.05.
 #'@details
 #' Due to the fact that test of discriminatory power is usually implemented on the application portfolio,
 #' certain prerequisites are needed to be fulfilled. In the first place model should be developed
