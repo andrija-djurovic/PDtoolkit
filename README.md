@@ -969,7 +969,7 @@ rs
 Often default rate from the modeling data set differs from the so-called
 portfolio central tendency (in practice known as long-run average).
 Without going deeper into reasons and direction of this difference we
-will assume that central tendency for this case study is 25% and
+will assume that central tendency for this case study is 27% and
 re-calibrate our rating scale. In order to do so, we will used
 `rs.calibration` function from `PDtoolkit` package. For details on
 calibration options check its help page `?rs.calibration`.
