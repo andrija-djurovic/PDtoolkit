@@ -6,7 +6,7 @@
 #'@param miv.threshold MIV entrance threshold. Only the risk factors with MIV higher than thresholds are candidate
 #'			     for the new model. Additional criteria is that MIV value should significantly separate
 #'			     good from bad cases measured by marginal chi-square test. 
-#'@param m.ch.p.val p-value threshold for marginal chi-square test. This test additionally supports MIV value of 
+#'@param m.ch.p.val Significance level of p-value for marginal chi-square test. This test additionally supports MIV value of 
 #'		        of candidate risk factor for final decision.
 #'@param coding Type of risk factor coding within the model. Available options are: \code{"WoE"} and
 #'		    \code{"dummy"}. If \code{"WoE"} is selected, then modalities of the risk factors are replaced

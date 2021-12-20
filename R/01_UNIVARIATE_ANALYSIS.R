@@ -165,7 +165,7 @@ return(res)
 #'@param sc.replace Vector of special case element to be replaced. Default values are \code{c(NA, NaN, Inf)}.	
 #'@param method.num Imputation method for numeric risk factors. Available options are: \cr
 #'		    \code{"automatic", "mean", "median", "zero"}.
-#'@param p.val Threshold of p-value for Pearson normality test. Applicable only if \code{method.num} is 
+#'@param p.val Significance level of p-value for Pearson normality test. Applicable only if \code{method.num} is 
 #' \code{automatic}.
 #'@return This function returns list of two data frames. The first data frame contains analyzed risk factors with
 #' imputed values for special cases, while the second data frame presents the imputation report. 

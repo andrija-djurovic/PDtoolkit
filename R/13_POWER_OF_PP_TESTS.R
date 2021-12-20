@@ -4,7 +4,7 @@
 #' ability of the PD rating model. It covers fours tests: binomial, Jeffreys, z-score and Hosmer-Lemeshow test.
 #' This procedure is applied under assumption that observed default rate is the true one and it make sense
 #' to use it in order to check if calibrated PDs are underestimated. Therefore, for the cases where observed 
-#' default rate is lower than calibrated PD, power calculation is not performed and will report the comment
+#' default rate is lower than calibrated PD, power calculation is not performed and will report the comment.
 #'@param rating.label Vector of rating labels.
 #'@param pdc Vector of calibrated probabilities of default (PD).
 #'@param no Number of observations per rating grade.

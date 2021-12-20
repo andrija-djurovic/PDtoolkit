@@ -90,9 +90,9 @@ return(list(iter = res, summary = res.s))
 #' Bootstrap model validation
 #'
 #' \code{boots.vld} performs bootstrap model validation. 
-#' The main goal of this procedure is to generate main model performance metrics such as absolute mean
+#' The goal of this procedure is to generate main model performance metrics such as absolute mean
 #' square error, root mean square error or area under curve (AUC) based on resampling method.
-#'@param model Model in use, an object of class inheriting from \code{"glm"}
+#'@param model Model in use, an object of class inheriting from \code{"glm"}.
 #'@param B Number of bootstrap samples. Default is set to 1000. 
 #'@param seed Random seed needed for ensuring the result reproducibility. Default is 1122.
 #'@return The command \code{boots.vld} returns a list of two objects.\cr
