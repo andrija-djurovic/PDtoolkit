@@ -20,7 +20,7 @@ into \code{segment.num} of groups otherwise is it used as supplied.}
 \item{segment.num}{Number of groups used for numeric variables supplied as a segment. Only applicable if \code{segment}
 is of numeric type.}
 
-\item{alpha}{Threshold for p-value for two proportion test. Default is 0.05.}
+\item{alpha}{Significance level of p-value for two proportion test. Default is 0.05.}
 }
 \value{
 The command \code{homogeneity} returns a data frame with the following columns:

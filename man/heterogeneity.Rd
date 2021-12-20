@@ -14,7 +14,7 @@ ratings in use.}
 
 \item{rating}{Name of the column that represent rating grades in use.}
 
-\item{alpha}{Threshold for p-value for two proportion test. Default is 0.05.}
+\item{alpha}{Significance level of p-value for two proportion test. Default is 0.05.}
 }
 \value{
 The command \code{heterogeneity} returns a data frame with the following columns:
@@ -37,7 +37,7 @@ After that, two proportion test is applied on adjacent rating grades. Testing hy
 default rate of grade \code{i} is less or greater than default rate of grade \code{i - 1}, where \code{i}
 takes the values from 2 to the number of unique grades.
 Direction of alternative hypothesis (less or greater) is determined automatically based on correlation direction
-between rating grades and observed default rate.
+of observed default on rating grades.
 Incomplete cases, identified based on default indicator (\code{def.ind}) and rating grade (\code{rating })
 columns are excluded from the summary table and testing procedure. If identified, warning will be returned.
 }

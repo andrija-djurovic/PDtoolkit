@@ -7,7 +7,7 @@
 boots.vld(model, B = 1000, seed = 1122)
 }
 \arguments{
-\item{model}{Model in use, an object of class inheriting from \code{"glm"}}
+\item{model}{Model in use, an object of class inheriting from \code{"glm"}.}
 
 \item{B}{Number of bootstrap samples. Default is set to 1000.}
 
@@ -20,7 +20,7 @@ The second object (\code{summary}), is the data frame of iterations averages of 
 }
 \description{
 \code{boots.vld} performs bootstrap model validation.
-The main goal of this procedure is to generate main model performance metrics such as absolute mean
+The goal of this procedure is to generate main model performance metrics such as absolute mean
 square error, root mean square error or area under curve (AUC) based on resampling method.
 }
 \examples{

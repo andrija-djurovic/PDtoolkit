@@ -22,7 +22,7 @@ imp.sc(
 \item{method.num}{Imputation method for numeric risk factors. Available options are: \cr
 \code{"automatic", "mean", "median", "zero"}.}
 
-\item{p.val}{Threshold of p-value for Pearson normality test. Applicable only if \code{method.num} is
+\item{p.val}{Significance level of p-value for Pearson normality test. Applicable only if \code{method.num} is
 \code{automatic}.}
 }
 \value{

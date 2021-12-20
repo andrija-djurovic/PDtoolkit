@@ -47,5 +47,5 @@ auc.model(predictions = loans$score, observed = ifelse(loans$Creditability == 0,
 }
 \references{
 Siddiqi, N. (2012). Credit Risk Scorecards: Developing and Implementing Intelligent Credit Scoring,
-John Wiley & Sons, Inc., \doi{10.1002/9781119201731}.
+John Wiley & Sons, Inc., \url{doi:10.1002/9781119201731}.
 }

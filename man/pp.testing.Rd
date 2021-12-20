@@ -15,7 +15,7 @@ pp.testing(rating.label, pdc, no, nb, alpha = 0.05)
 
 \item{nb}{Number of defaults (bad cases) per rating grade.}
 
-\item{alpha}{Threshold for p-value for implemented tests. Default is 0.05.}
+\item{alpha}{Significance level of p-value for implemented tests. Default is 0.05.}
 }
 \value{
 The command \code{pp.testing} returns a data frame with input parameters along with

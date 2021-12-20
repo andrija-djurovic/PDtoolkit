@@ -14,7 +14,7 @@ defined only with intercept (\code{y ~ 1} where \code{y} is target variable).}
 for the new model. Additional criteria is that MIV value should significantly separate
 good from bad cases measured by marginal chi-square test.}
 
-\item{m.ch.p.val}{p-value threshold for marginal chi-square test. This test additionally supports MIV value of
+\item{m.ch.p.val}{Significance level of p-value for marginal chi-square test. This test additionally supports MIV value of
 of candidate risk factor for final decision.}
 
 \item{coding}{Type of risk factor coding within the model. Available options are: \code{"WoE"} and

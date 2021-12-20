@@ -40,7 +40,7 @@ Default value is \code{"none"}.}
 \item{max.groups}{Maximum number of bins (groups) allowed for analyzed risk factor. If in the first two stages
 number of bins is less or equal to selected \code{max.groups} or if \code{max.groups} is
 default value (\code{NA}), no adjustment is performed. Otherwise, APA algorithm is applied
-which minimize information loss in further iterative process of group merging.}
+which minimize information loss in further iterative process of bin merging.}
 
 \item{force.trend}{Defines how initial summary table will be ordered. Possible options are:\cr
 \code{"modalities"} and \code{"dr"}. If  \code{"modalities"} is selected, then merging will be
@@ -99,7 +99,7 @@ loans$maturity[1:10] <- NA
 loans$maturity.bin <- cum.bin(x = loans$maturity, 
 				y = loans$Creditability, g = 50)[[2]]
 table(loans$maturity.bin)
-#run binning procedure
+#run binning procedure to decrease number of bins from the previous step
 res <- cat.bin(x = loans$maturity.bin, 
 	   y = loans$Creditability, 
 	   sc = "SC",
@@ -113,7 +113,7 @@ res[[1]]
 table(loans$maturity.bin, res[[2]], useNA = "always")
 }
 \references{
-Anderson, R. (2007). The credit scoring toolkit : theory and practice for
+Anderson, R. (2007). The credit scoring toolkit: theory and practice for
 retail credit risk management and decision automation,
 Oxford University Press
 }

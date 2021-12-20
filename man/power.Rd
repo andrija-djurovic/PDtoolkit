@@ -15,7 +15,7 @@ power(rating.label, pdc, no, nb, alpha = 0.05, sim.num = 1000, seed = 2211)
 
 \item{nb}{Number of defaults (bad cases) per rating grade.}
 
-\item{alpha}{Threshold for p-value for implemented tests. Default is 0.05.}
+\item{alpha}{Significance level of p-value for implemented tests. Default is 0.05.}
 
 \item{sim.num}{Number of Monte Carlo simulations. Default is 1000.}
 
@@ -35,7 +35,7 @@ will not be performed.
 ability of the PD rating model. It covers fours tests: binomial, Jeffreys, z-score and Hosmer-Lemeshow test.
 This procedure is applied under assumption that observed default rate is the true one and it make sense
 to use it in order to check if calibrated PDs are underestimated. Therefore, for the cases where observed
-default rate is lower than calibrated PD, power calculation is not performed and will report the comment
+default rate is lower than calibrated PD, power calculation is not performed and will report the comment.
 }
 \details{
 Due to the fact that test of predictive power is usually implemented on the application portfolio,

@@ -18,7 +18,7 @@ calibrated probabilities of default (PD) in use.}
 
 \item{alternative}{Alternative hypothesis. Available options are: \code{"less", "greater", "two.sided"}.}
 
-\item{alpha}{Threshold for p-value for hypothesis testing. Default is 0.05.}
+\item{alpha}{Significance level of p-value for hypothesis testing. Default is 0.05.}
 }
 \value{
 The command \code{dp.testing} returns a data frame with input parameters along with
@@ -28,7 +28,7 @@ standard error of observed AUC, p-value of testing procedure and accepted hypoth
 \description{
 \code{dp.testing} performs testing of discriminatory power of the model in use applied to application portfolio
 in comparison to the discriminatory power from the moment of development. Testing is performed based on area
-under curve (AUC) from the application portfolio and development sample under assumption that former is a
+under curve (AUC) from the application portfolio and development sample under assumption that latter is a
 deterministic (as given) and that test statistics follow the normal distribution.
 Standard error of AUC for application portfolio is calculated as proposed by
 Hanley and McNeil (see References).
