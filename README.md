@@ -1164,8 +1164,8 @@ default rate. Sometimes the tests that serve the same purpose can
 produce opposite results (lead to opposite conclusions) leaving analysts
 in dilemma about overall conclusion. For that purpose we developed the
 function `power` which implements simple framework of power analysis of
-the statistical tests. More concretely, this function calculate power of
-four test used for predictive ability testing. Assumption of the power
+the statistical tests. More concretely, this function calculates the power of
+the four tests used for predictive ability testing. Assumption of the power
 analysis is that observed default rate is the real default rate, so the
 ultimate goal of this analysis is to quantify ability of each
 statistical test to detect the difference between calibrated and real
