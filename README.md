@@ -757,7 +757,7 @@ boots.vld.res[[2]]
     ##        amse      rmse       auc
     ## 1 0.1603226 0.4002763 0.7975205
 
-After validating perfmorance metrics form the previous step, we would
+After validating perfmorance metrics from the previous step, we would
 like to test if there are some segments within modeling data set where
 our final model significantly overestimate or underestimate observed
 defaults. This can be achieved using function `segment.vld`, also
