@@ -464,7 +464,7 @@ Based on results of the bivariate analysis we can see that risk factor
 `Purpose` has 10 modalities, that `Age (years)` has share of special
 cases 2.1% and that there are quite some other risk factors with
 modalitity share less than 5%. In order to correct above potential
-issues, we can further categorize risk factors `Purpose` and
+issues, we can further categorize risk factors `Purpose`, `Foreign Worker` and
 `Age (years)` in order to satisfy the following criteria:
 
 -   each modality has at least 5% of the observations or minimum 30
