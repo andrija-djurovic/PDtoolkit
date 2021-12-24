@@ -76,7 +76,7 @@ auc.model(predictions = predict(final.model, type = "response", newdata = res$de
     observed = res$dev.db$Creditability)
 }
 \references{
-Scallan, G. (2013). Measuring Lack of Fit in Logistic Regression,
+Scallan, G. (2011). Class(ic) Scorecards: Selecting Characteristics and Attributes in Logistic Regression,
 Edinburgh Credit Scoring Conference, downloaded from
 \href{https://www.scoreplus.com/papers/papers}{here}.
 }
