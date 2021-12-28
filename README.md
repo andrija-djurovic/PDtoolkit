@@ -816,7 +816,7 @@ pd.db$score <- round(scaled.score(probs = pd.db$probs, score = 600, odd = 50/1, 
 hist(pd.db$score, col = "red", main = "Score distribution", xlab = "score")
 ```
 
-![plot](./man/figures/unnamed-chunk-14-1.png)
+![](./man/figures/unnamed-chunk-14-1.png)
 
 ``` r
 #create ratings based on binning algorithm
