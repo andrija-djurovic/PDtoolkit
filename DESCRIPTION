@@ -8,7 +8,7 @@ Authors@R:
            email = "djandrija@gmail.com")
 Maintainer: Andrija Djurovic <djandrija@gmail.com>
 Description: The goal of this package is to cover the most common steps in probability of default (PD) rating model development and validation. 
-	     The main procedures available are those that refers to univariate, bivariate, multivariate analysis, calibration and validations. 
+	     The main procedures available are those that refer to univariate, bivariate, multivariate analysis, calibration and validations. 
 	     Along with accompanied 'monobin' and 'monobinShiny' packages, 'PDtoolkit' provides functions which are suitable for different 
 	     data transformation and modeling tasks such as: 
 	     imputations, monotonic binning of numeric risk factors, binning of categorical risk factors, weights of evidence (WoE) and 
