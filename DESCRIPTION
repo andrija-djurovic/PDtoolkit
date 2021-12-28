@@ -13,8 +13,8 @@ Description: The goal of this package is to cover the most common steps in proba
 	     data transformation and modeling tasks such as: 
 	     imputations, monotonic binning of numeric risk factors, binning of categorical risk factors, weights of evidence (WoE) and 
 	     information value (IV) calculations, WoE coding (replacement of risk factors modalities with WoE values), risk factor clustering, 
-	     area under curve (AUC) calculation and others. Additionally, set of validation functions are available (homogeneity, 
-	     heterogeneity as well as discriminatory and predictive ability testing of the model on the application portfolio).
+	     area under curve (AUC) calculation and others. Additionally, package provides set of validation functions: homogeneity, 
+	     heterogeneity as well as functions for testing the discriminatory and predictive testing of the model.
 License: GPL (>= 3)
 URL: https://github.com/andrija-djurovic/PDtoolkit
 Encoding: UTF-8
