@@ -17,7 +17,7 @@ functions which are suitable for different data transformation and
 modeling tasks such as: imputations, monotonic binning of numeric risk
 factors, binning of categorical risk factors, weights of evidence (WoE)
 and information value (IV) calculations, WoE coding (replacement of risk
-factors modalities with WoE values), risk factor clustering, area under
+factors' modalities with WoE values), risk factor clustering, area under
 curve (AUC) calculation and others.</br> Beside mentioned features, set
 of validation functions are available (homogeneity, heterogeneity as
 well as discriminatory and predictive power testing).
