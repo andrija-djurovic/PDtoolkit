@@ -845,7 +845,7 @@ Often default rate from the modeling data set differs from the so-called
 portfolio central tendency (in practice known as long-run average).
 Without going deeper into reasons and direction of this difference we
 will assume that central tendency for this case study is 27% and
-re-calibrate our rating scale. In order to do so, we will used
+re-calibrate our rating scale. In order to do so, we will use
 `rs.calibration` function from `PDtoolkit` package. For details on
 calibration options check its help page `?rs.calibration`.
 
@@ -901,7 +901,7 @@ auc.model(predictions = pd.db$pd, observed = pd.db$Creditability)
 After finalization of PD model development, analysts have to perform
 regular validation of the model performance. Model validation is
 performed at least on yearly basis on so-called application portfolio.
-`PDtoolkit` has set of functions that are useful for model validations
+`PDtoolkit` has set of functions that are useful for model validation
 and next steps present its usage. Before implementation of any of the
 validation tests, let’s simulate application portfolio.
 
@@ -977,7 +977,7 @@ dp.testing(app.port = app.port,
 
 So, from the validation results, we can conclude that slight decrease of
 AUC in application portfolio in comparison to development sample cannot
-be consider as statistically significant for significance level of 5%.
+be considered as statistically significant for significance level of 5%.
 Beside the discriminatory power, analysts are also interested in testing
 the predictive ability of PD model in use. For this validation
 procedure, hypothesis is that calibrated PDs are not underestimated,
