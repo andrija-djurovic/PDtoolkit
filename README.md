@@ -607,7 +607,7 @@ rf.clustering(db = loans.woe, metric = "common pearson", k = NA)
 Beside metrics that require numeric inputs, there is `x2y` metric that
 works with both numeric and categorical data. This metric is especially
 handy if analyst wants to perform clustering before any binning
-procedures and to decrease number of risk factors. More examples of the
+procedures and to decrease the number of risk factors. More examples of the
 clustering can be found in help page `?rf.clustering`, while the details
 about `x2y` metric are presented in this
 [link](https://rama100.github.io/lecture-notes/x2y.nb.html).
