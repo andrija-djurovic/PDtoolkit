@@ -470,7 +470,7 @@ Based on results of the bivariate analysis we can see that risk factor
 cases 2.1% and that there are quite some other risk factors with
 modality share less than 5%. In order to correct above potential issues,
 we can further categorize risk factors `Purpose`, `Foreign Worker`  
-and `Age (years)` in order to satisfy the following criteria:
+and `Age (years)` given the following criteria:
 
 -   each modality has at least 5% of the observations or minimum 30
     observations,
