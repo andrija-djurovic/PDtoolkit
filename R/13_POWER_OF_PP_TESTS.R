@@ -1,4 +1,4 @@
-#' Power of statistical test for predictive ability testing
+#' Power of statistical tests for predictive ability testing
 #'
 #' \code{power} performs Monte Carlo simulation of power of statistical test used for testing the predictive 
 #' ability of the PD rating model. It covers fours tests: binomial, Jeffreys, z-score and Hosmer-Lemeshow test.
