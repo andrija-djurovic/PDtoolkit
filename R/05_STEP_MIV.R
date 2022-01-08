@@ -11,7 +11,7 @@
 #'@param coding Type of risk factor coding within the model. Available options are: \code{"WoE"} and
 #'		    \code{"dummy"}. If \code{"WoE"} is selected, then modalities of the risk factors are replaced
 #'		    by WoE values, while for \code{"dummy"} option dummies (0/1) will be created for \code{n-1} 
-#'		    modalities when \code{n} is total number of modalities of analyzed risk factor.
+#'		    modalities where \code{n} is total number of modalities of analyzed risk factor.
 #'@param db Modeling data with risk factors and target variable. All risk factors should be categorized and as of
 #'		character type.
 #'@return The command \code{stepMIV} returns a list of five objects.\cr
