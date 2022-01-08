@@ -27,11 +27,11 @@ identified, otherwise it is\code{NULL}.
 \description{
 \code{segment.vld} performs model segment validation based on residuals.
 The main goal of this procedure is to identify segments where model in use overestimates or
-underestimates true default rate. The procedure consists of a few steps. The first step is to
+underestimates the observed default rate. The procedure consists of a few steps. The first step is to
 calculate the model residuals (observed default indicator minus estimated probability).
 Then, on obtained residuals, the regression tree is fitted for segment identification.
 Finally, one proportion test is applied in order to test overestimation or underestimation
-of the true default rate within these segments. Results of this validation can indicate
+of the observed default rate within these segments. Results of this validation can indicate
 omission of some important risk factor(s) or some specific sub-portfolio for which model performs
 worse than for the rest of the portfolio.
 }

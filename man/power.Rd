@@ -2,7 +2,7 @@
 % Please edit documentation in R/13_POWER_OF_PP_TESTS.R
 \name{power}
 \alias{power}
-\title{Power of statistical test for predictive ability testing}
+\title{Power of statistical tests for predictive ability testing}
 \usage{
 power(rating.label, pdc, no, nb, alpha = 0.05, sim.num = 1000, seed = 2211)
 }
