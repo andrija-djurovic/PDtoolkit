@@ -12,6 +12,8 @@
 #'		    \code{"dummy"}. If \code{"WoE"} is selected, then modalities of the risk factors are replaced
 #'		    by WoE values, while for \code{"dummy"} option dummies (0/1) will be created for \code{n-1} 
 #'		    modalities where \code{n} is total number of modalities of analyzed risk factor.
+#'@param coding.start.model Logical (\code{TRUE} or \code{FALSE}), if risk factors from the starting model should be WoE coded. 
+#'				    It will have an impact only for WoE coding option. Default value is \code{FALSE}.
 #'@param db Modeling data with risk factors and target variable. All risk factors should be categorized and as of
 #'		character type.
 #'@return The command \code{stepMIV} returns a list of five objects.\cr
@@ -20,7 +22,7 @@
 #'	    The third object (\code{miv.iter}), is the data frame with iteration details.\cr
 #'	    The fourth object (\code{warnings}), is the data frame with warnings if any observed.
 #'	    The warnings refer to the following checks: if risk factor has more than 10 modalities,
-#'	    if any of the bins (groups) has less then 5% of observations and 
+#'	    if any of the bins (groups) has less than 5% of observations and 
 #'	    if there are problems with WoE calculations.\cr
 #'	    The final, fifth, object \code{dev.db} is returned only is \code{coding} is selected as \code{"WoE"}. 
 #'	    In that case data frame with replaced WoE values for risk factors that are selected in the 
@@ -44,6 +46,7 @@
 #'		   miv.threshold = 0.02, 
 #'		   m.ch.p.val = 0.05,
 #'		   coding = "WoE",
+#'		   coding.start.model = FALSE,
 #'		   db = loans)
 #'#check output elements
 #'names(res)
@@ -65,7 +68,7 @@
 #'@import monobin
 #'@importFrom stats formula
 #'@export
-stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, db) {
+stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, coding.start.model = FALSE, db) {
 	#check arguments
 	if	(!is.data.frame(db)) {
 		stop("db is not a data frame.")
@@ -77,6 +80,9 @@ stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, db) {
 	if	(!(is.numeric(miv.threshold) & length(miv.threshold) == 1 &
 		 is.numeric(m.ch.p.val) & length(m.ch.p.val) == 1)) {
 		stop("miv.threshold and m.ch.p.val has to be of numeric type.")
+		}
+	if	(!is.logical(coding.start.model)) {
+		stop("coding.start.model has to be logical (TRUE or FALSE).")
 		}
 	#extract model variables
 	start.vars <- all.vars(start.model)
@@ -137,7 +143,7 @@ stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, db) {
 	#check pct of obs per bin
 	check.pct <- unique(rf.woe.o$rf[rf.woe.o$pct.check]) 
 	if	(length(check.pct) > 0) {
-		warn.rep <- data.frame(rf = check.pct, comment = "At least one pct per bin less then 5%.")
+		warn.rep <- data.frame(rf = check.pct, comment = "At least one pct per bin less than 5%.")
 		warn.tbl <- bind_rows(warn.tbl, warn.rep)
 		}
 	#check WoE calc
@@ -150,16 +156,18 @@ stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, db) {
 		rf.rest <- rf.rest[!rf.rest%in%check.woe]
 		}
 	#check coding
-	if	(coding%in%"WoE" & length(rf.start) > 0) {
-		woe.rep <- replace.woe(db = db[, c(target, rf.start)], target = target)
-		woe.rep.check <- woe.rep[[2]]
-		if	(nrow(woe.rep.check) > 0) {
-			msg <- "Problem with the WoE calculations for the starting model. 
-				  Check the variable class and the following risk factors for NA or Inf values: "
-			msg <- paste0(msg, paste(woe.rep.check$rf, collapse = ", "), ".")
-			stop(msg)
+	if	(coding.start.model) {
+		if	(coding%in%"WoE" & length(rf.start) > 0) {
+			woe.rep <- replace.woe(db = db[, c(target, rf.start)], target = target)
+			woe.rep.check <- woe.rep[[2]]
+			if	(nrow(woe.rep.check) > 0) {
+				msg <- "Problem with the WoE calculations for the starting model. 
+				  	Check the variable class and the following risk factors for NA or Inf values: "
+				msg <- paste0(msg, paste(woe.rep.check$rf, collapse = ", "), ".")
+				stop(msg)
+				}
+			db[, rf.start] <- woe.rep[[1]][, rf.start]
 			}
-		db[, rf.start] <- woe.rep[[1]][, rf.start]
 		}
 	#miv calculation
 	steps <- data.frame()
@@ -205,8 +213,9 @@ stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, db) {
 		iter <- iter + 1	
 		}
 	lr.mod <- glm(formula = mod.frm, family = "binomial", data = db)
+	if	(nrow(steps) > 0) {steps <- cbind.data.frame(target = target, steps)}
 	res <- list(model = lr.mod, 
-			steps = cbind.data.frame(target = target, steps), 
+			steps = steps, 
 			miv.iter = miv.iter.tbl, 
 			warnings = if (nrow(warn.tbl) > 0) {warn.tbl} else {data.frame(comment = "There are no warnings.")}, 
 			dev.db = if	(coding%in%"WoE") {db} else {data.frame()}
