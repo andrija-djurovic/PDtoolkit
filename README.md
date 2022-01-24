@@ -1,5 +1,5 @@
 
-## PDtoolkit
+## PDtoolkit 0.1.0
 
 `PDtoolkit` provides collection of tools for probability of default (PD)
 rating model development and validation.</br> Keeping in mind the fact
@@ -45,7 +45,10 @@ library(rpart)
 
 If the packages are not already installed, run the following code before
 the library import </br>
-`install.packages(c("PDtoolkit", "monobin", "rpart"))`.
+`install.packages(c("PDtoolkit", "monobin", "rpart"))` in order to
+install it from the CRAN, while
+`devtools::install_github("andrija-djurovic/PDtoolkit")` to install
+development version.
 
 Then, let’s import and inspect the structure of the modeling data set -
 `loans`.
@@ -99,56 +102,56 @@ package:
 univariate(db = loans)
 ```
 
-    ##                                   rf   rf.type       bin.type            bin  cnt   pct cnt.unique min     p1     p5
-    ## 1                      Creditability   numeric complete cases complete cases 1000 1.000          2   0   0.00   0.00
-    ## 2                    Account Balance character complete cases complete cases 1000 1.000          4  NA     NA     NA
-    ## 3         Duration of Credit (month)   numeric complete cases complete cases 1000 1.000         33   4   6.00   6.00
-    ## 4  Payment Status of Previous Credit character complete cases complete cases 1000 1.000          5  NA     NA     NA
-    ## 5                            Purpose character  special cases  special cases   21 0.021          1  NA     NA     NA
-    ## 6                            Purpose character complete cases complete cases  979 0.979         10  NA     NA     NA
-    ## 7                      Credit Amount   numeric  special cases  special cases   10 0.010          1 Inf     NA     NA
-    ## 8                      Credit Amount   numeric complete cases complete cases  990 0.990        915 250 424.13 708.45
-    ## 9               Value Savings/Stocks character complete cases complete cases 1000 1.000          5  NA     NA     NA
-    ## 10      Length of current employment character complete cases complete cases 1000 1.000          5  NA     NA     NA
-    ## 11               Instalment per cent character complete cases complete cases 1000 1.000          4  NA     NA     NA
-    ## 12              Sex & Marital Status character complete cases complete cases 1000 1.000          4  NA     NA     NA
-    ## 13                        Guarantors character complete cases complete cases 1000 1.000          3  NA     NA     NA
-    ## 14       Duration in Current address character complete cases complete cases 1000 1.000          4  NA     NA     NA
-    ## 15     Most valuable available asset character complete cases complete cases 1000 1.000          4  NA     NA     NA
-    ## 16                       Age (years)   numeric  special cases  special cases   21 0.021          1 Inf     NA     NA
-    ## 17                       Age (years)   numeric complete cases complete cases  979 0.979         53  19  20.00  22.00
-    ## 18                Concurrent Credits character complete cases complete cases 1000 1.000          3  NA     NA     NA
-    ## 19                 Type of apartment character complete cases complete cases 1000 1.000          3  NA     NA     NA
-    ## 20        No of Credits at this Bank character complete cases complete cases 1000 1.000          4  NA     NA     NA
-    ## 21                        Occupation character complete cases complete cases 1000 1.000          4  NA     NA     NA
-    ## 22                  No of dependents character complete cases complete cases 1000 1.000          2  NA     NA     NA
-    ## 23                         Telephone character complete cases complete cases 1000 1.000          2  NA     NA     NA
-    ## 24                    Foreign Worker character complete cases complete cases 1000 1.000          2  NA     NA     NA
-    ##        p25  p50        avg      avg.se     p75    p95      p99   max neg  pos cnt.outliers sc.ind
-    ## 1     0.00    0    0.30000  0.01449863    1.00    1.0     1.00     1   0  300            0      0
-    ## 2       NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 3    12.00   18   20.90300  0.38133320   24.00   48.0    60.00    72   0 1000           70      0
-    ## 4       NA   NA         NA          NA      NA     NA       NA    NA   0  960           NA      0
-    ## 5       NA   NA         NA          NA      NA     NA       NA    NA  NA   NA           NA      0
-    ## 6       NA   NA         NA          NA      NA     NA       NA    NA   0  755           NA      0
-    ## 7       NA   NA        NaN          NA      NA     NA       NA  -Inf  NA   NA            0      0
-    ## 8  1371.25 2324 3283.24242 90.03256824 3978.25 9219.7 14194.29 18424   0  990           72      0
-    ## 9       NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 10      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 11      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 12      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 13      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 14      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 15      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 16      NA   NA        NaN          NA      NA     NA       NA  -Inf  NA   NA            0      0
-    ## 17   27.00   33   35.52605  0.36315861   42.00   60.0    67.22    75   0  979           23      0
-    ## 18      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 19      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 20      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 21      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 22      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 23      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
-    ## 24      NA   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ##                                   rf   rf.type       bin.type            bin  cnt   pct cnt.unique min     p1     p5     p25
+    ## 1                      Creditability   numeric complete cases complete cases 1000 1.000          2   0   0.00   0.00    0.00
+    ## 2                    Account Balance character complete cases complete cases 1000 1.000          4  NA     NA     NA      NA
+    ## 3         Duration of Credit (month)   numeric complete cases complete cases 1000 1.000         33   4   6.00   6.00   12.00
+    ## 4  Payment Status of Previous Credit character complete cases complete cases 1000 1.000          5  NA     NA     NA      NA
+    ## 5                            Purpose character  special cases  special cases   21 0.021          1  NA     NA     NA      NA
+    ## 6                            Purpose character complete cases complete cases  979 0.979         10  NA     NA     NA      NA
+    ## 7                      Credit Amount   numeric  special cases  special cases   10 0.010          1 Inf     NA     NA      NA
+    ## 8                      Credit Amount   numeric complete cases complete cases  990 0.990        915 250 424.13 708.45 1371.25
+    ## 9               Value Savings/Stocks character complete cases complete cases 1000 1.000          5  NA     NA     NA      NA
+    ## 10      Length of current employment character complete cases complete cases 1000 1.000          5  NA     NA     NA      NA
+    ## 11               Instalment per cent character complete cases complete cases 1000 1.000          4  NA     NA     NA      NA
+    ## 12              Sex & Marital Status character complete cases complete cases 1000 1.000          4  NA     NA     NA      NA
+    ## 13                        Guarantors character complete cases complete cases 1000 1.000          3  NA     NA     NA      NA
+    ## 14       Duration in Current address character complete cases complete cases 1000 1.000          4  NA     NA     NA      NA
+    ## 15     Most valuable available asset character complete cases complete cases 1000 1.000          4  NA     NA     NA      NA
+    ## 16                       Age (years)   numeric  special cases  special cases   21 0.021          1 Inf     NA     NA      NA
+    ## 17                       Age (years)   numeric complete cases complete cases  979 0.979         53  19  20.00  22.00   27.00
+    ## 18                Concurrent Credits character complete cases complete cases 1000 1.000          3  NA     NA     NA      NA
+    ## 19                 Type of apartment character complete cases complete cases 1000 1.000          3  NA     NA     NA      NA
+    ## 20        No of Credits at this Bank character complete cases complete cases 1000 1.000          4  NA     NA     NA      NA
+    ## 21                        Occupation character complete cases complete cases 1000 1.000          4  NA     NA     NA      NA
+    ## 22                  No of dependents character complete cases complete cases 1000 1.000          2  NA     NA     NA      NA
+    ## 23                         Telephone character complete cases complete cases 1000 1.000          2  NA     NA     NA      NA
+    ## 24                    Foreign Worker character complete cases complete cases 1000 1.000          2  NA     NA     NA      NA
+    ##     p50        avg      avg.se     p75    p95      p99   max neg  pos cnt.outliers sc.ind
+    ## 1     0    0.30000  0.01449863    1.00    1.0     1.00     1   0  300            0      0
+    ## 2    NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 3    18   20.90300  0.38133320   24.00   48.0    60.00    72   0 1000           70      0
+    ## 4    NA         NA          NA      NA     NA       NA    NA   0  960           NA      0
+    ## 5    NA         NA          NA      NA     NA       NA    NA  NA   NA           NA      0
+    ## 6    NA         NA          NA      NA     NA       NA    NA   0  755           NA      0
+    ## 7    NA        NaN          NA      NA     NA       NA  -Inf  NA   NA            0      0
+    ## 8  2324 3283.24242 90.03256824 3978.25 9219.7 14194.29 18424   0  990           72      0
+    ## 9    NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 10   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 11   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 12   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 13   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 14   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 15   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 16   NA        NaN          NA      NA     NA       NA  -Inf  NA   NA            0      0
+    ## 17   33   35.52605  0.36315861   42.00   60.0    67.22    75   0  979           23      0
+    ## 18   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 19   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 20   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 21   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 22   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 23   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
+    ## 24   NA         NA          NA      NA     NA       NA    NA   0 1000           NA      0
 
 Based on the results we can see that `univariate` treats differently
 so-called special and complete cases. For result details and additional
@@ -607,9 +610,9 @@ rf.clustering(db = loans.woe, metric = "common pearson", k = NA)
 Beside metrics that require numeric inputs, there is `x2y` metric that
 works with both numeric and categorical data. This metric is especially
 handy if analyst wants to perform clustering before any binning
-procedures and to decrease the number of risk factors. More examples of the
-clustering can be found in help page `?rf.clustering`, while the details
-about `x2y` metric are presented in this
+procedures and to decrease the number of risk factors. More examples of
+the clustering can be found in help page `?rf.clustering`, while the
+details about `x2y` metric are presented in this
 [link](https://rama100.github.io/lecture-notes/x2y.nb.html).
 
 Due to the fact that for this example we don’t have too many risk
@@ -816,7 +819,7 @@ pd.db$score <- round(scaled.score(probs = pd.db$probs, score = 600, odd = 50/1, 
 hist(pd.db$score, col = "red", main = "Score distribution", xlab = "score")
 ```
 
-![](./man/figures/unnamed-chunk-14-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 ``` r
 #create ratings based on binning algorithm
@@ -888,7 +891,7 @@ text(x = bp, y = rs$pd, label = paste0(round(100 * rs$pd, 2), "%"), col = "red",
      cex = 0.6, pos = 3)
 ```
 
-![](./man/figures/unnamed-chunk-15-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 ``` r
 #bring PDs to the modeling data set and calculate AUC
@@ -1018,20 +1021,20 @@ pp.testing(rating.label = rs.ap$rating,
          alpha = 0.05)
 ```
 
-    ##         rating  no nb        odr       pdc alpha  binomial   binomial.res   jeffreys   jeffreys.res     zscore
-    ## 1 01 [417,473)  47 36 0.76595745 0.7400826  0.05 0.4159984 H0: ODR <= PDC 0.35159815 H0: ODR <= PDC 0.34293973
-    ## 2 02 [473,482)  35 21 0.60000000 0.6069830  0.05 0.6059111 H0: ODR <= PDC 0.53854844 H0: ODR <= PDC 0.53370338
-    ## 3 03 [482,506)  93 37 0.39784946 0.3750350  0.05 0.3613128 H0: ODR <= PDC 0.32231637 H0: ODR <= PDC 0.32475205
-    ## 4 04 [506,515)  53 15 0.28301887 0.2516151  0.05 0.3479606 H0: ODR <= PDC 0.29276184 H0: ODR <= PDC 0.29914802
-    ## 5 05 [515,547) 131 22 0.16793893 0.1537853  0.05 0.3621511 H0: ODR <= PDC 0.31876653 H0: ODR <= PDC 0.32669329
-    ## 6 06 [547,Inf) 141 11 0.07801418 0.0500000  0.05 0.0966087 H0: ODR <= PDC 0.07085215 H0: ODR <= PDC 0.06346722
-    ##       zscore.res hosmer.lemeshow hosmer.lemeshow.res
-    ## 1 H0: ODR <= PDC       0.7851538      H0: ODR <= PDC
-    ## 2 H0: ODR <= PDC       0.7851538      H0: ODR <= PDC
-    ## 3 H0: ODR <= PDC       0.7851538      H0: ODR <= PDC
-    ## 4 H0: ODR <= PDC       0.7851538      H0: ODR <= PDC
-    ## 5 H0: ODR <= PDC       0.7851538      H0: ODR <= PDC
-    ## 6 H0: ODR <= PDC       0.7851538      H0: ODR <= PDC
+    ##         rating  no nb        odr       pdc alpha  binomial   binomial.res   jeffreys   jeffreys.res     zscore     zscore.res
+    ## 1 01 [417,473)  47 36 0.76595745 0.7400826  0.05 0.4159984 H0: ODR <= PDC 0.35159815 H0: ODR <= PDC 0.34293973 H0: ODR <= PDC
+    ## 2 02 [473,482)  35 21 0.60000000 0.6069830  0.05 0.6059111 H0: ODR <= PDC 0.53854844 H0: ODR <= PDC 0.53370338 H0: ODR <= PDC
+    ## 3 03 [482,506)  93 37 0.39784946 0.3750350  0.05 0.3613128 H0: ODR <= PDC 0.32231637 H0: ODR <= PDC 0.32475205 H0: ODR <= PDC
+    ## 4 04 [506,515)  53 15 0.28301887 0.2516151  0.05 0.3479606 H0: ODR <= PDC 0.29276184 H0: ODR <= PDC 0.29914802 H0: ODR <= PDC
+    ## 5 05 [515,547) 131 22 0.16793893 0.1537853  0.05 0.3621511 H0: ODR <= PDC 0.31876653 H0: ODR <= PDC 0.32669329 H0: ODR <= PDC
+    ## 6 06 [547,Inf) 141 11 0.07801418 0.0500000  0.05 0.0966087 H0: ODR <= PDC 0.07085215 H0: ODR <= PDC 0.06346722 H0: ODR <= PDC
+    ##   hosmer.lemeshow hosmer.lemeshow.res
+    ## 1       0.7851538      H0: ODR <= PDC
+    ## 2       0.7851538      H0: ODR <= PDC
+    ## 3       0.7851538      H0: ODR <= PDC
+    ## 4       0.7851538      H0: ODR <= PDC
+    ## 5       0.7851538      H0: ODR <= PDC
+    ## 6       0.7851538      H0: ODR <= PDC
 
 As we can see from the results, all tests rejected the hypothesis of
 underestimation of the calibrated PD in comparison to the observed
@@ -1073,4 +1076,7 @@ For this application portfolio characteristic we can conclude that in
 average higher power of detecting the real underestimation of calibrated
 PD have Jeffreys and z-score in comparison to the binomial test. Since
 the Hosmer-Lemeshow test is the only test applied to the complete rating
-scale, there is no other test to be compared with.
+scale, there is no other test to be compared with.</br></br> Additional
+functions that are implemented but not presented in the above examples
+are: `psi` and `create.partitions`. For its use and examples, please,
+check the help pages.
