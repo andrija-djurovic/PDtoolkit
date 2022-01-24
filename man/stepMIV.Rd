@@ -4,7 +4,14 @@
 \alias{stepMIV}
 \title{Stepwise logistic regression based on marginal information value (MIV)}
 \usage{
-stepMIV(start.model, miv.threshold, m.ch.p.val, coding, db)
+stepMIV(
+  start.model,
+  miv.threshold,
+  m.ch.p.val,
+  coding,
+  coding.start.model = FALSE,
+  db
+)
 }
 \arguments{
 \item{start.model}{Formula class that represent starting model. If can include some risk factors, but it can be
@@ -22,6 +29,9 @@ of candidate risk factor for final decision.}
 by WoE values, while for \code{"dummy"} option dummies (0/1) will be created for \code{n-1}
 modalities where \code{n} is total number of modalities of analyzed risk factor.}
 
+\item{coding.start.model}{Logical (\code{TRUE} or \code{FALSE}), if risk factors from the starting model should be WoE coded.
+It will have an impact only for WoE coding option. Default value is \code{FALSE}.}
+
 \item{db}{Modeling data with risk factors and target variable. All risk factors should be categorized and as of
 character type.}
 }
@@ -32,7 +42,7 @@ The second object (\code{steps}), is the data frame with risk factors selected a
 The third object (\code{miv.iter}), is the data frame with iteration details.\cr
 The fourth object (\code{warnings}), is the data frame with warnings if any observed.
 The warnings refer to the following checks: if risk factor has more than 10 modalities,
-if any of the bins (groups) has less then 5\% of observations and
+if any of the bins (groups) has less than 5\% of observations and
 if there are problems with WoE calculations.\cr
 The final, fifth, object \code{dev.db} is returned only is \code{coding} is selected as \code{"WoE"}.
 In that case data frame with replaced WoE values for risk factors that are selected in the
@@ -56,6 +66,7 @@ res <- stepMIV(start.model = Creditability ~ 1,
 	   miv.threshold = 0.02, 
 	   m.ch.p.val = 0.05,
 	   coding = "WoE",
+	   coding.start.model = FALSE,
 	   db = loans)
 #check output elements
 names(res)
