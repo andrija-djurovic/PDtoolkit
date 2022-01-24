@@ -17,7 +17,7 @@
 #' are tabulated.
 #'@references 
 #' Yurdakul, B. (2018). Statistical Properties of Population Stability Index . Dissertations. 3208.
-#'				downloaded from \href{https://scholarworks.wmich.edu/dissertations/3208/}{here}  
+#'				downloaded from \href{https://scholarworks.wmich.edu/dissertations/3208}{here}  
 #'@examples
 #'suppressMessages(library(PDtoolkit))
 #'data(loans)
