@@ -3,4 +3,4 @@ Changes:<br/>
 
 1. The new argument added to ```stepMIV``` function - ```coding.start.model``` which allows user to have different coding types for starting and final model. 
 Additionally, the same function is improved adding the check for its output value - ```if	(nrow(steps) > 0) {steps <- cbind.data.frame(target = target, steps)}```. <br/>
-2. Package extended with a new functions: ```psi``` and ```create.partitions```.
+2. Package is extended with a new functions: ```psi``` and ```create.partitions```.
