@@ -227,6 +227,7 @@ miv <- function(model.formula, rf.new, db, woe.o = NULL) {
 	model.c <- glm(formula = model.formula, family = "binomial", data = db)
 	model.p <- unname(predict(model.c, newdata = db, type = "response")) 
 	db$pred <- model.p
+	db <- db[!is.na(db$pred), ]
 	if	(is.null(woe.o)) {
 		observed <- woe.tbl(tbl = db, x = rf.new, y = all.vars(formula(model.formula))[1])
 		} else { 
