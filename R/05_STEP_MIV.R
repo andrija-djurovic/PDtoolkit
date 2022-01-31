@@ -257,6 +257,9 @@ miv <- function(model.formula, rf.new, db, woe.o = NULL) {
 				miv = miv.val, 
 				m.chiq.stat = m.chiq.stat, 
 				p.val = p.val)
+	res$miv <- ifelse(is.nan(res$miv) | is.infinite(res$miv), 0, res$miv)
+	res$m.chiq.stat <- ifelse(is.nan(res$m.chiq.stat) | is.infinite(res$m.chiq.stat), 0, res$m.chiq.stat)
+	res$p.val <- ifelse(is.nan(res$miv) | is.infinite(res$miv), 1, res$p.val)
 return(list(res, res.tbl))
 }
 

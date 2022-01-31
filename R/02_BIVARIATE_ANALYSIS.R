@@ -186,16 +186,16 @@ woe.tbl <- function(tbl, x, y, y.check = TRUE) {
 	res <- tbl %>% 
 		 group_by_at(c("bin" = x)) %>%
 		 summarise(no = n(),
-			     ng = sum(1 - !!sym(y)),
-			     nb = sum(!!sym(y))) %>%
+			     ng = sum(1 - !!sym(y), na.rm = TRUE),
+			     nb = sum(!!sym(y), na.rm = TRUE)) %>%
 		 ungroup() %>%
-		 mutate(pct.o = no / sum(no),
-			  pct.g = ng / sum(ng),
-			  pct.b = nb / sum(nb),
+		 mutate(pct.o = no / sum(no, na.rm = TRUE),
+			  pct.g = ng / sum(ng, na.rm = TRUE),
+			  pct.b = nb / sum(nb, na.rm = TRUE),
 			  dr = nb / no,
-			  so = sum(no),
-			  sg = sum(ng),
-			  sb = sum(nb), 
+			  so = sum(no, na.rm = TRUE),
+			  sg = sum(ng, na.rm = TRUE),
+			  sb = sum(nb, na.rm = TRUE), 
 			  dist.g = ng / sg,
 			  dist.b = nb / sb,
 			  woe = log(dist.g / dist.b),
