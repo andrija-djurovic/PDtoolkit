@@ -190,6 +190,9 @@ cat.bin <- function(x, y, sc = NA, sc.merge = "none", min.pct.obs = 0.05, min.av
 			}
 		x.trans <- d$label
 		}
+	if	(!sc.merge%in%"none" & exists("sc.replace")) {
+		summary.tbl$sc.bin <- sc.replace
+		}
 return(list(summary.tbl = summary.tbl, x.trans = x.trans))
 }
 
