@@ -83,6 +83,9 @@ segment.vld <- function(model, db, alpha = 0.05) {
 				    mutate(dr.obs = nb.obs / no,
 					     dr.mod = nb.mod / no,
 					     dr.diff = dr.mod - dr.obs)
+		seg.overview$dr.obs <- ifelse(round(seg.overview$dr.obs, 5) == 0, 0.00001,
+					     ifelse(round(seg.overview$dr.obs, 5) == 1, 0.99999, 
+							seg.overview$dr.obs))
 		stat.test <- apply(seg.overview, 1, function(x) {
 					 p.val = prop.test(x = x["nb.mod"], 
 								 n = x["no"], 
