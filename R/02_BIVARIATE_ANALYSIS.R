@@ -308,11 +308,11 @@ replace.woe <- function(db, target) {
 							comment = "More than 10 categories.")
 			}
 		woe.res <- woe.tbl(tbl = db, x = xl, y = target)
-		cond.03 <- any(woe.res$woe%in%c(NA, NaN, Inf))
+		cond.03 <- any(woe.res$woe%in%c(NA, NaN, Inf, -Inf))
 		if	(cond.03) {
 			info[[i]] <- data.frame(rf = xl, 
 							reason.code = 3,
-							comment = "Problem with WoE calculation (NA, NaN, Inf)")
+							comment = "Problem with WoE calculation (NA, NaN, Inf, -Inf)")
 			res[[i]] <- data.frame(x)
 			names(res[[i]]) <- xl
 			next
