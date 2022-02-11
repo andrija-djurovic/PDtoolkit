@@ -136,7 +136,7 @@ stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, coding.start
 		woe.o <- cbind.data.frame(rf = rf.rest.l, woe.o)
 		pct.check <- any(woe.o$pct.o < 0.05)
 		woe.o$pct.check <- pct.check
-		woe.o$woe.check <- any(woe.o$woe%in%c(NA, NaN, Inf)) 
+		woe.o$woe.check <- any(woe.o$woe%in%c(NA, NaN, Inf, -Inf)) 
 		rf.woe.o[[i]] <- woe.o
 		}
 	rf.woe.o <- bind_rows(rf.woe.o)
