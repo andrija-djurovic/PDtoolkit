@@ -149,7 +149,7 @@ stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, coding.start
 	#check WoE calc
 	check.woe <- unique(rf.woe.o$rf[rf.woe.o$woe.check]) 
 	if	(length(check.woe) > 0) {
-		msg <- "Problem with WoE calculation (NA, NaN, Inf)."
+		msg <- "Problem with WoE calculation (NA, NaN, Inf, -Inf)."
 		msg <- paste0(msg, " Risk factor is excluded from further process.")
 		warn.rep <- data.frame(rf = check.woe, comment = msg)
 		warn.tbl <- bind_rows(warn.tbl, warn.rep)
