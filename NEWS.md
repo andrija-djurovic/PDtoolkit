@@ -11,6 +11,7 @@ for ```miv``` table for missing/infinite values is introduced. <br/>
 # PDtoolkit 0.2.0
 Changes:<br/>
 
-1. ```rf.clustering``` - increased number of maximum clusters from 30 to 100 for manual selection. <br/>
+1. ```rf.clustering``` - increased number of maximum clusters from 30 to 100 for manual selection. For ```x2y``` metric, ```minsplit``` and ```minbucket``` added in order to speed 
+up the algorithm. <br/>
 2. ```segment.vld``` - correction for possible 0 and 1 observed default rate in prop.test. <br/>
 3. ```replace.woe``` - extended list of elements for WoE check (```c(NA, NaN, Inf, -Inf)```).
