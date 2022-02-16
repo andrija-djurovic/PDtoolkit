@@ -17,7 +17,6 @@
 #'@return The command \code{interaction.transformer} returns a list of two data frames. The first data frame provides
 #' the tree summary. The second data frame is a new risk factor extracted from decision tree.
 #'@examples
-#'@import dplyr
 #'suppressMessages(library(PDtoolkit))
 #'data(loans)
 #'modify risk factors in order to show how the function works with missing values
@@ -35,6 +34,7 @@
 #'it[["tree.info"]]
 #'tail(it[["interaction"]])
 #'table(it[["interaction"]][, "rf.inter"], useNA = "always")
+#'@import dplyr
 #'@export
 interaction.transformer <- function(db, rf, target, min.pct.obs, min.avg.rate, max.depth, monotonicity, create.interaction.rf) {
 	if	(!is.data.frame(db)) {
