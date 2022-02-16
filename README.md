@@ -1078,5 +1078,5 @@ PD have Jeffreys and z-score in comparison to the binomial test. Since
 the Hosmer-Lemeshow test is the only test applied to the complete rating
 scale, there is no other test to be compared with.</br></br> Additional
 functions that are implemented but not presented in the above examples
-are: `psi` and `create.partitions`. For its use and examples, please,
+are: `psi`, `create.partitions`, `evrs` and `interaction.transformer`. For its use and examples, please,
 check the help pages.
