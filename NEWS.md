@@ -15,3 +15,4 @@ Changes:<br/>
 up the algorithm. <br/>
 2. ```segment.vld``` - correction for possible 0 and 1 observed default rate in the ```prop.test```. <br/>
 3. ```replace.woe``` - extended list of elements for WoE check (```c(NA, NaN, Inf, -Inf)```).
+4. Package is extended with a new functions: ```evrs``` and ```interaction.transformer```.
