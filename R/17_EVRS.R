@@ -26,7 +26,6 @@
 #' Jankowitsch at al. (2007). Modelling the economic value of credit rating systems.
 #'	Journal of Banking & Finance, Volume 31, Issue 1, \doi{10.1016/j.jbankfin.2006.01.003}. 
 #'@examples
-#'@importFrom stats rnorm
 #'suppressMessages(library(PDtoolkit))
 #'data(loans)
 #'#simulate model in use
@@ -102,6 +101,7 @@
 #'res[["summary.tbl"]]$return.difference
 #'#summary of simulated returns
 #'summary(res[["return.sim"]])
+#'@importFrom stats rnorm
 #'@export
 evrs <- function(db, pd, benchmark, lgd, target, sigma = NA, r, elasticity, prob.to.leave.threshold, 
 		     sim.num = 500, seed = 991) {
