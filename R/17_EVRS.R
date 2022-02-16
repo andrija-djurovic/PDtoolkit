@@ -8,9 +8,10 @@
 #'		PDs of benchmark model and LGD values.
 #'@param pd Name of PD of model in use within db argument.
 #'@param benchmark Name of PD of benchmark model within db argument.
+#'@param lgd Name of LGD values within db argument.
 #'@param target Name of target (default indicator 0/1) within db argument.
 #'@param sigma Measurement error of model in use. If default value (\code{NA}) is passed, then measurement error
-#'		   is calculated as standard deviation of PD difference of model in use and benchamark model.
+#'		   is calculated as standard deviation of PD difference of model in use and benchmark model.
 #'@param r Risk-free rate.
 #'@param elasticity Elasticity parameter used to define customer churn in case of loan overpricing. 
 #'@param prob.to.leave.threshold Threshold for customers' probability to leave in case of loan overpricing. 
@@ -18,7 +19,7 @@
 #'@param seed Random seed to ensure reproducibility. Default is 991. 
 #'@return The command \code{evrs} returns a list of two elements. The first element is data frame 
 #' \code{summary.tbl} and it provides simulation summary: number of simulations, number of successful simulations,
-#' population size (number of observations of supplied \code{db} data frame), measurment error, 
+#' population size (number of observations of supplied \code{db} data frame), measurement error, 
 #' average churn value (number of customers that left the portfolio due to the overpricing), average return of simulated 
 #' portfolios, return of benchmark portfolio and retrun difference (main result of the simulation). The second element is
 #' numeric vector of return averages of simulated portfolios.
@@ -80,7 +81,10 @@
 #'bnm.pd <- unname(predict(bnm, type = "response", newdata = it.woe))
 #'
 #'#prepare data for evrs function
-#'db <- data.frame("Creditability" = loans$Creditability, pd = miu.pd, pd.benchmark = bnm.pd, lgd = 0.75)
+#'db <- data.frame("Creditability" = loans$Creditability, 	
+#'		   pd = miu.pd, 
+#'		   pd.benchmark = bnm.pd, 
+#'		   lgd = 0.75)
 #'#calculate the difference in portfolio return between model in use the benchmark model
 #'res <- evrs(db = db, 
 #'		pd = "pd", 
@@ -133,7 +137,7 @@ evrs <- function(db, pd, benchmark, lgd, target, sigma = NA, r, elasticity, prob
 	if	(!(r > 0 & elasticity > 0 & seed > 0)) {
 		stop("r, elasticity and seed have to be greater than 0.")
 		}
-	#measurment error
+	#measurement error
 	if	(is.na(sigma)) {
 		db.sim$pd.dif <- db.sim$pd - db.sim$benchmark
 		sigma <- sd(db.sim$pd.dif)
@@ -176,7 +180,7 @@ evrs <- function(db, pd, benchmark, lgd, target, sigma = NA, r, elasticity, prob
 	summary.tbl <- data.frame(sim.total = sim.num,
 					  sim.succes = sum(!is.na(r.sim)),
 					  population = nrow(db.sim), 
-					  measurment.error = sigma,
+					  measurement.error = sigma,
 					  churn.avg = mean(churn, na.rm = TRUE), 
 					  return.sim = mean(r.sim, na.rm = TRUE),
 					  return.benchmark = return.benchmark)

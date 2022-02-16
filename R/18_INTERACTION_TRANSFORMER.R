@@ -19,7 +19,7 @@
 #'@examples
 #'suppressMessages(library(PDtoolkit))
 #'data(loans)
-#'modify risk factors in order to show how the function works with missing values
+#'#modify risk factors in order to show how the function works with missing values
 #'loans$"Account Balance"[1:10] <- NA
 #'loans$"Duration of Credit (month)"[c(13, 15)] <- NA
 #'it <- interaction.transformer(db = loans, #
@@ -35,6 +35,7 @@
 #'tail(it[["interaction"]])
 #'table(it[["interaction"]][, "rf.inter"], useNA = "always")
 #'@import dplyr
+#'@importFrom stats ave
 #'@export
 interaction.transformer <- function(db, rf, target, min.pct.obs, min.avg.rate, max.depth, monotonicity, create.interaction.rf) {
 	if	(!is.data.frame(db)) {
