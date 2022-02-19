@@ -154,7 +154,6 @@ evrs <- function(db, pd, benchmark, lgd, target, sigma = NA, r, elasticity, prob
 	#simulations
 	churn <- rep(NA, sim.num)
 	r.sim <- rep(NA, sim.num)
-	check.counter <- 0
 	for	(i in 1:sim.num) {
 		pd.sim <- pd.observed(pd = db.sim$pd, mean = 0, sigma = sigma, seed = seed + (i - 1))
 		spread.sim <- spread(r = r, pd = pd.sim, lgd = db.sim$lgd)
