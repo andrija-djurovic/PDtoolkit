@@ -14,7 +14,7 @@ stepMIV(
 )
 }
 \arguments{
-\item{start.model}{Formula class that represent starting model. If can include some risk factors, but it can be
+\item{start.model}{Formula class that represent starting model. It can include some risk factors, but it can be
 defined only with intercept (\code{y ~ 1} where \code{y} is target variable).}
 
 \item{miv.threshold}{MIV entrance threshold. Only the risk factors with MIV higher than thresholds are candidate
