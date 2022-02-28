@@ -48,7 +48,7 @@ The command \code{evrs} returns a list of two elements. The first element is dat
 \code{summary.tbl} and it provides simulation summary: number of simulations, number of successful simulations,
 population size (number of observations of supplied \code{db} data frame), measurement error,
 average churn value (number of customers that left the portfolio due to the overpricing), average return of simulated
-portfolios, return of benchmark portfolio and retrun difference (main result of the simulation). The second element is
+portfolios, return of benchmark portfolio and return difference (main result of the simulation). The second element is
 numeric vector of return averages of simulated portfolios.
 }
 \description{
