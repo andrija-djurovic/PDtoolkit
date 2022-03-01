@@ -226,8 +226,12 @@ stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, coding.start
 			dev.db = if	(coding%in%"WoE") {db} else {data.frame()})
 return(res)	
 }
-miv <- function(model.formula, rf.new, db, woe.o = NULL, offset.vals) {		
-	model.c <- glm(formula = model.formula, family = "binomial", data = db, offset = offset.vals)
+miv <- function(model.formula, rf.new, db, woe.o = NULL, offset.vals) {	
+	if	(is.null(offset.vals)) {	
+		model.c <- glm(formula = model.formula, family = "binomial", data = db)
+		} else {
+		model.c <- glm(formula = model.formula, family = "binomial", data = db, offset = offset.vals)
+		}
 	model.p <- unname(predict(model.c, newdata = db, type = "response")) 
 	db$pred <- model.p
 	db <- db[!is.na(db$pred), ]
