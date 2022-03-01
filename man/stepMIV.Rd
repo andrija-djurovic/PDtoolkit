@@ -10,7 +10,8 @@ stepMIV(
   m.ch.p.val,
   coding,
   coding.start.model = FALSE,
-  db
+  db,
+  offset = NULL
 )
 }
 \arguments{
@@ -34,6 +35,11 @@ It will have an impact only for WoE coding option. Default value is \code{FALSE}
 
 \item{db}{Modeling data with risk factors and target variable. All risk factors should be categorized and as of
 character type.}
+
+\item{offset}{This can be used to specify an a priori known component to be included in the linear predictor during fitting.
+This should be \code{NULL} or a numeric vector of length equal to the number of cases.
+One or more offset terms can be included in the formula instead or as well, and if more than one is specified
+their sum is used. Default is \code{NULL}.}
 }
 \value{
 The command \code{stepMIV} returns a list of five objects.\cr
