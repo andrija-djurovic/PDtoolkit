@@ -174,6 +174,9 @@ stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, coding.start
 			}
 		}
 	#miv calculation
+	if	(!is.null(offset.vals)) {
+		db <- cbind.data.frame(db, offset.vals = offset.vals)
+		}
 	steps <- data.frame()
 	miv.iter.tbl <- data.frame()
 	mod.frm <- start.model
@@ -217,7 +220,11 @@ stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, coding.start
 			}
 		iter <- iter + 1	
 		}
-	lr.mod <- glm(formula = as.formula(mod.frm), family = "binomial", data = db, offset = offset.vals)
+	if	(is.null(offset.vals)) {
+		lr.mod <- glm(formula = as.formula(mod.frm), family = "binomial", data = db)
+		} else {
+		lr.mod <- glm(formula = as.formula(mod.frm), family = "binomial", data = db, offset = offset.vals)
+		}
 	if	(nrow(steps) > 0) {steps <- cbind.data.frame(target = target, steps)}
 	res <- list(model = lr.mod, 
 			steps = steps, 
@@ -228,11 +235,11 @@ return(res)
 }
 miv <- function(model.formula, rf.new, db, woe.o = NULL, offset.vals) {	
 	if	(is.null(offset.vals)) {	
-		model.c <- glm(formula = model.formula, family = "binomial", data = db)
+		model.c <- glm(formula = model.formula, family = "binomial", data = db) 
 		} else {
 		model.c <- glm(formula = model.formula, family = "binomial", data = db, offset = offset.vals)
-		}
-	model.p <- unname(predict(model.c, newdata = db, type = "response")) 
+		} 
+	model.p <- unname(predict(model.c, newdata = db, type = "response"))
 	db$pred <- model.p
 	db <- db[!is.na(db$pred), ]
 	if	(is.null(woe.o)) {
