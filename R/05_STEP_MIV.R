@@ -16,6 +16,10 @@
 #'				    It will have an impact only for WoE coding option. Default value is \code{FALSE}.
 #'@param db Modeling data with risk factors and target variable. All risk factors should be categorized and as of
 #'		character type.
+#'@param offset This can be used to specify an a priori known component to be included in the linear predictor during fitting. 
+#'		    This should be \code{NULL} or a numeric vector of length equal to the number of cases. 
+#'		    One or more offset terms can be included in the formula instead or as well, and if more than one is specified 
+#'		    their sum is used. Default is \code{NULL}.
 #'@return The command \code{stepMIV} returns a list of five objects.\cr
 #'	    The first object (\code{model}), is the final model, an object of class inheriting from \code{"glm"}.\cr
 #'	    The second object (\code{steps}), is the data frame with risk factors selected at each iteration.\cr
@@ -68,7 +72,7 @@
 #'@import monobin
 #'@importFrom stats formula
 #'@export
-stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, coding.start.model = FALSE, db) {
+stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, coding.start.model = FALSE, db, offset = NULL) {
 	#check arguments
 	if	(!is.data.frame(db)) {
 		stop("db is not a data frame.")
@@ -183,7 +187,7 @@ stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, coding.start
 		for	(i in 1:rf.restl) {
 			rf.l <- rf.rest[i]
 			woe.o.l <- rf.woe.o[rf.woe.o$rf%in%rf.l, ]
-			miv.res <- miv(model.formula = mod.frm, rf.new = rf.l, db = db, woe.o = woe.o.l)
+			miv.res <- miv(model.formula = as.formula(mod.frm), rf.new = rf.l, db = db, woe.o = woe.o.l, offset = offset)
 			miv.iter[[i]] <- miv.res[[1]]
 			miv.tbl[[i]] <- miv.res[[2]]
 			}
@@ -212,19 +216,17 @@ stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, coding.start
 			}
 		iter <- iter + 1	
 		}
-	lr.mod <- glm(formula = mod.frm, family = "binomial", data = db)
+	lr.mod <- glm(formula = as.formula(mod.frm), family = "binomial", data = db, offset = offset)
 	if	(nrow(steps) > 0) {steps <- cbind.data.frame(target = target, steps)}
 	res <- list(model = lr.mod, 
 			steps = steps, 
 			miv.iter = miv.iter.tbl, 
 			warnings = if (nrow(warn.tbl) > 0) {warn.tbl} else {data.frame(comment = "There are no warnings.")}, 
-			dev.db = if	(coding%in%"WoE") {db} else {data.frame()}
-			)
+			dev.db = if	(coding%in%"WoE") {db} else {data.frame()})
 return(res)	
 }
-
-miv <- function(model.formula, rf.new, db, woe.o = NULL) {		
-	model.c <- glm(formula = model.formula, family = "binomial", data = db)
+miv <- function(model.formula, rf.new, db, woe.o = NULL, offset) {		
+	model.c <- glm(formula = model.formula, family = "binomial", data = db, offset = offset)
 	model.p <- unname(predict(model.c, newdata = db, type = "response")) 
 	db$pred <- model.p
 	db <- db[!is.na(db$pred), ]
@@ -263,7 +265,6 @@ miv <- function(model.formula, rf.new, db, woe.o = NULL) {
 	res$p.val <- ifelse(is.nan(res$miv) | is.infinite(res$miv), 1, res$p.val)
 return(list(res, res.tbl))
 }
-
 replace.woe.aux <- function(x, woe.tbl) {
 	woe.val <- woe.tbl$woe
 	names(woe.val) <- woe.tbl$bin	
