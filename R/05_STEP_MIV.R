@@ -187,7 +187,7 @@ stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, coding.start
 		for	(i in 1:rf.restl) {
 			rf.l <- rf.rest[i]
 			woe.o.l <- rf.woe.o[rf.woe.o$rf%in%rf.l, ]
-			miv.res <- miv(model.formula = as.formula(mod.frm), rf.new = rf.l, db = db, woe.o = woe.o.l, offset = offset)
+			miv.res <- miv(model.formula = mod.frm, rf.new = rf.l, db = db, woe.o = woe.o.l, offset = offset)
 			miv.iter[[i]] <- miv.res[[1]]
 			miv.tbl[[i]] <- miv.res[[2]]
 			}
@@ -226,7 +226,7 @@ stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, coding.start
 return(res)	
 }
 miv <- function(model.formula, rf.new, db, woe.o = NULL, offset) {		
-	model.c <- glm(formula = model.formula, family = "binomial", data = db, offset = offset)
+	model.c <- glm(formula = as.formula(model.formula), family = "binomial", data = db, offset = offset)
 	model.p <- unname(predict(model.c, newdata = db, type = "response")) 
 	db$pred <- model.p
 	db <- db[!is.na(db$pred), ]
