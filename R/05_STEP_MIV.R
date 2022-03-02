@@ -17,9 +17,7 @@
 #'@param db Modeling data with risk factors and target variable. All risk factors should be categorized as of
 #'		character type.
 #'@param offset.vals This can be used to specify an a priori known component to be included in the linear predictor during fitting. 
-#'		    	   This should be \code{NULL} or a numeric vector of length equal to the number of cases. 
-#'		    	   One or more offset terms can be included in the formula instead or as well, and if more than one is specified 
-#'		   	   their sum is used. Default is \code{NULL}.
+#'		    	   This should be \code{NULL} or a numeric vector of length equal to the number of cases. Default is \code{NULL}.
 #'@return The command \code{stepMIV} returns a list of five objects.\cr
 #'	    The first object (\code{model}), is the final model, an object of class inheriting from \code{"glm"}.\cr
 #'	    The second object (\code{steps}), is the data frame with risk factors selected at each iteration.\cr
