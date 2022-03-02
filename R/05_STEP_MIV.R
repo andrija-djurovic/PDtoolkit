@@ -28,9 +28,7 @@
 #'	    The warnings refer to the following checks: if risk factor has more than 10 modalities,
 #'	    if any of the bins (groups) has less than 5% of observations and 
 #'	    if there are problems with WoE calculations.\cr
-#'	    The final, fifth, object \code{dev.db} is returned only is \code{coding} is selected as \code{"WoE"}. 
-#'	    In that case data frame with replaced WoE values for risk factors that are selected in the 
-#'	    final model with be returned.
+#'	    The final, fifth, object \code{dev.db} object \code{dev.db} returns the model development database.
 #'@references 
 #'Scallan, G. (2011). Class(ic) Scorecards: Selecting Characteristics and Attributes in Logistic Regression,  
 #'			    Edinburgh Credit Scoring Conference, downloaded from 
@@ -230,7 +228,7 @@ stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, coding.start
 			steps = steps, 
 			miv.iter = miv.iter.tbl, 
 			warnings = if (nrow(warn.tbl) > 0) {warn.tbl} else {data.frame(comment = "There are no warnings.")}, 
-			dev.db = if	(coding%in%"WoE") {db} else {data.frame()})
+			dev.db = db)
 return(res)	
 }
 miv <- function(model.formula, rf.new, db, woe.o = NULL, offset.vals) {	
