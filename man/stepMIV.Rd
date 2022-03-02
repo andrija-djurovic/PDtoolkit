@@ -50,9 +50,7 @@ The fourth object (\code{warnings}), is the data frame with warnings if any obse
 The warnings refer to the following checks: if risk factor has more than 10 modalities,
 if any of the bins (groups) has less than 5\% of observations and
 if there are problems with WoE calculations.\cr
-The final, fifth, object \code{dev.db} is returned only is \code{coding} is selected as \code{"WoE"}.
-In that case data frame with replaced WoE values for risk factors that are selected in the
-final model with be returned.
+The final, fifth, object \code{dev.db} object \code{dev.db} returns the model development database.
 }
 \description{
 \code{stepMIV} performs stepwise logistic regression based on MIV.
