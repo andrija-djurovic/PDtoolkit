@@ -14,7 +14,7 @@
 #'		    modalities where \code{n} is total number of modalities of analyzed risk factor.
 #'@param coding.start.model Logical (\code{TRUE} or \code{FALSE}), if risk factors from the starting model should be WoE coded. 
 #'				    It will have an impact only for WoE coding option. Default value is \code{FALSE}.
-#'@param db Modeling data with risk factors and target variable. All risk factors should be categorized and as of
+#'@param db Modeling data with risk factors and target variable. All risk factors should be categorized as of
 #'		character type.
 #'@param offset.vals This can be used to specify an a priori known component to be included in the linear predictor during fitting. 
 #'		    	   This should be \code{NULL} or a numeric vector of length equal to the number of cases. 
