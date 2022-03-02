@@ -18,12 +18,12 @@ stepMIV(
 \item{start.model}{Formula class that represent starting model. It can include some risk factors, but it can be
 defined only with intercept (\code{y ~ 1} where \code{y} is target variable).}
 
-\item{miv.threshold}{MIV entrance threshold. Only the risk factors with MIV higher than thresholds are candidate
+\item{miv.threshold}{MIV entrance threshold. Only the risk factors with MIV higher than the threshold are candidate
 for the new model. Additional criteria is that MIV value should significantly separate
 good from bad cases measured by marginal chi-square test.}
 
 \item{m.ch.p.val}{Significance level of p-value for marginal chi-square test. This test additionally supports MIV value of
-of candidate risk factor for final decision.}
+candidate risk factor for final decision.}
 
 \item{coding}{Type of risk factor coding within the model. Available options are: \code{"WoE"} and
 \code{"dummy"}. If \code{"WoE"} is selected, then modalities of the risk factors are replaced
@@ -33,13 +33,11 @@ modalities where \code{n} is total number of modalities of analyzed risk factor.
 \item{coding.start.model}{Logical (\code{TRUE} or \code{FALSE}), if risk factors from the starting model should be WoE coded.
 It will have an impact only for WoE coding option. Default value is \code{FALSE}.}
 
-\item{db}{Modeling data with risk factors and target variable. All risk factors should be categorized and as of
+\item{db}{Modeling data with risk factors and target variable. All risk factors should be categorized as of
 character type.}
 
 \item{offset.vals}{This can be used to specify an a priori known component to be included in the linear predictor during fitting.
-This should be \code{NULL} or a numeric vector of length equal to the number of cases.
-One or more offset terms can be included in the formula instead or as well, and if more than one is specified
-their sum is used. Default is \code{NULL}.}
+This should be \code{NULL} or a numeric vector of length equal to the number of cases. Default is \code{NULL}.}
 }
 \value{
 The command \code{stepMIV} returns a list of five objects.\cr
