@@ -91,7 +91,7 @@ heterogeneity <- function(app.port, def.ind, rating, alpha = 0.05) {
 	cor.df[, rating] <- as.numeric(factor(cor.df[, rating], 
 							  levels = sort(unique(cor.df[, rating])), 
 							  ordered = TRUE))
-	cor.s <- sign(cor(x = cor.df[ ,rating], y = cor.df[ ,def.ind], use = "complete.obs"))
+	cor.s <- sign(cor(x = cor.df[ ,rating], y = cor.df[ ,def.ind], method = "spearman", use = "complete.obs"))
 	sts <- ifelse(cor.s <= 0, "less", "greater")
 	res <- t2p.neighbors(rs = rs, sts = sts, alpha = alpha)
 	res <- data.frame(res)
