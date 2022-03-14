@@ -1,7 +1,7 @@
 #' Stepwise logistic regression based on risk profile concept
 #'
 #' \code{stepRPC} customized stepwise regression with p-value and trend check which additionally takes into account 
-#' the order of supplied risk factors per group when selects a canidates for the final regression model. Trend check is perofmed
+#' the order of supplied risk factors per group when selects a candidate for the final regression model. Trend check is performed
 #' comparing observed trend between target and analyzed risk factor and trend of the estimated coefficients within the 
 #' logistic regression. Note that procedure checks the column names of supplied \code{db} data frame therefore some 
 #' renaming (replacement of special characters) is possible to happen. For details, please, check the help example.
@@ -10,9 +10,9 @@
 #'@param risk.profile Data frame with defined risk profile. It has to contain the following columns: \code{rf} and 
 #'			    \code{group}. Column \code{group} defines order of groups that will be tested first as a candidate
 #'			    for the regression model. Risk factors selected in each group are kept as a starting variables
-#'			    for the next group testing. Colum \code{rf} contains all candidate risk factors supplied for testing.
-#'@param p.value Significance level of p-value for the estimated coefficient. For \code{WoE} coding this value is
-#'		     is directly compated to p-value of estimated coefficent, while for \code{dummy} coding
+#'			    for the next group testing. Column \code{rf} contains all candidate risk factors supplied for testing.
+#'@param p.value Significance level of p-value of the estimated coefficients. For \code{WoE} coding this value is
+#'		     is directly compared to the p-value of the estimated coefficients, while for \code{dummy} coding
 #'		     multiple Wald test is employed and its value is used for comparison with selected threshold (\code{p.value}).
 #'@param coding Type of risk factor coding within the model. Available options are: \code{"WoE"} and
 #'		    \code{"dummy"}. If \code{"WoE"} is selected, then modalities of the risk factors are replaced
@@ -66,7 +66,7 @@
 #'res$steps
 #'head(res$dev.db)
 #'@import monobin
-#'@importFrom stats formula
+#'@importFrom stats formula coef vcov
 #'@export
 stepRPC <- function(start.model, risk.profile, p.value = 0.05, coding = "WoE", coding.start.model = TRUE, 
 			  check.start.model = TRUE, db, offset.vals = NULL) {
