@@ -50,7 +50,7 @@ data(loans)
 #modify risk factors in order to show how the function works with missing values
 loans$"Account Balance"[1:10] <- NA
 loans$"Duration of Credit (month)"[c(13, 15)] <- NA
-it <- interaction.transformer(db = loans, #
+it <- interaction.transformer(db = loans,
 				 rf = c("Account Balance", "Duration of Credit (month)"), 
 				 target = "Creditability",
 				 min.pct.obs = 0.05,
