@@ -10,9 +10,9 @@
 #'@details
 #'Method \code{"scaling"} relies on linear rescaling of observed default rate. Rescaling factor is
 #'calculated as a ratio between \code{ct} and observed portfolio default rate.
-#'Method \code{"log.odds.a"} optimize intercept of logit transformation in way that makes portfolio default
+#'Method \code{"log.odds.a"} optimize intercept of logit transformation in a way that makes portfolio default
 #'rate equal to selected central tendency (\code{ct}). 
-#'Method \code{"log.odds.ab"} optimize intercept and slope of logit transformation in way that makes
+#'Method \code{"log.odds.ab"} optimize intercept and slope of logit transformation in a way that makes
 #'portfolio default rate equal to selected central tendency (\code{ct}). 
 #'For respecting selected constrain of minimum PD (\code{min.pd}), two-stage iterative procedure is implemented.
 #'Additional constrain of maximum PD (100%) is also implemented.
