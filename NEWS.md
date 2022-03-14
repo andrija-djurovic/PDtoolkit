@@ -17,3 +17,8 @@ up the algorithm. <br/>
 3. ```replace.woe``` - extended list of elements for WoE check (```c(NA, NaN, Inf, -Inf)```).
 4. The new argument added to ```stepMIV``` function - ```offset.vals```. The same function, now returns the model development database also for ```coding = "dummy"```.
 5. Package is extended with a new functions: ```evrs``` and ```interaction.transformer```.
+
+# PDtoolkit 0.3.0
+Changes:<br/>
+
+1.. Package is extended with a new functions: ```stepFWD``` and ```stepRCP```.
