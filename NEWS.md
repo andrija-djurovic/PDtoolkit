@@ -21,4 +21,4 @@ up the algorithm. <br/>
 # PDtoolkit 0.3.0
 Changes:<br/>
 
-1.. Package is extended with a new functions: ```stepFWD``` and ```stepRCP```.
+1.. Package is extended with a new functions: ```stepFWD``` and ```stepRPC```.
