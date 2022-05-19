@@ -1,13 +1,13 @@
 #' Customized stepwise regression with p-value and trend check
 #'
-#' \code{stepFWD} customized stepwise regression with p-value and trend check. Trend check is performed
+#' \code{stepFWD} customized stepwise regression with p-value and trend check. Trend check is perofmed
 #' comparing observed trend between target and analyzed risk factor and trend of the estimated coefficients within the 
 #' logistic regression. Note that procedure checks the column names of supplied \code{db} data frame therefore some 
 #' renaming (replacement of special characters) is possible to happen. For details check help example.
 #'@param start.model Formula class that represents starting model. It can include some risk factors, but it can be
 #'			   defined only with intercept (\code{y ~ 1} where \code{y} is target variable).
-#'@param p.value Significance level of p-value of the estimated coefficients. For \code{WoE} coding this value is
-#'		     is directly compared to the p-value of the estimated coefficients, while for \code{dummy} coding
+#'@param p.value Significance level of p-value for the estimated coefficient. For \code{WoE} coding this value is
+#'		     is directly compated to p-value of estimated coefficent, while for \code{dummy} coding
 #'		     multiple Wald test is employed and its p-value is used for comparison with selected threshold (\code{p.value}).
 #'@param coding Type of risk factor coding within the model. Available options are: \code{"WoE"} (default) and
 #'		    \code{"dummy"}. If \code{"WoE"} is selected, then modalities of the risk factors are replaced
@@ -53,7 +53,7 @@
 #'res$steps
 #'head(res$dev.db)
 #'@import monobin
-#'@importFrom stats formula coef vcov
+#'@importFrom stats formula
 #'@export
 stepFWD <- function(start.model, p.value = 0.05, coding = "WoE", coding.start.model = TRUE, check.start.model = TRUE, 
 			  db, offset.vals = NULL) {
@@ -239,7 +239,7 @@ iter.summary <- function(target, rf.mod, rf.start, check.start.model, tbl.c, p.v
 		rf.l <- tbl.c[i, "rf"]
 		res$rf[i] <- rf.l
 		frm.check <- paste0(frm.start, " + ", rf.l)
-		ms <- gms(formula = as.formula(frm.check), db = db, offset.vals = offset.vals) 
+		ms <- gms(formula = as.formula(frm.check), db = db, offset = offset.vals) 
 		lr.mod <- ms[["coef.tbl"]]
 		res$aic[i] <- ms[["aic"]]
 		if	(coding%in%"WoE") { 
@@ -319,6 +319,7 @@ return(list(p.val = pc[pcl], check.results = c.res))
 }
 cc.dummy <- function(dr, Estimate) {
 	cc.cases <- complete.cases(dr, Estimate)
+	if	(length(dr[is.na(Estimate)]) > 1) {return(FALSE)} 
 	ref.dir <- dr - dr[is.na(Estimate)]
 	check.1 <- all(sign(ref.dir[cc.cases]) == sign(Estimate[cc.cases]))
 	est <- ifelse(is.na(Estimate), 0, Estimate)
