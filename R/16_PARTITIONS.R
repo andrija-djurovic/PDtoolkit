@@ -63,10 +63,10 @@ create.partitions <- function(db) {
 			res[[i]] <- res.l[[3]]
 			info[[i]] <- cbind.data.frame(rf = rf.l, res.l[[2]])
 			} else {
-			info[[i]] <- cbind.data.frame(rf = rf.l, res.l[[2]])
+			info[[i]] <- cbind.data.frame(rf = rf.l, info = res.l[[2]], code = res.l[[3]])
 			}	
 		}
-	res <- do.call("cbind", res)
+	res <- bind_cols(res)
 	info <- data.frame(bind_rows(info))
 return(list(partitions = res, info = info))
 }
