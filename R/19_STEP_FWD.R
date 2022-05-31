@@ -239,7 +239,7 @@ iter.summary <- function(target, rf.mod, rf.start, check.start.model, tbl.c, p.v
 		rf.l <- tbl.c[i, "rf"]
 		res$rf[i] <- rf.l
 		frm.check <- paste0(frm.start, " + ", rf.l)
-		ms <- gms(formula = as.formula(frm.check), db = db, offset = offset.vals) 
+		ms <- gms(formula = as.formula(frm.check), db = db, offset.vals = offset.vals) 
 		lr.mod <- ms[["coef.tbl"]]
 		res$aic[i] <- ms[["aic"]]
 		if	(coding%in%"WoE") { 
