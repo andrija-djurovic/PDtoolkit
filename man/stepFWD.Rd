@@ -18,8 +18,8 @@ stepFWD(
 \item{start.model}{Formula class that represents starting model. It can include some risk factors, but it can be
 defined only with intercept (\code{y ~ 1} where \code{y} is target variable).}
 
-\item{p.value}{Significance level of p-value of the estimated coefficients. For \code{WoE} coding this value is
-is directly compared to the p-value of the estimated coefficients, while for \code{dummy} coding
+\item{p.value}{Significance level of p-value for the estimated coefficient. For \code{WoE} coding this value is
+is directly compated to p-value of estimated coefficent, while for \code{dummy} coding
 multiple Wald test is employed and its p-value is used for comparison with selected threshold (\code{p.value}).}
 
 \item{coding}{Type of risk factor coding within the model. Available options are: \code{"WoE"} (default) and
@@ -51,7 +51,7 @@ if there are problems with WoE calculations.\cr
 The final, fourth, object \code{dev.db} returns the model development database.
 }
 \description{
-\code{stepFWD} customized stepwise regression with p-value and trend check. Trend check is performed
+\code{stepFWD} customized stepwise regression with p-value and trend check. Trend check is perofmed
 comparing observed trend between target and analyzed risk factor and trend of the estimated coefficients within the
 logistic regression. Note that procedure checks the column names of supplied \code{db} data frame therefore some
 renaming (replacement of special characters) is possible to happen. For details check help example.
