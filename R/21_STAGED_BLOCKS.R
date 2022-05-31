@@ -2,7 +2,7 @@
 #'
 #' \code{staged.blocks} performs blockwise regression where the predictions of each blocks' model is used as an 
 #' offset for the model of the following block.
-#'@seealso \code{\link{embeded.blocks}}, \code{\link{ensemble.blocks}}, \code{\link{stepMIV}}, \code{\link{stepFWD}} and \code{\link{stepRPC}}.
+#'@seealso \code{\link{embedded.blocks}}, \code{\link{ensemble.blocks}}, \code{\link{stepMIV}}, \code{\link{stepFWD}} and \code{\link{stepRPC}}.
 #'@param method Regression method applied on each block. 
 #'		    Available methods: \code{"stepMIV"}, \code{"stepFWD"} or \code{"stepRPC"}.
 #'@param target Name of target variable within \code{db} argument.

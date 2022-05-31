@@ -1,9 +1,8 @@
-#' Ensemble blocks regression
+#' Embedded blocks regression
 #'
-#' \code{ensemble.blocks} performs blockwise regression where the predictions of each blocks' model are 
-#' integrated into a final model. The final model is estimated in the form of logistic regression without
-#' any check of the estimated coefficients (e.g. statistical significance or sign of the estimated coefficients).
-#'@seealso \code{\link{staged.blocks}}, \code{\link{embedded.blocks}}, \code{\link{stepMIV}}, \code{\link{stepFWD}} and \code{\link{stepRPC}}.
+#' \code{embedded.blocks} performs blockwise regression where the predictions of each blocks' model is used as an 
+#' risk factor for the model of the following block.
+#'@seealso \code{\link{staged.blocks}}, \code{\link{ensemble.blocks}}, \code{\link{stepMIV}}, \code{\link{stepFWD}} and \code{\link{stepRPC}}.
 #'@param method Regression method applied on each block. 
 #'		    Available methods: \code{"stepMIV"}, \code{"stepFWD"} or \code{"stepRPC"}.
 #'@param target Name of target variable within \code{db} argument.
@@ -24,7 +23,7 @@
 #'			     good from bad cases measured by marginal chi-square test. 
 #'@param m.ch.p.val Significance level of p-value for marginal chi-square test applicable only for code{"stepMIV"} method. 
 #'			  This test additionally supports MIV value of candidate risk factor for final decision.
-#'@return The command \code{embeded.blocks} returns a list of three objects.\cr
+#'@return The command \code{embedded.blocks} returns a list of three objects.\cr
 #'	    The first object (\code{model}) is the list of the models of each block (an object of class inheriting from \code{"glm"}).\cr
 #'	    The second object (\code{steps}), is the data frame with risk factors selected from the each block.\cr
 #'	    The third object (\code{dev.db}), returns the list of block's model development databases.\cr
@@ -47,23 +46,24 @@
 #'blocks <- data.frame(rf = rf.all, block = sample(1:3, length(rf.all), rep = TRUE))
 #'blocks <- blocks[order(blocks$block), ]
 #'blocks
-#'#method: stepRPC
-#'res <- ensemble.blocks(method = "stepRPC", 
-#'			      target = "Creditability",
-#'			      db = loans,
-#'			      coding = "dummy",  
-#'			      blocks = blocks, 
-#'			      p.value = 0.05)
+#'#method: stepFWD
+#'res <- embedded.blocks(method = "stepFWD", 
+#'			     target = "Creditability",
+#'			     db = loans,
+#'			     coding = "WoE",  
+#'			     blocks = blocks, 
+#'			     p.value = 0.05)
 #'names(res)
 #'nb <- length(res[["models"]])
 #'res$models[[nb]]
+#'
 #'auc.model(predictions = predict(res$models[[nb]], type = "response", 
 #'					    newdata = res$dev.db[[nb]]),
 #'	      observed = res$dev.db[[nb]]$Creditability)
 #'@import monobin
 #'@importFrom stats formula coef vcov
 #'@export
-ensemble.blocks <- function(method, target, db, coding = "WoE", blocks, 
+embedded.blocks <- function(method, target, db, coding = "WoE", blocks, 
 				  p.value = 0.05, miv.threshold = 0.02, m.ch.p.val = 0.05) {
 	method.opt <- c("stepMIV", "stepFWD", "stepRPC")
 	if	(!method%in%method.opt) {
@@ -89,36 +89,36 @@ ensemble.blocks <- function(method, target, db, coding = "WoE", blocks,
 					   miv.threshold = miv.threshold, 
 					   m.ch.p.val = m.ch.p.val,
 					   coding = coding,
-					   coding.start.model = TRUE,
-					   db = db[, c(target, rf.b)])"
+					   coding.start.model = FALSE,
+					   db = db[, c(target, rf.b, blp)])"
 		}
 
 	if	(method%in%"stepFWD") {
 		eval.exp <- "stepFWD(start.model = start.model, 
 					   p.value = p.value, 
 					   coding = coding,
-					   coding.start.model = TRUE, 
-					   check.start.model = TRUE,
-					   db = db[, c(target, rf.b)])"
+					   coding.start.model = FALSE, 
+					   check.start.model = FALSE,
+					   db = db[, c(target, rf.b, blp)])"
 		}
 	if	(method%in%"stepRPC") {
 		eval.exp <- "stepRPC(start.model = start.model, 
 					   risk.profile = data.frame(rf = rf.b, group = 1:length(rf.b)),
 					   p.value = p.value, 
 					   coding = coding,
-					   coding.start.model = TRUE, 
-					   check.start.model = TRUE,
-					   db = db[, c(target, rf.b)])"
+					   coding.start.model = FALSE, 
+					   check.start.model = FALSE,
+					   db = db[, c(target, rf.b, blp)])"
 		}
 
 	#initiate procedure
-	db.eb <- data.frame(db[, target, drop = FALSE])
+	blp <- NULL
 	blocks <- blocks[complete.cases(blocks$rf, blocks$block), ]
 	bid <- unique(blocks$block)
 	bidl <- length(bid)
 	steps <- vector("list", bidl)
-	models <- vector("list", bidl + 1)
-	dev.db <- vector("list", bidl + 1)
+	models <- vector("list", bidl)
+	dev.db <- vector("list", bidl)
 	for	(i in 1:bidl) {
 		print(paste0("--------Block: ", i, "-------"))
 		bid.l <- bid[i]
@@ -128,21 +128,14 @@ ensemble.blocks <- function(method, target, db, coding = "WoE", blocks,
 		models[[i]] <- res.l$model
 		names(models)[i] <- paste0("block_", i)
 		b.l.p <- unname(predict(res.l$model, type = "link", newdata = res.l$dev.db))
-		db.eb <- cbind.data.frame(db.eb, b.l.p)
-		names(db.eb)[i + 1] <- paste0("block_", i)
+		blp <- paste0("block_", i)
+		db <- cbind.data.frame(db, b.l.p)
+		names(db)[ncol(db)] <- blp
 		dev.db[[i]] <- res.l$dev.db
 		names(dev.db)[i] <- paste0("block_", i)
+		start.model <- as.formula(paste0(target, " ~ ", blp))
 		}
 	steps <- bind_rows(steps)
-	#ensemble model
-	print(paste0("-----Ensemble block----"))
-	bp <- names(db.eb)[!names(db.eb)%in%target]
-	eb.frm <- paste0(target, " ~ ", paste(bp, collapse = " + "))	
-	eb.mod <-  glm(formula = as.formula(eb.frm), family = "binomial", data = db.eb)
-	models[[bidl + 1]] <- eb.mod
-	names(models)[bidl + 1] <- "ensemble_block"
-	dev.db[[bidl + 1]] <- db.eb
-	names(dev.db)[bidl + 1] <- "ensemble_block"
 	res <- list(models = models, steps = steps, dev.db = dev.db)
 return(res)
 }
