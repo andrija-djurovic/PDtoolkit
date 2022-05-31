@@ -95,5 +95,5 @@ Anderson, R.A. (2021). Credit Intelligence & Modelling, Many Paths through the F
 OUP Oxford
 }
 \seealso{
-\code{\link{embeded.blocks}}, \code{\link{ensemble.blocks}}, \code{\link{stepMIV}}, \code{\link{stepFWD}} and \code{\link{stepRPC}}.
+\code{\link{embedded.blocks}}, \code{\link{ensemble.blocks}}, \code{\link{stepMIV}}, \code{\link{stepFWD}} and \code{\link{stepRPC}}.
 }
