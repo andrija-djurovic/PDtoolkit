@@ -122,8 +122,10 @@ psi.aux <- function(tbl.s, alpha) {
 	cv.chisq <- qchisq(p = ci, df = b - 1) * (1/n + 1/m)
 	psi.s <- data.frame(psi = sum(tbl.s$psi.b), 
 			    cv.zscore = cv.zscore, 
+			    "psi**" = sum((tbl.s$pct.base - tbl.s$pct.target)^2 / tbl.s$pct.base)
 			    cv.chisq = cv.chisq, 
-			    ci = ci)
+			    ci = ci,
+			    check.names = FALSE)
 return(list(res = psi.s, tbl = tbl.s))
 }
 
