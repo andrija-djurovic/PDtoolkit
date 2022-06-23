@@ -32,4 +32,4 @@ Changes:<br/>
 # PDtoolkit 1.0.0
 Changes:<br/>
 
-1. ```psi**``` value added on the output of ```psi``` function (for comparison with ```cv.chsq``` critical value)
+1. ```psi**``` value added on the output of ```psi``` function (for comparison with ```cv.chisq``` critical value)
