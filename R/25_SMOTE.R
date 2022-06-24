@@ -1,7 +1,7 @@
 #' Synthetic Minority Oversampling Technique (SMOTE)
 #'
-#' \code{smote} performs type of data augmentation for the selected (usually minority). In order to process continious and 
-#' categorical risk factors simultaneously, Heterogeneity Eucledian Overlapping Metric (HEOM) is used in nearest neighbours
+#' \code{smote} performs type of data augmentation for the selected (usually minority). In order to process continuous and 
+#' categorical risk factors simultaneously, Heterogeneity Euclidean Overlapping Metric (HEOM) is used in nearest neighbours
 #' algorithm.
 #'@param db Data set of risk factors and target variable.
 #'@param target Name of target variable within \code{db} argument.
@@ -13,11 +13,11 @@
 #'			    \code{lower} (lower bound of numeric risk factor), 
 #'			    \code{upper} (upper bound of numeric risk factor),
 #'			    \code{type} (type of numeric risk factor - \code{"numeric"} or \code{"integer"}).
-#'			    Constrains are used for correction of syntetic data for selected numeric risk factors.
-#'			    Default valus is \code{NULL} which means that no corrections are assumed.
+#'			    Constrains are used for correction of synthetic data for selected numeric risk factors.
+#'			    Default value is \code{NULL} which means that no corrections are assumed.
 #'@param k Number of nearest neighbours. Default value is 5.
 #'@param seed Random seed needed for ensuring the result reproducibility. Default is 81000.
-#'@return The command \code{smote} returns a data frame with added syntetic observations for selected minority class.
+#'@return The command \code{smote} returns a data frame with added synthetic observations for selected minority class.
 #' The data frame contains all variables from \code{db} data frame plus additional variable (\code{smote}) that serves as 
 #' indicator for distinguishing between original and synthetic observations.
 #'@examples
@@ -52,6 +52,7 @@
 #'lapply(split(loans.mc[, nrf], loans.mc$smote), summary)
 #'lapply(split(loans.mc[, "Account Balance", drop = FALSE], loans.mc$smote), 
 #'	 function(x) prop.table(table(x)))
+#'@importFrom stats runif
 #'@export
 smote <- function(db, target, minority.class, osr, ordinal.rf = NULL, num.rf.const = NULL, k = 5, seed = 81000) {
 	dfl.n <- c("rf", "lower", "upper", "type")
