@@ -83,7 +83,7 @@ return(x.trans)
 #' \code{cat.slice} implements manual re-coding of character vector values for a given mapping scheme. 
 #' This procedure is one of the helper functions which are handy for the model monitoring phase 
 #' (i.e. after model implementation).
-#'@param x character vector to be re-coded.
+#'@param x Character vector to be re-coded.
 #'@param mapping Data frame with compulsory columns: \code{x.orig} and \code{x.mapp} which represents the mapping
 #'		     scheme. Column \code{x.orig} should contain unique values of original vector \code{x}, while \code{x.mapp}
 #'		     should contain corresponding mapping values.
