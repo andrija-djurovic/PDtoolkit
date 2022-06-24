@@ -1,7 +1,7 @@
 #' Near-zero variance
 #'
 #' \code{nzv} procedure aims to identify risk factors with low variability (almost constants). Usually these risk factors are 
-#' expertly investigated and decision is made if they should be excluded from further modeling process. \br
+#' expertly investigated and decision is made if they should be excluded from further modeling process. \cr
 #' \code{nzv} output report includes the following metrics:
 #' \itemize{
 #'   \item rf: Risk factor name.
@@ -13,9 +13,9 @@
 #'   \item cc.unv: Number of unique values in complete cases. 
 #'   \item cc.unv.pct: Percentage of unique values in total number of complete cases.
 #'   \item cc.lbl.1: The most frequent value in complete cases.  
-#'   \item cc.frq.1: Number of occurence of the most frequent value in complete cases.
+#'   \item cc.frq.1: Number of occurrence of the most frequent value in complete cases.
 #'   \item cc.lbl.2: The second most frequent value in complete cases.  
-#'   \item cc.frq.2: Number of occurence of the second most frequent value in complete cases.
+#'   \item cc.frq.2: Number of occurrence of the second most frequent value in complete cases.
 #'   \item cc.fqr: Frequency ratio - the ratio between the occurance of most frequent and the second most frequent value in 
 #'			 complete cases.  
 #'   \item ind: Indicator which takes value of \code{1} if the percentage of complete cases is less then 10% and frequency ratio 
@@ -25,7 +25,7 @@
 #'}
 #'@param db  Data frame of risk factors supplied for near-zero variance analysis.
 #'@param sc Numeric or character vector with special case elements. Default values are \code{c(NA, NaN, Inf, -Inf)}.
-#'@return The command \code{nzv} returns the data frame with different matrices needed for identificaiton of near-zero variables.
+#'@return The command \code{nzv} returns the data frame with different matrices needed for identification of near-zero variables.
 #'	    For details see Description section. 
 #'@examples
 #'suppressMessages(library(PDtoolkit))
