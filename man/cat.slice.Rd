@@ -7,9 +7,9 @@
 cat.slice(x, mapping, sc = NA, sc.r = "SC")
 }
 \arguments{
-\item{x}{character vector to be re-coded.}
+\item{x}{Character vector to be re-coded.}
 
-\item{mapping}{Data frame with compulsory columns: \code{x.orig} and \code{x.mapp} which represents the mapping
+\item{mapping}{Data frame with compulsory columns: \code{x.orig} and \code{x.mapp} which represent the mapping
 scheme. Column \code{x.orig} should contain unique values of original vector \code{x}, while \code{x.mapp}
 should contain corresponding mapping values.}
 
