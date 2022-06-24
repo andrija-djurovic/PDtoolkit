@@ -34,7 +34,7 @@ Changes:<br/>
 
 1. ```psi**``` value added to the output of ```psi``` function (for comparison with ```cv.chisq``` critical value)
 2. New functions:
-      + helpers functions: ```slice.num```, ```slice.cat``` and ```encode.woe```
+      + helpers functions: ```num.slice```, ```cat.slice``` and ```encode.woe```
       + ```nzv``` - Near-zero variance
       + ```smote``` - Synthetic Minority Oversampling Technique
 
