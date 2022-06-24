@@ -1,7 +1,7 @@
 #' Synthetic Minority Oversampling Technique (SMOTE)
 #'
 #' \code{smote} performs type of data augmentation for the selected (usually minority). In order to process continuous and 
-#' categorical risk factors simultaneously, Heterogeneity Euclidean Overlapping Metric (HEOM) is used in nearest neighbours
+#' categorical risk factors simultaneously, Heterogeneity Euclidean Overlapping Metric (HEOM) is used in nearest neighbors
 #' algorithm.
 #'@param db Data set of risk factors and target variable.
 #'@param target Name of target variable within \code{db} argument.
@@ -15,7 +15,7 @@
 #'			    \code{type} (type of numeric risk factor - \code{"numeric"} or \code{"integer"}).
 #'			    Constrains are used for correction of synthetic data for selected numeric risk factors.
 #'			    Default value is \code{NULL} which means that no corrections are assumed.
-#'@param k Number of nearest neighbours. Default value is 5.
+#'@param k Number of nearest neighbors. Default value is 5.
 #'@param seed Random seed needed for ensuring the result reproducibility. Default is 81000.
 #'@return The command \code{smote} returns a data frame with added synthetic observations for selected minority class.
 #' The data frame contains all variables from \code{db} data frame plus additional variable (\code{smote}) that serves as 
