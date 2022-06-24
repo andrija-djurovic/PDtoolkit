@@ -34,6 +34,6 @@ Changes:<br/>
 
 1. ```psi**``` value added to the output of ```psi``` function (for comparison with ```cv.chisq``` critical value)
 2. New functions:
-      + ```nzv`` - near-zero variance analysis
-      + ```smote``` - synthetic oversampling algorithm
+      + ```nzv``` - Near-zero variance
+      + ```smote``` - Synthetic Minority Oversampling Technique
 
