@@ -32,7 +32,7 @@ expertly investigated and decision is made if they should be excluded from furth
 \item cc.frq.1: Number of occurrence of the most frequent value in complete cases.
 \item cc.lbl.2: The second most frequent value in complete cases.
 \item cc.frq.2: Number of occurrence of the second most frequent value in complete cases.
-\item cc.fqr: Frequency ratio - the ratio between the occurance of most frequent and the second most frequent value in
+\item cc.fqr: Frequency ratio - the ratio between the occurrence of most frequent and the second most frequent value in
 complete cases.
 \item ind: Indicator which takes value of \code{1} if the percentage of complete cases is less then 10\% and frequency ratio
 (\code{cc.fqr}) greater than 19. This values can be used for filtering risk factors that need further expert

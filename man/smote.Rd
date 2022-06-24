@@ -34,7 +34,7 @@ smote(
 Constrains are used for correction of synthetic data for selected numeric risk factors.
 Default value is \code{NULL} which means that no corrections are assumed.}
 
-\item{k}{Number of nearest neighbours. Default value is 5.}
+\item{k}{Number of nearest neighbors. Default value is 5.}
 
 \item{seed}{Random seed needed for ensuring the result reproducibility. Default is 81000.}
 }
@@ -45,7 +45,7 @@ indicator for distinguishing between original and synthetic observations.
 }
 \description{
 \code{smote} performs type of data augmentation for the selected (usually minority). In order to process continuous and
-categorical risk factors simultaneously, Heterogeneity Euclidean Overlapping Metric (HEOM) is used in nearest neighbours
+categorical risk factors simultaneously, Heterogeneity Euclidean Overlapping Metric (HEOM) is used in nearest neighbors
 algorithm.
 }
 \examples{
