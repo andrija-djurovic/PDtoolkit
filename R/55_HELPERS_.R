@@ -84,7 +84,7 @@ return(x.trans)
 #' This procedure is one of the helper functions which are handy for the model monitoring phase 
 #' (i.e. after model implementation).
 #'@param x Character vector to be re-coded.
-#'@param mapping Data frame with compulsory columns: \code{x.orig} and \code{x.mapp} which represents the mapping
+#'@param mapping Data frame with compulsory columns: \code{x.orig} and \code{x.mapp} which represent the mapping
 #'		     scheme. Column \code{x.orig} should contain unique values of original vector \code{x}, while \code{x.mapp}
 #'		     should contain corresponding mapping values.
 #'@param sc Character vector with special case elements. Default value is \code{NA}.
