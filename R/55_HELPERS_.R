@@ -1,6 +1,6 @@
 #' Slice numeric variable
 #'
-#' \code{slice.num} implements manual discretization of numeric vector for a given boundaries. This procedure is one
+#' \code{num.slice} implements manual discretization of numeric vector for a given boundaries. This procedure is one
 #' of the helper functions which are handy for the model monitoring phase (i.e. after model implementation).
 #'@param x Numeric vector to be discretized.
 #'@param mapping Data frame with compulsory columns: \code{x.min} and \code{x.max} which represent the discretized
@@ -8,7 +8,7 @@
 #'@param sc Numeric vector with special case elements. Default values are \code{c(NA, NaN, Inf, -Inf)}.
 #'@param sc.r Character vector used for replacement of special cases. If supplied as one 
 #'		  element vector, it will be recycled to the length of \code{sc}. Default value is \code{"SC"}.
-#'@return The command \code{slice.num} returns vector of discretized values and coded special cases. 
+#'@return The command \code{num.slice} returns vector of discretized values and coded special cases. 
 #'@examples
 #'suppressMessages(library(PDtoolkit))
 #'data(gcd)
@@ -20,7 +20,7 @@
 #'mbin <- sts.bin(x = x, y = gcd$qual, sc.method = "separately")
 #'mbin[[1]]
 #'#slice numeric variable
-#'sn <- slice.num(x = x, 
+#'sn <- num.slice(x = x, 
 #'		      mapping = data.frame(x.min = mbin[[1]]$x.min[-c(1, 2)], 
 #'						 x.max = mbin[[1]]$x.max[-c(1, 2)]), 
 #'		      sc = c(NA, NaN, Inf, -Inf), 
@@ -29,7 +29,7 @@
 #'table(mbin[[2]], useNA = "always")
 #'table(sn, useNA = "always")
 #'@export
-slice.num <- function(x, mapping, sc = c(NA, NaN, Inf, -Inf), sc.r = "SC") {
+num.slice <- function(x, mapping, sc = c(NA, NaN, Inf, -Inf), sc.r = "SC") {
 	if	(!is.numeric(x)) {
 		stop("x has to be numeric vector.")
 		}
@@ -80,7 +80,7 @@ return(x.trans)
 
 #' Slice categorical variable
 #'
-#' \code{slice.cat} implements manual re-coding of character vector values for a given mapping scheme. 
+#' \code{cat.slice} implements manual re-coding of character vector values for a given mapping scheme. 
 #' This procedure is one of the helper functions which are handy for the model monitoring phase 
 #' (i.e. after model implementation).
 #'@param x character vector to be re-coded.
@@ -90,7 +90,7 @@ return(x.trans)
 #'@param sc Character vector with special case elements. Default value is \code{NA}.
 #'@param sc.r Character vector used for replacement of special cases. If supplied as one 
 #'		  element vector, it will be recycled to the length of \code{sc}. Default value is \code{"SC"}.
-#'@return The command \code{slice.cat} returns vector of re-coded values and special cases. 
+#'@return The command \code{cat.slice} returns vector of re-coded values and special cases. 
 #'@examples
 #'suppressMessages(library(PDtoolkit))
 #'data(gcd)
@@ -112,7 +112,7 @@ return(x.trans)
 #'	       group_by(x.orig, x.mapp) %>%
 #'	       summarise(n = n(), .groups = "drop")
 #'mapping <- data.frame(mapping[, -3])
-#'sc <- slice.cat(x = x, 
+#'sc <- cat.slice(x = x, 
 #'		     mapping = mapping, 
 #'		     sc = NA, 
 #'		     sc.r = "SC")
@@ -120,7 +120,7 @@ return(x.trans)
 #'table(cb[[2]], useNA = "always")
 #'table(sc, useNA = "always")
 #'@export
-slice.cat <- function(x, mapping, sc = NA, sc.r = "SC") {
+cat.slice <- function(x, mapping, sc = NA, sc.r = "SC") {
 	if	(!(is.character(x) | is.factor(x) | is.logical(x))) {
 		stop("Inappropriate class. It has to be one of: character, factor or logical.")
 		}
