@@ -86,7 +86,7 @@ return(x.trans)
 #'@param x character vector to be re-coded.
 #'@param mapping Data frame with compulsory columns: \code{x.orig} and \code{x.mapp} which represents the mapping
 #'		     scheme. Column \code{x.orig} should contain unique values of original vector \code{x}, while \code{x.mapp}
-#'		     should contain coresponding mapping values.
+#'		     should contain corresponding mapping values.
 #'@param sc Character vector with special case elements. Default value is \code{NA}.
 #'@param sc.r Character vector used for replacement of special cases. If supplied as one 
 #'		  element vector, it will be recycled to the length of \code{sc}. Default value is \code{"SC"}.
@@ -166,7 +166,7 @@ return(x.trans)
 #'@param x Character vector to be re-coded.
 #'@param mapping Data frame with compulsory columns: \code{x.mod} and \code{x.woe} which represents the mapping
 #'		     scheme. Column \code{x.mod} should contain unique values of original vector \code{x}, while \code{x.woe}
-#'		     should contain coresponding mapping values.
+#'		     should contain corresponding mapping values.
 #'@return The command \code{encode.woe} returns vector of re-coded WoE values. 
 #'@examples
 #'suppressMessages(library(PDtoolkit))
