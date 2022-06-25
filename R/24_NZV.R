@@ -38,9 +38,8 @@
 nzv <- function(db, sc = c(NA, NaN, Inf, -Inf)) {
 	ops <- options(warn = -1)
 	on.exit(options(ops))
-
 	if	(!is.data.frame(db)) {
-		stop("mapping is not a data frame.")
+		stop("db is not a data frame.")
 		}
 	sc.num <- unique(as.numeric(sc))
 	sc.cat <- unique(as.character(sc))

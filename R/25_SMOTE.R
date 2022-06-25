@@ -126,7 +126,7 @@ smote <- function(db, target, minority.class, osr, ordinal.rf = NULL, num.rf.con
 	indx <- sample(1:mc.num, os.num, replace = ifelse(os.num > mc.num, TRUE, FALSE))
 	#k check
 	if	(k > mc.num) {k <- mc.num}
-	#find k nearest neighbours
+	#find k nearest neighbors
 	res.knn <- heom(db = db.c.mc[, !names(db.c.mc)%in%target], 
 			    indx = indx, 
 			    k = k, 
