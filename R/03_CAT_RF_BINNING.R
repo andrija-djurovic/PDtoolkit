@@ -181,17 +181,14 @@ cat.bin <- function(x, y, sc = NA, sc.merge = "none", min.pct.obs = 0.05, min.av
 		d <- left_join(d[, c("x", "y")], ds[,c("bin", "label")], by = c("x" = "bin"))
 		d$label[d$x%in%sc] <- d$x[d$x%in%sc]
 		summary.tbl <- woe.tbl(tbl = d, x = "label", y = "y")	
-		if	(exists("sc.replace")) {
-			if	(sc.merge%in%"none") {
-				summary.tbl$sc.replace <- "none"
-				} else {
-				summary.tbl$sc.replace <- paste0(sc.merge, " & ", sc.replace)
-				}	
-			}
 		x.trans <- d$label
 		}
-	if	(!sc.merge%in%"none" & exists("sc.replace")) {
-		summary.tbl$sc.bin <- sc.replace
+	if	(exists("sc.replace")) {
+		if	(sc.merge%in%"none") {
+			summary.tbl$sc.bin <- "none"
+			} else {
+			summary.tbl$sc.bin <- paste0(sc.merge, " & ", sc.replace)
+			}	
 		}
 return(list(summary.tbl = summary.tbl, x.trans = x.trans))
 }
