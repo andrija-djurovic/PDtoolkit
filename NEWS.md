@@ -33,7 +33,8 @@ Changes:<br/>
 Changes:<br/>
 
 1. ```psi**``` value added to the output of ```psi``` function (for comparison with ```cv.chisq``` critical value)
-2. New functions:
+2. Improvement of ```cat.bin``` consistency output for ```sc.merge``` option 
+3. New functions:
       + helpers functions: ```num.slice```, ```cat.slice``` and ```encode.woe```
       + ```nzv``` - Near-zero variance
       + ```smote``` - Synthetic Minority Oversampling Technique
