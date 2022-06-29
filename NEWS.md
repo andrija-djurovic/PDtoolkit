@@ -38,4 +38,5 @@ Changes:<br/>
       + helpers functions: ```num.slice```, ```cat.slice``` and ```encode.woe```
       + ```nzv``` - Near-zero variance
       + ```smote``` - Synthetic Minority Oversampling Technique
+      + ```constrained.logit``` - constrained logistic regression
 
