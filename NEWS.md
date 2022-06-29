@@ -39,4 +39,5 @@ Changes:<br/>
       + ```nzv``` - Near-zero variance
       + ```smote``` - Synthetic Minority Oversampling Technique
       + ```constrained.logit``` - constrained logistic regression
+      + ```rf.interaction.transformer``` - extract interactions from random forest
 
