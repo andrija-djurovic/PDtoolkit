@@ -36,7 +36,7 @@ Changes:<br/>
 2. Improvement of ```cat.bin``` consistency output for ```sc.merge``` option 
 3. New functions:
       + helpers functions: ```num.slice```, ```cat.slice``` and ```encode.woe```
-      + ```nzv``` - Near-zero variance
+      + ```nzv``` - near-zero variance
       + ```smote``` - Synthetic Minority Oversampling Technique
       + ```constrained.logit``` - constrained logistic regression
       + ```rf.interaction.transformer``` - extract interactions from random forest
