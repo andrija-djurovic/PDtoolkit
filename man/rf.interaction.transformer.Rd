@@ -54,3 +54,23 @@ It implements customized random forest algorithm that takes into account differe
 percentage of observations and defaults in each node, maximum tree depth and monotonicity condition
 at each splitting node. Gini index is used as metric for node splitting .
 }
+\examples{
+#modify risk factors in order to show how the function works with missing values
+loans$"Account Balance"[1:10] <- NA
+loans$"Duration of Credit (month)"[c(13, 15)] <- NA
+rf.it <- rf.interaction.transformer(db = loans, 
+			     rf = names(loans)[!names(loans)\%in\%"Creditability"], 
+			     target = "Creditability",
+			     num.rf = NA, 
+			     num.tree = 3,
+			     min.pct.obs = 0.05,
+			     min.avg.rate = 0.01,
+			     max.depth = 2,
+			     monotonicity = TRUE,
+			     create.interaction.rf = TRUE,
+			     seed = 579)
+names(rf.it)
+rf.it[["tree.info"]]
+tail(rf.it[["interaction"]])
+table(rf.it[["interaction"]][, 1], useNA = "always")
+}
