@@ -21,24 +21,24 @@
 #'@return The command \code{rf.interaction.transformer} returns a list of two data frames. The first data frame provides
 #' the trees summary. The second data frame is a new risk factor extracted from random forest.
 #'@examples
-#modify risk factors in order to show how the function works with missing values
-#loans$"Account Balance"[1:10] <- NA
-#loans$"Duration of Credit (month)"[c(13, 15)] <- NA
-#rf.it <- rf.interaction.transformer(db = loans, 
-#				     rf = names(loans)[!names(loans)%in%"Creditability"], 
-#				     target = "Creditability",
-#				     num.rf = NA, 
-#				     num.tree = 3,
-#				     min.pct.obs = 0.05,
-#				     min.avg.rate = 0.01,
-#				     max.depth = 2,
-#				     monotonicity = TRUE,
-#				     create.interaction.rf = TRUE,
-#				     seed = 579)
-#names(rf.it)
-#rf.it[["tree.info"]]
-#tail(rf.it[["interaction"]])
-#table(rf.it[["interaction"]][, 1], useNA = "always")
+#'#modify risk factors in order to show how the function works with missing values
+#'loans$"Account Balance"[1:10] <- NA
+#'loans$"Duration of Credit (month)"[c(13, 15)] <- NA
+#'rf.it <- rf.interaction.transformer(db = loans, 
+#'				     rf = names(loans)[!names(loans)%in%"Creditability"], 
+#'				     target = "Creditability",
+#'				     num.rf = NA, 
+#'				     num.tree = 3,
+#'				     min.pct.obs = 0.05,
+#'				     min.avg.rate = 0.01,
+#'				     max.depth = 2,
+#'				     monotonicity = TRUE,
+#'				     create.interaction.rf = TRUE,
+#'				     seed = 579)
+#'names(rf.it)
+#'rf.it[["tree.info"]]
+#'tail(rf.it[["interaction"]])
+#'table(rf.it[["interaction"]][, 1], useNA = "always")
 #'@export
 rf.interaction.transformer <- function(db, rf, target, num.rf = NA, num.tree, min.pct.obs, min.avg.rate, max.depth, 
 						   monotonicity, create.interaction.rf, seed = 991) {
