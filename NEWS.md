@@ -34,7 +34,7 @@ Changes:<br/>
 
 1. ```psi**``` value added to the output of ```psi``` function (for comparison with ```cv.chisq``` critical value)
 2. Improvement of ```cat.bin``` output consistency for ```sc.merge``` option 
-3. Additional check of ```segment```argument  (has to be of length one) in ```homogeneity``` function
+3. Additional check of ```segment```argument in ```homogeneity``` function (has to be of length one)
 4. New functions:
       + helpers functions: ```num.slice```, ```cat.slice``` and ```encode.woe```
       + ```nzv``` - near-zero variance
