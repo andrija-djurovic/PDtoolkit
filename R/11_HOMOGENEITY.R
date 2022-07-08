@@ -86,6 +86,9 @@ homogeneity <- function(app.port, def.ind, rating, segment, segment.num, alpha =
 	if	(any(!cc)) {
 		warning("There are some incomplete cases. Check def.ind, rating and segment columns.")
 		}
+	if	(length(segment) > 1) {
+		stop("segment argument has to be of length one.")
+		}
 	seg <- app.port[, segment]
 	if	(is.numeric(seg)) {
 		seg.ul <- length(unique(seg))
