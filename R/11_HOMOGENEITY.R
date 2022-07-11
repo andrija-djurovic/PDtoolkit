@@ -61,8 +61,6 @@
 #'		alpha = 0.05)
 #'@importFrom stats prop.test complete.cases
 #'@export
-
-
 homogeneity <- function(app.port, def.ind, rating, segment, segment.num, alpha = 0.05) {
 	if	(!is.data.frame(app.port)) {
 		stop("app.port is not a data frame.")
@@ -133,7 +131,6 @@ t2p <- function(rat.g, def, rat.s, alpha) {
 			com <- ifelse(p.val >= alpha,
 				        paste0("H0: DR(", su.l, ") =="," DR(rest)"),
 					  paste0("H1: DR(", su.l, ") !="," DR(rest)"))
-
 			}
 		res.l <- data.frame(rating = unique(rat.g), segment.mod = su.l, no = length(def), nb = sum(def), 
 					  no.segment = no1, no.rest = no2,
