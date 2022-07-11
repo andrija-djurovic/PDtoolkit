@@ -14,6 +14,7 @@
 #'		have to be of the same type (if WoE coding is used it has to be numeric with WoE values).
 #'		Additionally, the rest of the risk factors (these that are supplied in \code{db}, but not used
 #'		for \code{model} development) will be used for segment validation.
+#'@param min.leaf Minimum percentage of observations per leaf. Default is 0.03.
 #'@param alpha Significance level of p-value for one proportion test. Default is 0.05.
 #'@return The command \code{segment.vld} returns a list of three objects.\cr
 #'	    The first object (\code{segment.model}), returns regression tree results (\code{rpart} object).\cr
@@ -40,6 +41,7 @@
 #'#run segment validation procedure
 #'seg.analysis <- segment.vld(model = final.model, 
 #'					db = res$dev.db,
+#'					min.leaf = 0.03,
 #'					alpha = 0.05)
 #'#check output elements
 #'names(seg.analysis)
@@ -52,21 +54,24 @@
 #'@import rpart
 #'@importFrom stats prop.test
 #'@export
-segment.vld <- function(model, db, alpha = 0.05) {
+segment.vld <- function(model, db, min.leaf = 0.03, alpha = 0.05) {
 	model.vars <- names(model$model)
 	if	(length(names(db)[!names(db)%in%model.vars]) == 0) {
 		stop("No additional risk factors for analysis.")
+		}
+	if	(!is.numeric(min.leaf) | length(min.leaf) > 1) {
+		stop("min.leaf has to be numeric vector of length one.")
 		}
 	target <- model.vars[1]
 	rf.model <- model.vars[-1]
 	db$mpred <- unname(predict(model, type = "response", newdata = db))
 	db$error <- db[, target] - db$mpred
 	tree.vars <- names(db)[!names(db)%in%c(target, "mpred", rf.model)]
-	min.leaf <- round(0.03 * nrow(db)) 
+	min.leaf <- round(min.leaf * nrow(db)) 
 	min.leaf <- ifelse(min.leaf < 30, 30, min.leaf)
 	reg.tree <- rpart(error ~ ., method = "anova", data = db[, tree.vars, drop = FALSE],
 				control = rpart.control(minsplit = min.leaf,
-								minbucket = min.leaf))
+							minbucket = min.leaf))
 	tree.rules <- extract.rules(model = reg.tree)
 	if	(is.null(tree.rules)) {
 		info <- "No significant split of residuals."
