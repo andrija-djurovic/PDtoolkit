@@ -103,9 +103,9 @@ homogeneity <- function(app.port, def.ind, rating, segment, segment.num, alpha =
 	ru.l <- length(rat.unique)
 	res <- vector("list", ru.l)
 	for	(i in 1:ru.l) {
-		rat.g = ratings[ratings%in%rat.unique[i]] 
-		def = defaults[ratings%in%rat.unique[i]]
-		rat.s = seg[ratings%in%rat.unique[i]]
+		rat.g <- ratings[ratings%in%rat.unique[i]] 
+		def <- defaults[ratings%in%rat.unique[i]]
+		rat.s <- seg[ratings%in%rat.unique[i]]
 		res[[i]] <- t2p(rat.g = rat.g, def = def, rat.s = rat.s, alpha = alpha)
 		}
 	res <- bind_rows(res)
