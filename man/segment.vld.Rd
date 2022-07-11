@@ -4,7 +4,7 @@
 \alias{segment.vld}
 \title{Model segment validation}
 \usage{
-segment.vld(model, db, alpha = 0.05)
+segment.vld(model, db, min.leaf = 0.03, alpha = 0.05)
 }
 \arguments{
 \item{model}{Model in use, an object of class inheriting from \code{"glm"}}
@@ -13,6 +13,8 @@ segment.vld(model, db, alpha = 0.05)
 have to be of the same type (if WoE coding is used it has to be numeric with WoE values).
 Additionally, the rest of the risk factors (these that are supplied in \code{db}, but not used
 for \code{model} development) will be used for segment validation.}
+
+\item{min.leaf}{Minimum percentage of observations per leaf. Default is 0.03.}
 
 \item{alpha}{Significance level of p-value for one proportion test. Default is 0.05.}
 }
@@ -54,6 +56,7 @@ summary(final.model)$coefficients
 #run segment validation procedure
 seg.analysis <- segment.vld(model = final.model, 
 				db = res$dev.db,
+				min.leaf = 0.03,
 				alpha = 0.05)
 #check output elements
 names(seg.analysis)
