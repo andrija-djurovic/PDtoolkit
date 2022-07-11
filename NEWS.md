@@ -42,4 +42,6 @@ Changes:<br/>
       + ```smote``` - Synthetic Minority Oversampling Technique
       + ```constrained.logit``` - constrained logistic regression
       + ```rf.interaction.transformer``` - extract interactions from random forest
+      + ```hhi``` - Herfindahl-Hirschman Index
+      + ```normal.test``` - Multi-period predictive power test
 
