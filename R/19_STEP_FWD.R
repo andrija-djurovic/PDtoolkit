@@ -279,7 +279,11 @@ find.next <- function(it.s, tbl.c) {
 		rf.next <- NULL
 		rf.next.all <- data.frame()
 		} else {
-		rf.next.all <- rf.nc[which.min(rf.nc$p.val), ]
+		if	(length(unique(rf.nc$p.val)) == 1) {
+			rf.next.all <- rf.nc[which.min(rf.nc$aic), ][1, ]
+			} else {
+			rf.next.all <- rf.nc[which.min(rf.nc$p.val), ][1, ]
+			}
 		rf.next <- rf.next.all$rf
 		tbl.c <- tbl.c[!tbl.c$rf%in%rf.next, ]
 		}
