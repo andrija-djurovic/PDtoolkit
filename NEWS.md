@@ -36,7 +36,8 @@ Changes:<br/>
 2. Improvement of ```cat.bin``` output consistency for ```sc.merge``` option 
 3. Additional check of ```segment```argument in ```homogeneity``` function (has to be of length one)
 4. Function ```segment.vld``` parametrized with the new argument ```min.leaf```
-5. New functions:
+5. Additional condition considered for selection of next entry in ```stepFWD``` (now AIC value can be possibly considered in the selection process)
+6. New functions:
       + helpers functions: ```num.slice```, ```cat.slice``` and ```encode.woe```
       + ```nzv``` - near-zero variance
       + ```smote``` - Synthetic Minority Oversampling Technique
