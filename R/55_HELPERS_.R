@@ -72,7 +72,7 @@ num.slice <- function(x, mapping, sc = c(NA, NaN, Inf, -Inf), sc.r = "SC") {
 			    ifelse(x.lb.l == -Inf,
 				     paste0(bin.n, " (", round(x.lb.l, 4), ",", round(x.lb.lag.l, 4), ")"),
 				     paste0(bin.n, " [", round(x.lb.l, 4), ",", round(x.lb.lag.l, 4), ")")))
-		rep.indx <- which(!x%in%sc & x >= x.lb.l & x <= x.ub.l)
+		rep.indx <- which(!x%in%sc & x >= x.lb.l & x <= x.lb.lag.l)
 		x.trans[rep.indx] <- bin.f
 		}	
 return(x.trans)
