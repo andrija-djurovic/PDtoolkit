@@ -74,7 +74,7 @@ staged.blocks <- function(method, target, db, coding = "WoE", blocks,
 	if	(!method%in%method.opt) {
 		stop(paste0("method argument has to be one of: ", paste0(method.opt, collapse = ', '), "."))
 		}
-		if	(!all(c("rf", "block")%in%names(blocks))) {
+	if	(!all(c("rf", "block")%in%names(blocks))) {
 		stop("blocks data frame has to contain columns: rf and block.")
 		}
 	if	(!all(blocks$rf%in%names(db))) {
