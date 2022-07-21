@@ -37,7 +37,8 @@ Changes:<br/>
 3. Additional check of ```segment```argument in ```homogeneity``` function (has to be of length one)
 4. Function ```segment.vld``` parametrized with the new argument ```min.leaf```
 5. Additional condition considered for selection of next entry in ```stepFWD``` (now AIC value can be possibly considered in the selection process)
-6. New functions:
+6. Bug fix in ```interaction.transformer``` function - identification of upper bound for partitioning
+7. New functions:
       + helpers functions: ```num.slice```, ```cat.slice``` and ```encode.woe```
       + ```nzv``` - near-zero variance
       + ```smote``` - Synthetic Minority Oversampling Technique
