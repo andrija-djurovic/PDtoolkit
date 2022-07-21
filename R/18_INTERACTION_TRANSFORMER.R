@@ -216,7 +216,7 @@ best.split.num <- function(tbl, rf.l, target, min.obs, min.rate, monodir) {
 			    dr.c = y.cs / n.cs,
 			    dr.r = (sum(y.sum) - y.cs) / (sum(n) - n.cs))
 	lt <- min(which(tbl.s$n.cs >= min.obs & tbl.s$y.cs >= min.rate)) + 1
-	ut <- nrow(tbl.s) - min(which(tbl.s$n.cs.rev >= min.obs & tbl.s$y.cs.rev >= min.rate)) 
+	ut <- nrow(tbl.s) - min(which(tbl.s$n.cs.rev >= min.obs & tbl.s$y.cs.rev >= min.rate)) - 1
 	if	(lt > ut) {
 		res <- data.frame(rf = paste0("`", rf.l, "`"), ssv = NA, split = NA, y.l = NA, y.r = NA)
 		return(res)
