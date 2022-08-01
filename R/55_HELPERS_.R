@@ -122,7 +122,7 @@ return(x.trans)
 #'@export
 cat.slice <- function(x, mapping, sc = NA, sc.r = "SC") {
 	if	(!(is.character(x) | is.factor(x) | is.logical(x))) {
-		stop("Inappropriate class. It has to be one of: character, factor or logical.")
+		stop("x is of inappropriate class. It has to be one of: character, factor or logical.")
 		}
 	if	(!is.data.frame(mapping)) {
 		stop("mapping is not a data frame.")
