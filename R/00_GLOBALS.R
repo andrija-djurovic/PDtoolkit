@@ -4,4 +4,4 @@ utils::globalVariables(c(".", "bin.type", "complete.cases", "dist.b", "dist.g", 
 			 "label.y", "pchisq", "pnorm", "xtabs", "as.dist", "reg.tree", "segment", "mpred",
 			 "nb.obs", "nb.mod", "dr.mod", "dr.obs", "amse", "as.formula", "auc", "db.vld", "rmse", "bin",
 			 "n.base", "n.target", "n.cs", "n.cs.rev", "y.cs", "y.cs.rev", "y.sum", "db", "coef", 
-			 "rf", "dr", "Estimate", "vcov", "runif"))
+			 "rf", "dr", "Estimate", "vcov", "runif", "metric", "value", "cutoff"))

@@ -63,11 +63,11 @@ cm.metrics <- function(conf.mat) {
 				    value = c(accuracy, error.rate, sensitivity,
 					      specificity, precision, f1.score, 
 					      false.positive, false.discovery))
-	metrics$metric <- factor(metrics$metric, levels = metrics$metric, order = TRUE)
+	metrics$metric <- factor(metrics$metric, levels = metrics$metric, ordered = TRUE)
 return(metrics)
 }
 
-#' Palette of cutoff values that minimize and maximize metrices from the confusion matrix
+#' Palette of cutoff values that minimize and maximize metrics from the confusion matrix
 #'
 #' \code{cutoff.palette} returns confusion matrix along with accompanied performance metrics.
 #'@param predictions Model predictions.
