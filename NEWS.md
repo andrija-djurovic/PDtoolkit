@@ -46,4 +46,5 @@ Changes:<br/>
       + ```rf.interaction.transformer``` - extract interactions from random forest
       + ```hhi``` - Herfindahl-Hirschman Index
       + ```normal.test``` - Multi-period predictive power test
+      + ```confusion.matrix``` and ```cutoff.palette``` - confusion matrix analysis
 
