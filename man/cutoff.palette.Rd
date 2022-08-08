@@ -2,7 +2,7 @@
 % Please edit documentation in R/30_CONFUSION_MATRIX.R
 \name{cutoff.palette}
 \alias{cutoff.palette}
-\title{Palette of cutoff values that minimize and maximize metrices from the confusion matrix}
+\title{Palette of cutoff values that minimize and maximize metrics from the confusion matrix}
 \usage{
 cutoff.palette(predictions, observed, min.pct.obs = 0.05, min.pct.def = 0.01)
 }
@@ -21,4 +21,28 @@ matrix metric along with optimized cutoff itself.
 }
 \description{
 \code{cutoff.palette} returns confusion matrix along with accompanied performance metrics.
+}
+\examples{
+suppressMessages(library(PDtoolkit))
+data(loans)
+#identify numeric risk factors
+num.rf <- sapply(loans, is.numeric)
+num.rf <- names(num.rf)[!names(num.rf)\%in\%"Creditability" & num.rf]
+#discretized numeric risk factors using mdt.bin from monobin package
+loans[, num.rf] <- sapply(num.rf, function(x) 
+			  mdt.bin(x = loans[, x], y = loans[, "Creditability"])[[2]])
+str(loans)
+res <- stepFWD(start.model = Creditability ~ 1, 
+   p.value = 0.05, 
+   coding = "WoE",
+   db = loans)
+#run cutoff optimization
+cop <- cutoff.palette(predictions = predict(res$model, type = "response"), 
+			observed = loans$"Creditability",
+			min.pct.obs = 0.05, 
+			min.pct.def = 0.01)
+cop
+confusion.matrix(predictions = predict(res$model, type = "response"), 
+	     observed = loans$"Creditability",
+	     cutoff = cop$cutoff.max[cop$metric\%in\%"f1.score"])
 }
