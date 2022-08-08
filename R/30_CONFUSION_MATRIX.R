@@ -76,7 +76,7 @@ return(metrics)
 #'@param min.pct.def Minimum percentage of default. Used to select boundaries of cutoff values. Default value is 0.01.
 #'@return The command \code{cutoff.palette} returns data frame with minimum and maximum values of each confusion
 #'	    matrix metric along with optimized cutoff itself.
-#'@example
+#'@examples
 #'suppressMessages(library(PDtoolkit))
 #'data(loans)
 #'#identify numeric risk factors
