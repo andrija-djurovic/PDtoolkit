@@ -35,7 +35,7 @@ Changes:<br/>
 1. ```psi**``` value added to the output of ```psi``` function (for comparison with ```cv.chisq``` critical value)
 2. Improvement of ```cat.bin``` output consistency for ```sc.merge``` option 
 3. Additional check of ```segment```argument in ```homogeneity``` function (has to be of length one)
-4. Function ```segment.vld``` parametrized with the new argument ```min.leaf```
+4. Function ```segment.vld``` parameterized with the new argument ```min.leaf```
 5. Additional condition considered for selection of next entry in ```stepFWD``` (now AIC value can be possibly considered in the selection process)
 6. Bug fix in ```interaction.transformer``` function - identification of upper bound for partitioning
 7. New functions:
