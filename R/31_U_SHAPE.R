@@ -4,10 +4,10 @@
 #' Testing is based on B-splines basis functions and change of the sign of the estimated coefficients.
 #'@param x Numeric vector to be tested for U-shape.
 #'@param y Numeric target vector (binary).
-#'@param p.value Threshold for p-value of statistical sifnificane of the estimated coefficients
+#'@param p.value Threshold for p-value of statistical significance of the estimated coefficients
 #'		     next to basis functions. Default is 0.05.
 #'@param min.pct.obs Minimum percentage of observations per bin. Default is 0.05.
-#'@param min.avg.rate Minimum \code{y} average rate. Default is 0.01 or minimum 1 bad case for y 0/1.
+#'@param min.pct.def Minimum \code{y} average rate. Default is 0.01 or minimum 1 bad case for y 0/1.
 #'@param g Number of knots used for testing the U-shape (integer). It should take values between 2 and 50 with 
 #'	     default value of 20.
 #'@param sc Numeric vector with special case elements. Default values are \code{c(NA, NaN, Inf, -Inf)}.
@@ -15,14 +15,14 @@
 #' in \code{x} and are not defined in the \code{sc} vector, function can report the error.
 #'@return The command \code{ush.test} returns list of three objects. The first object (\code{candidates}) 
 #'	    is the data frame with summary of tested candidate knots. Using the reported results of this data frame
-#'	    user can concude if U-shape exists at all (column where \code{direction} is equal to \code{TRUE}) and 
+#'	    user can conclude if U-shape exists at all (column where \code{direction} is equal to \code{TRUE}) and 
 #'	    check its statistical significance (column \code{significance} - \code{TRUE, FALSE}). 
 #'	    The second object (\code{optimal}) reports optimal knot value (if exists). 
 #'	    It is selected as the knot with minimum deviance among all candidates for
 #'	    which \code{direction} and \code{significance} are equal to \code{TRUE}. 
 #'	    The last, third, object (\code{basis.functions}) exports basis functions for optimal knot. Basis functions
 #'	    will be exported only in case optimal knot is found. \cr
-#'	    If optimal knot is not found, then users are encourged to inspect closer the results of candidate testing.
+#'	    If optimal knot is not found, then users are encouraged to inspect closer the results of candidate testing.
 #'@examples
 #'data(gcd)
 #'res <- ush.test(x = gcd$amount, y = gcd$qual)
