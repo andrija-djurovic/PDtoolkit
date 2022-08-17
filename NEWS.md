@@ -50,4 +50,5 @@ Changes:<br/>
       + ```ush.test``` and ```ush.bin``` - U-shape testing and binning procedures
       + ```kfold.idx``` - indices for K-fold validation
       + ```fairness.vld``` - model fairness validation
+      + ```decision.tree``` - custom decision tree algorithm and its ```predict``` method
 
