@@ -36,7 +36,7 @@ The command \code{fairness.vld} returns a list of three data frames.\cr
 The first object (\code{SP}), provides results of statistical parity testing.\cr
 The second object (\code{CSP}), provides results of conditional statistical parity testing.
 This object will be returned only if conditional attributed is supplied. \cr
-The third object (\code{SP}), provides results of equal opportunity testing.\cr
+The third object (\code{EO}), provides results of equal opportunity testing.\cr
 }
 \description{
 \code{fairness.vld} performs fairness validation for a given sensitive attribute and selected outcome.
