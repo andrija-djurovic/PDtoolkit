@@ -92,6 +92,7 @@
 #'		 conditional = "Credit Amount", 
 #'		 mod.outcome.type = "cont", 
 #'		 p.value = 0.05)
+#'@importFrom stats chisq.test lm
 #'@export
 fairness.vld <- function(db, sensitive, obs.outcome, mod.outcome, conditional = NULL, mod.outcome.type, p.value) {
 	if	(!is.data.frame(db)) {
