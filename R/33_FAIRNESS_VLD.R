@@ -17,7 +17,7 @@
 #'	    The first object (\code{SP}), provides results of statistical parity testing.\cr
 #'	    The second object (\code{CSP}), provides results of conditional statistical parity testing.
 #'	    This object will be returned only if conditional attributed is supplied. \cr
-#'	    The third object (\code{SP}), provides results of equal opportunity testing.\cr
+#'	    The third object (\code{EO}), provides results of equal opportunity testing.\cr
 #'@references
 #'Hurlin, Christophe and Perignon, Christophe and Saurin, Sebastien (2022), 
 #'The Fairness of Credit Scoring Models. HEC Paris Research Paper No. FIN-2021-1411
