@@ -4,7 +4,7 @@
 #'@param target Binary target variable.
 #'@param k Number of folds. If \code{k} is equal or greater than the number of observations of 
 #'	     target variable, then validation procedure is equivalent to leave one out cross-validation (LOOCV)
-#'	     method. For stratified sampling, k is compared with frequences of 0 and 1 from target. 
+#'	     method. For stratified sampling, k is compared with frequencies of 0 and 1 from target. 
 #'         Default is set to 10.
 #'@param type Sampling type. Possible options are \code{"random"} and \code{"stratified"}.
 #'@param seed Random seed needed for ensuring the result reproducibility. Default is 2191.
