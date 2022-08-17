@@ -48,4 +48,6 @@ Changes:<br/>
       + ```normal.test``` - Multi-period predictive power test
       + ```confusion.matrix``` and ```cutoff.palette``` - confusion matrix analysis
       + ```ush.test``` and ```ush.bin``` - U-shape testing and binning procedures
+      + ```kfold.idx``` - indices for K-fold validation
+      + ```fairness.vld``` - model fairness validation
 
