@@ -332,7 +332,7 @@ return(res)
 #'@param newdata Optionally, a data frame in which to look for variables with which to predict. 
 #'               If omitted, the fitted predictors are used.
 #'@param ... further arguments passed to or from other methods. 
-#'@return Returns average default rate along with leaf identificator.
+#'@return Returns average default rate per leaf.
 #'@examples
 #'# S3 method for class "cdt"
 #'suppressMessages(library(PDtoolkit))
