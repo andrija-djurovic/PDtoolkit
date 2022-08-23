@@ -199,7 +199,7 @@ encode.woe <- function(x, mapping) {
 	ux <- unique(x)	
 	if	(!any(ux%in%c(mapping$x.mod, NA))) {
 		ux <- ux[!ux%in%c(mapping$x.mod, NA)]
-		stop(paste0("x contains that are not reported in mapping (x.mod) data frame: " ,
+		stop(paste0("x contains value(s) not reported in mapping (x.mod) data frame: " ,
 		     paste(ux, collapse = ", "), "."))
 		}
 	nv <- mapping$x.woe
