@@ -204,6 +204,9 @@ encode.woe <- function(x, mapping) {
 		}
 	nv <- mapping$x.woe
 	x.trans <- unname(nv[as.character(x)])
-	x.trans[is.na(x.trans)] <- mapping$x.woe[is.na(mapping$x.mod)]
+	na.idx <- is.na(x.trans)
+	if	(sum(na.idx) > 0) {
+		x.trans[na.idx] <- mapping$x.woe[is.na(mapping$x.mod)]
+		}
 return(x.trans)
 }
