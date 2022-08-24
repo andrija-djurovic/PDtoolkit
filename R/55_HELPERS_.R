@@ -203,8 +203,7 @@ encode.woe <- function(x, mapping) {
 		     paste(ux, collapse = ", "), "."))
 		}
 	nv <- mapping$x.woe
-	names(nv) <- mapping$x.mod
-	x.trans <- unname(nv[x])
-
+	x.trans <- unname(nv[as.character(x)])
+	x.trans[is.na(x.trans)] <- mapping$x.woe[is.na(mapping$x.mod)]
 return(x.trans)
 }
