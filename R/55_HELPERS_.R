@@ -186,7 +186,7 @@ return(x.trans)
 #'@export
 encode.woe <- function(x, mapping) {
 	if	(!(is.character(x) | is.factor(x) | is.logical(x))) {
-		stop("x is of inappropriate class. It has to be one of: character, factor or logical.")
+		stop("Inappropriate class. It has to be one of: character, factor or logical.")
 		}
 	if	(!is.data.frame(mapping)) {
 		stop("mapping is not a data frame.")
@@ -199,10 +199,11 @@ encode.woe <- function(x, mapping) {
 	ux <- unique(x)	
 	if	(!any(ux%in%c(mapping$x.mod, NA))) {
 		ux <- ux[!ux%in%c(mapping$x.mod, NA)]
-		stop(paste0("x contains value(s) not reported in mapping (x.mod) data frame: " ,
+		stop(paste0("x contains that are not reported in mapping (x.mod) data frame: " ,
 		     paste(ux, collapse = ", "), "."))
 		}
 	nv <- mapping$x.woe
+	names(nv) <- mapping$x.mod
 	x.trans <- unname(nv[as.character(x)])
 	na.idx <- is.na(x.trans)
 	if	(sum(na.idx) > 0 & sum(is.na(mapping$x.mod)) > 0) {
