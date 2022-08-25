@@ -6,7 +6,7 @@
 \usage{
 univariate(
   db,
-  sc = c(NA, NaN, Inf),
+  sc = c(NA, NaN, Inf, -Inf),
   sc.method = "together",
   sc.threshold = 0.2
 )

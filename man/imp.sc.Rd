@@ -6,8 +6,8 @@
 \usage{
 imp.sc(
   db,
-  sc.all = c(NA, NaN, Inf),
-  sc.replace = c(NA, NaN, Inf),
+  sc.all = c(NA, NaN, Inf, -Inf),
+  sc.replace = c(NA, NaN, Inf, -Inf),
   method.num = "automatic",
   p.val = 0.05
 )

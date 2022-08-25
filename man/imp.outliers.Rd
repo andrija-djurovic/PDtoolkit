@@ -6,7 +6,7 @@
 \usage{
 imp.outliers(
   db,
-  sc = c(NA, NaN, Inf),
+  sc = c(NA, NaN, Inf, -Inf),
   method = "iqr",
   range = 1.5,
   upper.pct = 0.95,
