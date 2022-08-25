@@ -94,9 +94,11 @@ univariate <- function(db, sc = c(NA, NaN, Inf, -Inf), sc.method = "together", s
 					ordered = TRUE)
 		if	(is.numeric(db[, var.l])) {
 			res[[i]] <- univariate.num(db = db, x = var.l, sc.threshold = sc.threshold) 
+			res[[i]]$bin <- as.character(res[[i]]$bin)
 			} 
 		if	(is.character(db[, var.l]) | is.factor(db[, var.l]) | is.logical(db[, var.l])) {
 			res[[i]] <- univariate.cat(db = db, x = var.l, sc.threshold = sc.threshold) 
+			res[[i]]$bin <- as.character(res[[i]]$bin)
 			}
 		}
 	res <- data.frame(bind_rows(res))
