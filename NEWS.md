@@ -38,7 +38,8 @@ Changes:<br/>
 4. Function ```segment.vld``` parameterized with the new argument ```min.leaf```
 5. Additional condition considered for selection of next entry in ```stepFWD``` (now AIC value can be possibly considered in the selection process)
 6. Bug fix in ```interaction.transformer``` function - identification of upper bound for partitioning
-7. New functions:
+7. Argument ```sc``` in the functions of univariate analysis extended for ```-Inf``` value 
+8. New functions:
       + helpers functions: ```num.slice```, ```cat.slice``` and ```encode.woe```
       + ```nzv``` - near-zero variance
       + ```smote``` - Synthetic Minority Oversampling Technique
