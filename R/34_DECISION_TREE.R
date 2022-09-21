@@ -78,8 +78,12 @@ decision.tree <- function(db, rf, target, min.pct.obs = 0.05, min.avg.rate = 0.0
 			    p.value = p.value, 
 			    max.depth = max.depth, 
 			    monotonicity = monotonicity)
-	where <- extract.interactions(db = db, tree.info = tree.res)
-	nodes <- unname(c(where, recursive = TRUE))
+	if 	(nrow(tree.res) > 1) {
+		where <- extract.interactions(db = db, tree.info = tree.res)
+		nodes <- unname(c(where, recursive = TRUE))
+		} else {
+		nodes <- rep(1, nrow(db))
+		}
 	averages <- cbind.data.frame(where = nodes, target = db[, target]) %>%
 			group_by(where) %>%
 			summarise(average = mean(target, na.rm = TRUE))
