@@ -44,8 +44,8 @@ decision.tree <- function(db, rf, target, min.pct.obs = 0.05, min.avg.rate = 0.0
 		stop(" min.pct.obs and min.avg.rate has to be numeric values greater than 0 and less than 1")
 		}
 	if	(!is.na(max.depth)) {
-		if	(!is.numeric(max.depth) | max.depth < 2) {
-			stop("max.depth has to be numeric value greater than 2.")
+		if	(!is.numeric(max.depth) | max.depth < 1) {
+			stop("max.depth has to be numeric value greater or equal to 1.")
 			}
 		}
 	if	(is.na(monotonicity) | !is.logical(monotonicity)) {
