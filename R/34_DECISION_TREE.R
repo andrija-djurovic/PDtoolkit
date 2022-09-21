@@ -6,8 +6,8 @@
 #'@param db Data frame of risk factors and target variable supplied for interaction extraction.
 #'@param rf Character vector of risk factor names on which decision tree is run.
 #'@param target Name of target variable (default indicator 0/1) within db argument.
-#'@param min.pct.obs Minimum percentage of observation in each leaf. Default is 0.05.
-#'@param min.avg.rate Minimum percentage of defaults in each leaf. Default is 0.01.
+#'@param min.pct.obs Minimum percentage of observation in each leaf. Default is 0.05 or 30 observations.
+#'@param min.avg.rate Minimum percentage of defaults in each leaf. Default is 0.01 or 1 default case.
 #'@param p.value Significance level of test of two proportions for splitting criteria. Default is 0.05.
 #'@param max.depth Maximum tree depth.
 #'@param monotonicity Logical indicator. If \code{TRUE}, observed trend between risk factor and target will be preserved
