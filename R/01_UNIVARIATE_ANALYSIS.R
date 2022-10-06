@@ -146,9 +146,7 @@ univariate.cat <- function(db, x, sc.threshold = sc.threshold) {
 				  funs(
 				  cnt = n(),
 				  pct = n() / nrow(db),
-				  cnt.unique = length(unique(.)),
-				  neg = sum(. < 0),
-				  pos = sum(. > 0)
+				  cnt.unique = length(unique(.))
 				  )) %>%
 		 ungroup() %>%
 		 mutate(sc.ind = ifelse(sum(pct[bin.type%in%"special cases"]) > sc.threshold, 
