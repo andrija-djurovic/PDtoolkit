@@ -22,9 +22,9 @@ decision.tree(
 
 \item{target}{Name of target variable (default indicator 0/1) within db argument.}
 
-\item{min.pct.obs}{Minimum percentage of observation in each leaf. Default is 0.05.}
+\item{min.pct.obs}{Minimum percentage of observation in each leaf. Default is 0.05 or 30 observations.}
 
-\item{min.avg.rate}{Minimum percentage of defaults in each leaf. Default is 0.01.}
+\item{min.avg.rate}{Minimum percentage of defaults in each leaf. Default is 0.01 or 1 default case.}
 
 \item{p.value}{Significance level of test of two proportions for splitting criteria. Default is 0.05.}
 
@@ -56,4 +56,7 @@ tree.res <- decision.tree(db = loans,
 	max.depth = NA,
 	monotonicity = TRUE)
 str(tree.res)
+}
+\seealso{
+\code{\link{predict.cdt}},
 }
