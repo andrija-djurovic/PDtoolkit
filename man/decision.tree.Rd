@@ -58,5 +58,5 @@ tree.res <- decision.tree(db = loans,
 str(tree.res)
 }
 \seealso{
-\code{\link{predict.cdt}},
+\code{\link{predict.cdt}}
 }
