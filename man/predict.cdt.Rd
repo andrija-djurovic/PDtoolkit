@@ -21,7 +21,7 @@ Returns average default rate per leaf.
 Predict method for custom decision tree
 }
 \examples{
-# S3 method for class "cdt"
+#S3 method for class "cdt"
 suppressMessages(library(PDtoolkit))
 data(loans)
 tree.res <- decision.tree(db = loans,
