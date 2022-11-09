@@ -338,7 +338,7 @@ return(res)
 #'@param ... further arguments passed to or from other methods. 
 #'@return Returns average default rate per leaf.
 #'@examples
-#'# S3 method for class "cdt"
+#' #S3 method for class "cdt"
 #'suppressMessages(library(PDtoolkit))
 #'data(loans)
 #'tree.res <- decision.tree(db = loans,
@@ -350,7 +350,7 @@ return(res)
 #'		max.depth = NA,
 #'		monotonicity = TRUE)
 #'str(tree.res)
-#'#predict method - development sample
+#' #predict method - development sample
 #'pred.1 <- predict(object = tree.res, newdata = NULL)
 #'head(pred.1)
 #'auc.model(predictions = pred.1$average, observed = loans$Creditability)
