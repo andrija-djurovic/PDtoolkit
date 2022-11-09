@@ -14,44 +14,25 @@
 #'@examples
 #'suppressMessages(library(PDtoolkit))
 #'data(loans)
-#'#identify numeric risk factors
-#'num.rf <- sapply(loans, is.numeric)
-#'num.rf <- names(num.rf)[!names(num.rf)%in%"Creditability" & num.rf]
-#'#discretized numeric risk factors using ndr.bin from monobin package
-#'loans[, num.rf] <- sapply(num.rf, function(x) 
-#'	ndr.bin(x = loans[, x], y = loans[, "Creditability"])[[2]])
-#'str(loans)
-#'#model 1 - run stepMIV
-#'res.1 <- stepMIV(start.model = Creditability ~ 1, 
-#'		   miv.threshold = 0.02, 
-#'		   m.ch.p.val = 0.05,
-#'		   coding = "WoE",
-#'		   coding.start.model = FALSE,
-#'		   db = loans)
-#'#get predictions
-#'loans$pred.1 <- unname(predict(res.1$model, type = "link", newdata = res.1$dev.db))
-#'#model 2 - run stepMIV on the rest of risk factors
-#'res.2 <- stepMIV(start.model = Creditability ~ 1, 
-#'		   miv.threshold = 0.02, 
-#'		   m.ch.p.val = 0.05,
-#'		   coding = "WoE",
-#'		   coding.start.model = FALSE,
-#'		   db = loans[, !names(loans)%in%res.1$steps$rf.miv])
-#'#get predictions
-#'loans$pred.2 <- unname(predict(res.2$model, type = "link", newdata = res.2$dev.db))
-#'
+#'#model 1
+#'reg.1 <- glm(Creditability ~ `Account Balance`, family = "binomial", data = loans)
+#'summary(reg.1)$coefficient
+#'loans$pred.1 <-  unname(predict(reg.1, type = "response"))
+#'#model 2
+#'reg.2 <- glm(Creditability ~ `Age (years)`, family = "binomial", data = loans)
+#'summary(reg.2)$coefficient
+#'loans$pred.2 <-  unname(predict(reg.2, type = "response"))
 #'#integration
 #'fm <- glm(Creditability ~ pred.1 + pred.2, family = "binomial", data = loans)
 #'summary(fm)$coefficient
 #'fm.pred <- predict(fm, type = "response", newdata = loans)
 #'auc.model(predictions = fm.pred, observed = loans$Creditability)
-#'
 #'#constrained integration (regression)
 #'cl.r <- constrained.logit(db = loans, 
-#'				  x = c("pred.1", "pred.2"), 
-#'				  y = "Creditability",
-#'				  lower = c(-Inf, -Inf, -Inf), 
-#'				  upper = c(Inf, 0.8, Inf))
+#'			  x = c("pred.1", "pred.2"), 
+#'			  y = "Creditability",
+#'			  lower = c(-Inf, -Inf, -Inf), 
+#'			  upper = c(Inf, 4.5, Inf))
 #'names(cl.r)
 #'cl.r[["beta"]]
 #'auc.model(predictions = cl.r[["prediction"]], observed = loans$Creditability)
