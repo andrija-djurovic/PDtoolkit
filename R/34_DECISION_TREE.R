@@ -3,6 +3,7 @@
 #' \code{decision.tree} runs customized decision tree algorithm. Customization refers to minimum 
 #' percentage of observations and defaults in each node, maximum tree depth, monotonicity condition 
 #' at each splitting node and statistical test (test of two proportions) used for node splitting.
+#'@seealso \code{\link{predict.cdt}}
 #'@param db Data frame of risk factors and target variable supplied for interaction extraction.
 #'@param rf Character vector of risk factor names on which decision tree is run.
 #'@param target Name of target variable (default indicator 0/1) within db argument.
