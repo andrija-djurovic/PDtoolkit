@@ -66,7 +66,7 @@ num.rf.const
 loans.s <- smote(db = loans,
 	     target = "Creditability",
 	     minority.class = 1,  
-	     osr = 0.5,
+	     osr = 0.05,
 	     ordinal.rf = NULL, 
 	     num.rf.const = num.rf.const, 
 	     k = 5, 
@@ -75,9 +75,5 @@ str(loans.s)
 table(loans.s$Creditability, loans.s$smote)
 #select minority class
 loans.mc <- loans.s[loans.s$Creditability\%in\%1, ]
-#compare some risk factors of original data and smote simulations
-nrf <- c("Duration of Credit (month)", "Credit Amount", "Age (years)")
-lapply(split(loans.mc[, nrf], loans.mc$smote), summary)
-lapply(split(loans.mc[, "Account Balance", drop = FALSE], loans.mc$smote), 
- function(x) prop.table(table(x)))
+head(loans.mc)
 }
