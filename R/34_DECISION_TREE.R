@@ -21,7 +21,7 @@
 #'loans$"Account Balance"[1:10] <- NA
 #'loans$"Duration of Credit (month)"[c(13, 15)] <- NA
 #'tree.res <- decision.tree(db = loans,
-#'		rf = names(loans)[!names(loans)%in%"Creditability"], 
+#'		rf = c("Account Balance", "Duration of Credit (month)"), 
 #'		target = "Creditability",
 #'		min.pct.obs = 0.05,
 #'		min.avg.rate = 0.01,
@@ -343,7 +343,7 @@ return(res)
 #'suppressMessages(library(PDtoolkit))
 #'data(loans)
 #'tree.res <- decision.tree(db = loans,
-#'		rf = names(loans)[!names(loans)%in%"Creditability"], 
+#'		rf = c("Account Balance", "Duration of Credit (month)"), 
 #'		target = "Creditability",
 #'		min.pct.obs = 0.05,
 #'		min.avg.rate = 0.01,
