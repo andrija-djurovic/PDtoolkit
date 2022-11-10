@@ -25,7 +25,7 @@ Predict method for custom decision tree
 suppressMessages(library(PDtoolkit))
 data(loans)
 tree.res <- decision.tree(db = loans,
-	rf = names(loans)[!names(loans)\%in\%"Creditability"], 
+	rf = c("Account Balance", "Duration of Credit (month)"), 
 	target = "Creditability",
 	min.pct.obs = 0.05,
 	min.avg.rate = 0.01,
