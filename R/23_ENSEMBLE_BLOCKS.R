@@ -124,6 +124,7 @@ ensemble.blocks <- function(method, target, db, coding = "WoE", blocks,
 		bid.l <- bid[i]
 		rf.b <- blocks$rf[blocks$block%in%bid.l]
 		res.l <- eval(parse(text = eval.exp))
+		if	(nrow(res.l$steps) == 0) {next}
 		steps[[i]] <- cbind.data.frame(block = i, res.l$steps)
 		models[[i]] <- res.l$model
 		names(models)[i] <- paste0("block_", i)
