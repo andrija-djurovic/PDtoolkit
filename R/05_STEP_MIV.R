@@ -178,7 +178,7 @@ stepMIV <- function(start.model, miv.threshold, m.ch.p.val, coding, coding.start
 	mod.frm <- start.model
 	iter <- 1
 	repeat {
-		print(paste0("Running iteration: ", iter))
+		message(paste0("Running iteration: ", iter))
 		rf.restl <- length(rf.rest)
 		if	(rf.restl == 0) {break}
 		miv.iter <- vector("list", rf.restl)
