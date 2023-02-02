@@ -120,7 +120,7 @@ ensemble.blocks <- function(method, target, db, coding = "WoE", blocks,
 	models <- vector("list", bidl + 1)
 	dev.db <- vector("list", bidl + 1)
 	for	(i in 1:bidl) {
-		print(paste0("--------Block: ", i, "-------"))
+		message(paste0("--------Block: ", i, "-------"))
 		bid.l <- bid[i]
 		rf.b <- blocks$rf[blocks$block%in%bid.l]
 		res.l <- eval(parse(text = eval.exp))
@@ -136,7 +136,7 @@ ensemble.blocks <- function(method, target, db, coding = "WoE", blocks,
 		}
 	steps <- bind_rows(steps)
 	#ensemble model
-	print(paste0("-----Ensemble block----"))
+	message(paste0("-----Ensemble block----"))
 	bp <- names(db.eb)[!names(db.eb)%in%target]
 	eb.frm <- paste0(target, " ~ ", paste(bp, collapse = " + "))	
 	eb.mod <-  glm(formula = as.formula(eb.frm), family = "binomial", data = db.eb)
