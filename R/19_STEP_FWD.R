@@ -192,7 +192,7 @@ stepFWD <- function(start.model, p.value = 0.05, coding = "WoE", coding.start.mo
 	steps <- data.frame()
 	iter <- 1
 	repeat	{
-		print(paste0("Running iteration: ", iter))
+		message(paste0("Running iteration: ", iter))
 		it.s <- iter.summary(target = target, 
 					   rf.mod = rf.mod, 
 					   rf.start = rf.start, 
