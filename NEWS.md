@@ -56,4 +56,4 @@ Changes:<br/>
 # PDtoolkit 0.1.1
 Changes:<br/>
 
-1. ```print``` from within the functions (```stepFWD```, ```stepRPC```, ```staged.blocks```, ```embedded.blocks```, ```ensemble.blocks```) replaced with ```messsage```
+1. ```print``` from within the functions (```stepMIV```, ```stepFWD```, ```stepRPC```, ```staged.blocks```, ```embedded.blocks```, ```ensemble.blocks```) replaced with ```messsage```
