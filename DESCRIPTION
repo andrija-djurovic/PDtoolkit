@@ -1,6 +1,6 @@
 Package: PDtoolkit
 Title: Collection of Tools for PD Rating Model Development and Validation
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: 
     person(given = "Andrija",
            family = "Djurovic",
