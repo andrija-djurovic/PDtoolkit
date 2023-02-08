@@ -53,7 +53,7 @@ Changes:<br/>
       + ```fairness.vld``` - model fairness validation
       + ```decision.tree``` - custom decision tree algorithm and its ```predict``` method
 
-# PDtoolkit 0.1.1
+# PDtoolkit 1.0.1
 Changes:<br/>
 
 1. ```print``` from within the functions (```stepMIV```, ```stepFWD```, ```stepRPC```, ```staged.blocks```, ```embedded.blocks```, ```ensemble.blocks```) replaced with ```messsage```
