@@ -57,12 +57,15 @@ loans[, num.rf] <- sapply(num.rf, function(x)
 ndr.bin(x = loans[, x], y = loans[, "Creditability"])[[2]])
 str(loans)
 #run stepMIV
+rf <- c("Account Balance", "Payment Status of Previous Credit", 
+       "Purpose", "Value Savings/Stocks", "Credit Amount",
+       "Age (years)", "Instalment per cent", "Foreign Worker")
 res <- stepMIV(start.model = Creditability ~ 1, 
    miv.threshold = 0.02, 
    m.ch.p.val = 0.05,
    coding = "WoE",
    coding.start.model = FALSE,
-   db = loans)
+   db = loans[, c("Creditability", rf)])
 #print coefficients
 summary(res$model)$coefficients
 
