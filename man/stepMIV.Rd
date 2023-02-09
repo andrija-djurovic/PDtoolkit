@@ -56,13 +56,13 @@ The final, fifth, object \code{dev.db} object \code{dev.db} returns the model de
 \examples{
 suppressMessages(library(PDtoolkit))
 data(loans)
-#identify numeric risk factors
-num.rf <- sapply(loans, is.numeric)
-num.rf <- names(num.rf)[!names(num.rf)\%in\%"Creditability" & num.rf]
-#discretized numeric risk factors using ndr.bin from monobin package
-loans[, num.rf] <- sapply(num.rf, function(x) 
-ndr.bin(x = loans[, x], y = loans[, "Creditability"])[[2]])
-str(loans)
+##identify numeric risk factors
+#num.rf <- sapply(loans, is.numeric)
+#num.rf <- names(num.rf)[!names(num.rf)\%in\%"Creditability" & num.rf]
+##discretized numeric risk factors using ndr.bin from monobin package
+#loans[, num.rf] <- sapply(num.rf, function(x) 
+#	ndr.bin(x = loans[, x], y = loans[, "Creditability"])[[2]])
+#str(loans)
 #run stepMIV
 res <- stepMIV(start.model = Creditability ~ 1, 
 	   miv.threshold = 0.02, 
@@ -72,6 +72,8 @@ res <- stepMIV(start.model = Creditability ~ 1,
 	   db = loans)
 #check output elements
 names(res)
+#print model warnings
+res$warnings
 #extract the final model
 final.model <- res$model
 #print coefficients
