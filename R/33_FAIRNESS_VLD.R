@@ -25,9 +25,10 @@
 #'suppressMessages(library(PDtoolkit))
 #'#build hypothetical model
 #'data(loans)
-#'#identify numeric risk factors
-#'num.rf <- sapply(loans, is.numeric)
-#'num.rf <- names(num.rf)[!names(num.rf)%in%"Creditability" & num.rf]
+#'#numeric risk factors
+#'#num.rf <- sapply(loans, is.numeric)
+#'#num.rf <- names(num.rf)[!names(num.rf)%in%"Creditability" & num.rf]
+#'num.rf <- c("Credit Amount", "Age (years)")
 #'#discretized numeric risk factors using ndr.bin from monobin package
 #'loans[, num.rf] <- sapply(num.rf, function(x) 
 #'ndr.bin(x = loans[, x], y = loans[, "Creditability"])[[2]])
@@ -68,22 +69,22 @@
 #'		 conditional = "Credit Amount", 
 #'		 mod.outcome.type = "disc", 
 #'		 p.value = 0.05)
-#'#discrete model outcome - sensitive attribute in a model
-#'fairness.vld(db = db.fa, 
-#'		 sensitive = "sensitive.2", 
-#'		 obs.outcome = "Creditability", 
-#'		 mod.outcome = "rai",
-#'		 conditional = "Credit Amount", 
-#'		 mod.outcome.type = "disc", 
-#'		 p.value = 0.05)
-#'#continuous outcome - sensitive attribute not in a model
-#'fairness.vld(db = db.fa, 
-#'		 sensitive = "sensitive.1", 
-#'		 obs.outcome = "Creditability", 
-#'		 mod.outcome = "ir",
-#'		 conditional = "Credit Amount", 
-#'		 mod.outcome.type = "cont", 
-#'		 p.value = 0.05)
+#'##discrete model outcome - sensitive attribute in a model
+#'#fairness.vld(db = db.fa, 
+#'#		 sensitive = "sensitive.2", 
+#'#		 obs.outcome = "Creditability", 
+#'#		 mod.outcome = "rai",
+#'#		 conditional = "Credit Amount", 
+#'#		 mod.outcome.type = "disc", 
+#'#		 p.value = 0.05)
+#'##continuous outcome - sensitive attribute not in a model
+#'#fairness.vld(db = db.fa, 
+#'#		 sensitive = "sensitive.1", 
+#'#		 obs.outcome = "Creditability", 
+#'#		 mod.outcome = "ir",
+#'#		 conditional = "Credit Amount", 
+#'#		 mod.outcome.type = "cont", 
+#'#		 p.value = 0.05)
 #'#continuous outcome - sensitive attribute in a model
 #'fairness.vld(db = db.fa, 
 #'		 sensitive = "sensitive.2", 
