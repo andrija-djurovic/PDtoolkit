@@ -35,17 +35,17 @@
 #'num.rf <- names(num.rf)[!names(num.rf)%in%"Creditability" & num.rf]
 #'loans[, num.rf] <- sapply(num.rf, function(x) 
 #'				  ndr.bin(x = loans[, x], y = loans[, "Creditability"])[[2]])
-#'#bin all risk factors on max number of groups, pct of observations and defaults
-#'cat.rf <- names(loans)[!names(loans)%in%"Creditability"]
-#'loans[, cat.rf] <- sapply(cat.rf, function(x) 
-#'               			    cat.bin(x = loans[, x], 
-#'                   		    y = loans[, "Creditability"],
-#'                     		    sc = c("SC", NA),
-#'                    		    sc.merge = "closest",
-#'                     		    min.pct.obs = 0.05, 
-#'                     		    min.avg.rate = 0.01,
-#'                     		    max.groups = 5, 
-#'                     		    force.trend = "dr")[[2]])
+#'##bin all risk factors on max number of groups, pct of observations and defaults
+#'#cat.rf <- names(loans)[!names(loans)%in%"Creditability"]
+#'#loans[, cat.rf] <- sapply(cat.rf, function(x) 
+#'#               		    cat.bin(x = loans[, x], 
+#'#                   		    y = loans[, "Creditability"],
+#'#                     	    sc = c("SC", NA),
+#'#                    		    sc.merge = "closest",
+#'#                                 min.pct.obs = 0.05, 
+#'#                     	    min.avg.rate = 0.01,
+#'#                     	    max.groups = 5, 
+#'#                     	    force.trend = "dr")[[2]])
 #'loans.woe <- replace.woe(db = loans, target = "Creditability")[[1]]
 #'#estimate model
 #'miu.formula <- Creditability ~ `Account Balance` +`Age (years)` + `Duration of Credit (month)` +
