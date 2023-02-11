@@ -42,9 +42,8 @@ suppressMessages(library(PDtoolkit))
 library(rpart)
 data(loans)
 #run stepMIV
-res <- stepMIV(start.model = Creditability ~ 1, 
-	   miv.threshold = 0.02, 
-	   m.ch.p.val = 0.05,
+res <- stepFWD(start.model = Creditability ~ 1, 
+              p.value = 0.05,
 	   coding = "WoE",
 	   db = loans)
 #check output elements
