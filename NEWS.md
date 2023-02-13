@@ -57,4 +57,4 @@ Changes:<br/>
 Changes:<br/>
 
 1. ```print``` from within the functions (```stepMIV```, ```stepFWD```, ```stepRPC```, ```staged.blocks```, ```embedded.blocks```, ```ensemble.blocks```) replaced with ```messsage```
-2. Examples modified (```stepMIV```, ```segment.vld```, ```kfold.vld```, ```fairness.vld```, ```evrs```) to keep the execution time under 10s during check_win_release() 
+2. Examples modified (```stepMIV```, ```boots.vld```, ```segment.vld```, ```kfold.vld```, ```fairness.vld```, ```evrs```) to keep the execution time under 10s during check_win_release() 
