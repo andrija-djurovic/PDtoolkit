@@ -92,7 +92,7 @@ return(list(iter = res, summary = res.s))
 #'@examples
 #'suppressMessages(library(PDtoolkit))
 #'data(loans)
-#'#run stepMIV
+#'#run stepFWD
 #'res <- stepFWD(start.model = Creditability ~ 1, 
 #'                 p.value = 0.05, 
 #'		   coding = "WoE",
