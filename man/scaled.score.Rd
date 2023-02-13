@@ -26,10 +26,9 @@ predictions of the final model.
 \examples{
 suppressMessages(library(PDtoolkit))
 data(loans)
-#run stepMIV
-res <- stepMIV(start.model = Creditability ~ 1, 
-	   miv.threshold = 0.02, 
-	   m.ch.p.val = 0.05,
+#run stepFWD
+res <- stepFWD(start.model = Creditability ~ 1, 
+                p.value = 0.05, 
 	   coding = "WoE",
 	   db = loans)
 final.model <- res$model

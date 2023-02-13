@@ -26,7 +26,7 @@ square error, root mean square error or area under curve (AUC) based on resampli
 \examples{
 suppressMessages(library(PDtoolkit))
 data(loans)
-#run stepMIV
+#run stepFWD
 res <- stepFWD(start.model = Creditability ~ 1, 
                 p.value = 0.05, 
 	   coding = "WoE",
