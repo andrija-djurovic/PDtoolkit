@@ -46,8 +46,8 @@
 #'blocks <- data.frame(rf = rf.all, block = sample(1:3, length(rf.all), rep = TRUE))
 #'blocks <- blocks[order(blocks$block), ]
 #'blocks
-#'#method: stepMIV
-#'res <- staged.blocks(method = "stepMIV", 
+#'#method: stepFWD
+#'res <- staged.blocks(method = "stepFWD", 
 #'			   target = "Creditability",
 #'			   db = loans,
 #'			   coding = "WoE",  
