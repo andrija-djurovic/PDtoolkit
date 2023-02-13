@@ -89,8 +89,7 @@ miu.pd <- unname(predict(miu, type = "response", newdata = loans.woe))
 data(loans)
 #define risk factors that will be used for interactions
 rf.mat <- matrix(c(1, 2, 14, 2, 6, 7, 4, 5, 19, 1, 3, 14, 7, 8, 12,
-		 8, 13, 16, 4, 13, 14, 8, 11, 17, 6, 9, 11,
-		 4, 10, 11), nrow = 3, byrow = FALSE) 
+	 8, 13, 16, 4, 13, 14), nrow = 3, byrow = FALSE)  
 rf.l <- ncol(rf.mat)
 it <- data.frame(matrix(NA, ncol = rf.l, nrow = nrow(loans)))
 it <- cbind.data.frame(Creditability = loans$Creditability, it)
@@ -133,7 +132,6 @@ names(res)
 res[["summary.tbl"]]
 #portfolio return increase in case of using benchmark model
 res[["summary.tbl"]][, "return.difference", drop = FALSE]
-res[["summary.tbl"]]$return.difference
 #summary of simulated returns
 summary(res[["return.sim"]])
 }
