@@ -58,3 +58,8 @@ Changes:<br/>
 
 1. ```print``` from within the functions (```stepMIV```, ```stepFWD```, ```stepRPC```, ```staged.blocks```, ```embedded.blocks```, ```ensemble.blocks```) replaced with ```messsage```
 2. Examples modified (```stepMIV```, ```boots.vld```, ```segment.vld```, ```scaled.score```, ```kfold.vld```, ```fairness.vld```, ```evrs```, ```staged.blocks```) to keep the execution time under 10s during check_win_release() 
+
+# PDtoolkit 1.1.0
+Changes:<br/>
+
+1. ```imp.outliers``` function did not replace identified outliers properly. Small adjustment made (```db[, rf.l] <- rf.imp``` have been added). 
