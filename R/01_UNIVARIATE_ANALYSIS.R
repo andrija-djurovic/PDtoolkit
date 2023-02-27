@@ -407,6 +407,7 @@ imp.outliers <- function(db, sc = c(NA, NaN, Inf, -Inf), method = "iqr", range =
 			num.lower <- sum(!rf.imp%in%sc & rf.imp < rf.imp.lb)
 			rf.imp[!rf.imp%in%sc & rf.imp > rf.imp.ub] <- rf.imp.ub
 			rf.imp[!rf.imp%in%sc & rf.imp < rf.imp.lb] <- rf.imp.lb
+			db[, rf.l] <- rf.imp
 			report[[i]] <- data.frame(rf = rf.l, 
 							  info = "Imputation completed.", 
 							  imputation.method = method,
@@ -419,5 +420,3 @@ imp.outliers <- function(db, sc = c(NA, NaN, Inf, -Inf), method = "iqr", range =
 	report <- data.frame(bind_rows(report))	
 return(list(db = db, report = report))
 }
-
-
