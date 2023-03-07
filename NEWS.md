@@ -64,3 +64,4 @@ Changes:<br/>
 
 1. ```imp.outliers``` function did not replace identified outliers properly. Small adjustment made (```db[, rf.l] <- rf.imp``` have been added). 
 2. ```nzv``` - label of the second most frequent values was wrongly assigned. (```cc.lbl.2 = x.cc.lb1``` replaced by  ```cc.lbl.2 = x.cc.lb2```)
+3. ```rf.clustering``` - updated link for x2y metric
