@@ -22,8 +22,8 @@ rf.clustering(db, metric, k = NA)
 \item \code{"x2y"} - calculated distance \code{as.dist(1 - dx2y(d = db)[[2]]))}.
 }
 \code{x2y} metric is proposed by Professor Rama Ramakrishnan and details can be found on this
-\href{https://rviews.rstudio.com/2021/04/15/an-alternative-to-the-correlation-coefficient-that-works-for-numeric-and-categorical-variables/}{link}. This metric is especially handy if
-analyst wants to perform clustering before any binning procedures and to decrease number of risk factors. Additionally,
+\href{https://rviews.rstudio.com/2021/04/15/an-alternative-to-the-correlation-coefficient-that-works-for-numeric-and-categorical-variables/}{link}.
+This metric is especially handy if analyst wants to perform clustering before any binning procedures and to decrease number of risk factors. Additionally,
 \code{x2y} algorithm process numerical and categorical risk factors at once and it is able to identify
 non-linear relationship between the pairs. Metric \code{x2y} is not symmetric with respect to inputs - \code{x, y},
 therefore arithmetic average of values between \code{xy} and \code{yx} is used to produce the final value for each pair.}
