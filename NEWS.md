@@ -67,4 +67,5 @@ Changes:<br/>
 3. ```rf.clustering``` - updated link for x2y metric
 4. improvement of trend check (```cc.dummy```) in stepwise regressions
 5. New function:
-      + ```stepFWDr``` - stepwise regression for mixed risk factor types (numerical only or numerical and categorical)
+      + ```stepFWDr``` - stepwise regression for mixed risk factor types 
+      + ```stepRPCr``` - stepweise regression based on risk profile concept and mixed risk factor types
