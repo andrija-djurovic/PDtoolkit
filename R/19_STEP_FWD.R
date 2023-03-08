@@ -46,7 +46,7 @@
 #'		   db = loans)
 #'summary(res$model)$coefficients
 #'rf.check <- tapply(res$dev.db$Creditability, 
-#'			 res$dev.db$Value_Savings_Stocks, 
+#'			 res$dev.db$Instalment_per_cent, 
 #'			 mean)
 #'rf.check
 #'diff(rf.check)
