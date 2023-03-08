@@ -66,3 +66,5 @@ Changes:<br/>
 2. ```nzv``` - label of the second most frequent values was wrongly assigned. (```cc.lbl.2 = x.cc.lb1``` replaced by  ```cc.lbl.2 = x.cc.lb2```)
 3. ```rf.clustering``` - updated link for x2y metric
 4. improvement of trend check (```cc.dummy```) in stepwise regressions
+5. New function:
+       + ```stepFWDr``` - stepwise regression for mixed risk factor types (numerical only or numerical and categorical)
