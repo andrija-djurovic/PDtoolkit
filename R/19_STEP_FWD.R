@@ -323,11 +323,18 @@ return(list(p.val = pc[pcl], check.results = c.res))
 }
 cc.dummy <- function(dr, Estimate) {
 	cc.cases <- complete.cases(dr, Estimate)
+	if	(length(dr[is.na(Estimate)]) > 1) {return(FALSE)}
 	ref.dir <- dr - dr[is.na(Estimate)]
 	check.1 <- all(sign(ref.dir[cc.cases]) == sign(Estimate[cc.cases]))
 	est <- ifelse(is.na(Estimate), 0, Estimate)
 	check.2 <- all(sign(diff(dr)) == sign(diff(est)))
-	cc <- check.1 & check.2
+	if	(sum(cc.cases) > 1) {
+		cc <- cor(Estimate, dr - dr[is.na(Estimate)], use = "complete.obs", method = "spearman")
+		check.3 <- ifelse(round(cc, 5) == 1, TRUE, FALSE)
+		} else {
+		check.3 <- TRUE
+		}
+	cc <- check.1 & check.2 & check.3
 return(cc)
 }
 wald.test <- function(model, coefs) {
