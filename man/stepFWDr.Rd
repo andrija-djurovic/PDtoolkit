@@ -46,7 +46,7 @@ Note that procedure checks the column names of supplied \code{db} data frame the
 renaming (replacement of special characters) is possible to happen. For details check help example.
 }
 \examples{
-library(PDtoolkit)
+suppressMessages(library(PDtoolkit))
 data(loans)
 trf <- c("Creditability", "Account Balance", "Duration of Credit (month)",
         "Age (years)", "Guarantors", "Concurrent Credits")
