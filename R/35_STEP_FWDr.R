@@ -24,7 +24,7 @@
 #'	    if any of the bins (groups) has less than 5% of observations.\cr
 #'	    The final, fourth, object \code{dev.db} returns the model development database.
 #'@examples
-#'library(PDtoolkit)
+#'suppressMessages(library(PDtoolkit))
 #'data(loans)
 #'trf <- c("Creditability", "Account Balance", "Duration of Credit (month)",
 #'         "Age (years)", "Guarantors", "Concurrent Credits")
