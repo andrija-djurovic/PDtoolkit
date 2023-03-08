@@ -257,13 +257,16 @@ ptc <- function(model, lr.mod, rf.mod, rf.start, check.start.model, rf.l, rf.typ
 				coefs <- rf.cat$mf[rf.cat$rf%in%pc.cat.l]
 				pc.cat[i] <- wald.test(model = model, coefs = coefs)
 				}
+			pc.cat.idx <- which(pc.cat.u%in%rf.l)
 			} else {
 			tc.cat <- data.frame(cc = TRUE)
 			pc.cat <- -1
+			pc.cat.idx <- 1
 			}
 		} else {
 		tc.cat <- data.frame(cc = TRUE)
 		pc.cat <- -1
+		pc.cat.idx <- 1
 		}	
 	#numerical risk factors
 	if	(nrow(rf.num.o) > 0) {
@@ -273,17 +276,21 @@ ptc <- function(model, lr.mod, rf.mod, rf.start, check.start.model, rf.l, rf.typ
 			rf.num <- merge(rf.num, rf.est, by = "rf",  all.x = TRUE)
 			tc.num <- data.frame(cc = all(sign(rf.num$cor) == sign(rf.num$Estimate)))
 			pc.num <- rf.num$"Pr...z.."
+			pc.num.idx <- which(rf.num$rf%in%rf.l)
 			} else {
 			tc.num <- data.frame(cc = TRUE)
 			pc.num <- -1
+			pc.num.idx <- 1
 			}
 		} else {
 		tc.num <- data.frame(cc = TRUE)
 		pc.num <- -1
+		pc.num.idx <- 1
 		}
 	c.res <- c(p.val.check = all(c(pc.cat, pc.num) < p.value), 
 		     trend.check = all(c(tc.cat$cc, tc.num$cc)))
-return(list(p.val = ifelse(rf.type%in%"categorical", pc.cat[length(pc.cat)], pc.num[length(pc.num)]), 
+	
+return(list(p.val = ifelse(rf.type%in%"categorical", pc.cat[pc.cat.idx], pc.num[pc.num.idx]), 
 		check.results = c.res))
 }
 cc.cat <- function(avg, Estimate) {
