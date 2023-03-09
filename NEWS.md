@@ -70,5 +70,5 @@ Changes:<br/>
       + ```stepFWDr``` - stepwise regression for mixed risk factor types 
       + ```stepRPCr``` - stepwise regression based on risk profile concept and mixed risk factor types
 6. New method available for ```staged.blocks```, ```embedded.blocks```, ```ensemble.blocks``` - "stepFWDr" & "stepRPCr"
-7. Examples modified (```staged.blocks```, ```embedded.blocks```, ```ensemble.blocks```, ```rf.clustering```, ```hhi```) to decrease the execution time during 
-check_win_release() 
+7. Examples modified (```staged.blocks```, ```embedded.blocks```, ```ensemble.blocks```, ```rf.clustering```, ```hhi```, ```evrs```) to decrease the execution time 
+during check_win_release() 
