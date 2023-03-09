@@ -68,4 +68,4 @@ Changes:<br/>
 4. improvement of trend check (```cc.dummy```) in stepwise regressions
 5. New functions:
       + ```stepFWDr``` - stepwise regression for mixed risk factor types 
-      + ```stepRPCr``` - stepweise regression based on risk profile concept and mixed risk factor types
+      + ```stepRPCr``` - stepwise regression based on risk profile concept and mixed risk factor types
