@@ -3,9 +3,10 @@
 #' \code{ensemble.blocks} performs blockwise regression where the predictions of each blocks' model are 
 #' integrated into a final model. The final model is estimated in the form of logistic regression without
 #' any check of the estimated coefficients (e.g. statistical significance or sign of the estimated coefficients).
-#'@seealso \code{\link{staged.blocks}}, \code{\link{embedded.blocks}}, \code{\link{stepMIV}}, \code{\link{stepFWD}} and \code{\link{stepRPC}}.
+#'@seealso \code{\link{staged.blocks}}, \code{\link{embedded.blocks}}, \code{\link{stepMIV}}, \code{\link{stepFWD}},  
+#'         \code{\link{stepRPC}}, \code{\link{stepFWDr}} and \code{\link{stepRPCr}}.
 #'@param method Regression method applied on each block. 
-#'		    Available methods: \code{"stepMIV"}, \code{"stepFWD"} or \code{"stepRPC"}.
+#'		    Available methods: \code{"stepMIV"}, \code{"stepFWD"}, \code{"stepRPC"}, \code{"stepFWDr"}, and \code{"stepRPCr"}.
 #'@param target Name of target variable within \code{db} argument.
 #'@param db Modeling data with risk factors and target variable. 
 #'@param coding Type of risk factor coding within the model. Available options are: \code{"WoE"} and
@@ -34,24 +35,16 @@
 #'@examples
 #'suppressMessages(library(PDtoolkit))
 #'data(loans)
-#'#identify numeric risk factors
-#'num.rf <- sapply(loans, is.numeric)
-#'num.rf <- names(num.rf)[!names(num.rf)%in%"Creditability" & num.rf]
-#'#discretized numeric risk factors using ndr.bin from monobin package
-#'loans[, num.rf] <- sapply(num.rf, function(x) 
-#'	ndr.bin(x = loans[, x], y = loans[, "Creditability"])[[2]])
-#'str(loans)
 #'#create risk factor priority groups
 #'rf.all <- names(loans)[-1]
 #'set.seed(22)
 #'blocks <- data.frame(rf = rf.all, block = sample(1:3, length(rf.all), rep = TRUE))
 #'blocks <- blocks[order(blocks$block), ]
 #'blocks
-#'#method: stepRPC
-#'res <- ensemble.blocks(method = "stepRPC", 
+#'#method: stepRPCr
+#'res <- ensemble.blocks(method = "stepRPCr", 
 #'			      target = "Creditability",
 #'			      db = loans,
-#'			      coding = "dummy",  
 #'			      blocks = blocks, 
 #'			      p.value = 0.05)
 #'names(res)
@@ -65,7 +58,7 @@
 #'@export
 ensemble.blocks <- function(method, target, db, coding = "WoE", blocks, 
 				  p.value = 0.05, miv.threshold = 0.02, m.ch.p.val = 0.05) {
-	method.opt <- c("stepMIV", "stepFWD", "stepRPC")
+	method.opt <- c("stepMIV", "stepFWD", "stepRPC", "stepFWDr", "stepRPCr")
 	if	(!method%in%method.opt) {
 		stop(paste0("method argument has to be one of: ", paste0(method.opt, collapse = ', '), "."))
 		}
@@ -107,6 +100,19 @@ ensemble.blocks <- function(method, target, db, coding = "WoE", blocks,
 					   p.value = p.value, 
 					   coding = coding,
 					   coding.start.model = TRUE, 
+					   check.start.model = TRUE,
+					   db = db[, c(target, rf.b)])"
+		}
+	if	(method%in%"stepFWDr") {
+		eval.exp <- "stepFWDr(start.model = start.model, 
+					   p.value = p.value, 
+					   check.start.model = TRUE,
+					   db = db[, c(target, rf.b)])"
+		}
+	if	(method%in%"stepRPCr") {
+		eval.exp <- "stepRPCr(start.model = start.model, 
+					   risk.profile = data.frame(rf = rf.b, group = 1:length(rf.b)),
+					   p.value = p.value, 
 					   check.start.model = TRUE,
 					   db = db[, c(target, rf.b)])"
 		}
