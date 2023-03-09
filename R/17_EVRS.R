@@ -30,72 +30,35 @@
 #'suppressMessages(library(PDtoolkit))
 #'data(loans)
 #'#simulate model in use
-#'#discretized numeric risk factors using ndr.bin from monobin package
-#'num.rf <- sapply(loans, is.numeric)
-#'num.rf <- names(num.rf)[!names(num.rf)%in%"Creditability" & num.rf]
-#'loans[, num.rf] <- sapply(num.rf, function(x) 
-#'				  ndr.bin(x = loans[, x], y = loans[, "Creditability"])[[2]])
-#'##bin all risk factors on max number of groups, pct of observations and defaults
-#'#cat.rf <- names(loans)[!names(loans)%in%"Creditability"]
-#'#loans[, cat.rf] <- sapply(cat.rf, function(x) 
-#'#               		    cat.bin(x = loans[, x], 
-#'#                   		    y = loans[, "Creditability"],
-#'#                     	    sc = c("SC", NA),
-#'#                    		    sc.merge = "closest",
-#'#                                 min.pct.obs = 0.05, 
-#'#                     	    min.avg.rate = 0.01,
-#'#                     	    max.groups = 5, 
-#'#                     	    force.trend = "dr")[[2]])
-#'loans.woe <- replace.woe(db = loans, target = "Creditability")[[1]]
-#'#estimate model
-#'miu.formula <- Creditability ~ `Account Balance` +`Age (years)` + `Duration of Credit (month)` +
-#'		   			  `Value Savings/Stocks` + `Purpose`
-#'miu <- glm(miu.formula, family = "binomial", data = loans.woe)
-#'miu
-#'miu.pd <- unname(predict(miu, type = "response", newdata = loans.woe))
-#'
+#'miu.formula <- Creditability ~ `Age (years)` + `Duration of Credit (month)` +
+#'	   			  `Value Savings/Stocks` + `Purpose`
+#'miu <- glm(miu.formula, family = "binomial", data = loans)
+#'miu.pd <- unname(predict(miu, type = "response", newdata = loans))
 #'#simulate benchmark model with interaction.transformer support
-#'data(loans)
-#'#define risk factors that will be used for interactions
-#'rf.mat <- matrix(c(1, 2, 14, 2, 6, 7, 4, 5, 19, 1, 3, 14, 7, 8, 12,
-#'		 8, 13, 16, 4, 13, 14), nrow = 3, byrow = FALSE)  
-#'rf.l <- ncol(rf.mat)
-#'it <- data.frame(matrix(NA, ncol = rf.l, nrow = nrow(loans)))
-#'it <- cbind.data.frame(Creditability = loans$Creditability, it)
-#'names(it)[-1] <- paste0("rf.inter", apply(rf.mat, 2, paste, collapse = "."))
-#'for	(i in 1:rf.l) {
-#'	it.l <- interaction.transformer(db = loans, 
-#'						  rf = names(loans)[rf.mat[, i] + 1], 
-#'				 		  target = "Creditability",
-#'						  min.pct.obs = 0.05,
-#'				 		  min.avg.rate = 0.01,
-#'				 		  max.depth = 3,
-#'				 		  monotonicity = TRUE,
-#'				 		  create.interaction.rf = TRUE)[[2]]
-#'	it[, i + 1] <- as.character(unname(c(it.l, recursive = TRUE)))
-#'	}
-#'it.woe <- replace.woe(db = it, target = "Creditability")[[1]]
-#'bnm <- glm(Creditability ~ ., family = "binomial", data = it.woe)
-#'bnm
-#'bnm.pd <- unname(predict(bnm, type = "response", newdata = it.woe))
-#'
+#'bnm.pack <- stepFWDr(start.model = Creditability ~ 1, 
+#'                     p.value = 0.05, 
+#'                     db = loans,
+#'                     check.start.model = TRUE, 
+#'                     offset.vals = NULL)
+#'bnm <- bnm.pack$model
+#'bnm.pd <- unname(predict(bnm, type = "response", newdata = bnm.pack$dev.db))
 #'#prepare data for evrs function
 #'db <- data.frame("Creditability" = loans$Creditability, 	
-#'		   pd = miu.pd, 
-#'		   pd.benchmark = bnm.pd, 
-#'		   lgd = 0.75)
+#'	   pd = miu.pd, 
+#'	   pd.benchmark = bnm.pd, 
+#'	   lgd = 0.75)
 #'#calculate the difference in portfolio return between model in use the benchmark model
 #'res <- evrs(db = db, 
-#'		pd = "pd", 
-#'		benchmark = "pd.benchmark", 
-#'		lgd = "lgd",
-#'		target = "Creditability",
-#'		sigma = NA, 
-#'		r = 0.03, 
-#'		elasticity = 100, 
-#'		prob.to.leave.threshold = 0.5,
-#'		sim.num = 500, 
-#'		seed = 991)
+#'	pd = "pd", 
+#'	benchmark = "pd.benchmark", 
+#'	lgd = "lgd",
+#'	target = "Creditability",
+#'	sigma = NA, 
+#'	r = 0.03, 
+#'	elasticity = 100, 
+#'	prob.to.leave.threshold = 0.5,
+#'	sim.num = 500, 
+#'	seed = 991)
 #'names(res)
 #'#print simulation summary table
 #'res[["summary.tbl"]]
