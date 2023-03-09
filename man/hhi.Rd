@@ -19,16 +19,8 @@ The command \code{hhinormal.test} returns single element numeric vector of HHI v
 #simulate PD model and rating scale
 suppressMessages(library(PDtoolkit))
 data(loans)
-#identify numeric risk factors
-num.rf <- sapply(loans, is.numeric)
-num.rf <- names(num.rf)[!names(num.rf)\%in\%"Creditability" & num.rf]
-#discretized numeric risk factors using ndr.bin from monobin package
-loans[, num.rf] <- sapply(num.rf, function(x) 
-ndr.bin(x = loans[, x], y = loans[, "Creditability"])[[2]])
-str(loans)
-res <- stepFWD(start.model = Creditability ~ 1, 
+res <- stepFWDr(start.model = Creditability ~ 1, 
    p.value = 0.05, 
-   coding = "dummy",
    db = loans)
 mod.predictions <- unname(predict(res$model, type = "response"))
 rating.scale <- sts.bin(y = loans$Creditability, x = mod.predictions)[[1]]

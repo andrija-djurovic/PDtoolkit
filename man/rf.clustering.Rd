@@ -45,13 +45,6 @@ Clustering procedure is base on \link[stats]{hclust} from \code{stats} package.
 suppressMessages(library(PDtoolkit))
 library(rpart)
 data(loans)
-#risk factors clustering using x2y metric
-cr <- rf.clustering(db = loans[, -which(names(loans)\%in\%"Creditability")], 
-		  metric = "x2y", 
-		  k = 15)
-cr
-cr \%>\% group_by(clusters) \%>\% 
- slice(which.min(dist.to.centroid))
 #clustering using common spearman metric
 #first we need to categorize numeric risk factors
 num.rf <- sapply(loans, is.numeric)

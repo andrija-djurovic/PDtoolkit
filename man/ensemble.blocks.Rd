@@ -17,7 +17,7 @@ ensemble.blocks(
 }
 \arguments{
 \item{method}{Regression method applied on each block.
-Available methods: \code{"stepMIV"}, \code{"stepFWD"} or \code{"stepRPC"}.}
+Available methods: \code{"stepMIV"}, \code{"stepFWD"}, \code{"stepRPC"}, \code{"stepFWDr"}, and \code{"stepRPCr"}.}
 
 \item{target}{Name of target variable within \code{db} argument.}
 
@@ -58,24 +58,16 @@ any check of the estimated coefficients (e.g. statistical significance or sign o
 \examples{
 suppressMessages(library(PDtoolkit))
 data(loans)
-#identify numeric risk factors
-num.rf <- sapply(loans, is.numeric)
-num.rf <- names(num.rf)[!names(num.rf)\%in\%"Creditability" & num.rf]
-#discretized numeric risk factors using ndr.bin from monobin package
-loans[, num.rf] <- sapply(num.rf, function(x) 
-ndr.bin(x = loans[, x], y = loans[, "Creditability"])[[2]])
-str(loans)
 #create risk factor priority groups
 rf.all <- names(loans)[-1]
 set.seed(22)
 blocks <- data.frame(rf = rf.all, block = sample(1:3, length(rf.all), rep = TRUE))
 blocks <- blocks[order(blocks$block), ]
 blocks
-#method: stepRPC
-res <- ensemble.blocks(method = "stepRPC", 
+#method: stepRPCr
+res <- ensemble.blocks(method = "stepRPCr", 
 		      target = "Creditability",
 		      db = loans,
-		      coding = "dummy",  
 		      blocks = blocks, 
 		      p.value = 0.05)
 names(res)
@@ -90,5 +82,6 @@ Anderson, R.A. (2021). Credit Intelligence & Modelling, Many Paths through the F
 OUP Oxford
 }
 \seealso{
-\code{\link{staged.blocks}}, \code{\link{embedded.blocks}}, \code{\link{stepMIV}}, \code{\link{stepFWD}} and \code{\link{stepRPC}}.
+\code{\link{staged.blocks}}, \code{\link{embedded.blocks}}, \code{\link{stepMIV}}, \code{\link{stepFWD}},
+\code{\link{stepRPC}}, \code{\link{stepFWDr}} and \code{\link{stepRPCr}}.
 }

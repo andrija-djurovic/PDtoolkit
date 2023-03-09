@@ -17,7 +17,7 @@ staged.blocks(
 }
 \arguments{
 \item{method}{Regression method applied on each block.
-Available methods: \code{"stepMIV"}, \code{"stepFWD"} or \code{"stepRPC"}.}
+Available methods: \code{"stepMIV"}, \code{"stepFWD"}, \code{"stepRPC"}, \code{"stepFWDr"}, and \code{"stepRPCr"}.}
 
 \item{target}{Name of target variable within \code{db} argument.}
 
@@ -57,27 +57,17 @@ offset for the model of the following block.
 \examples{
 suppressMessages(library(PDtoolkit))
 data(loans)
-#identify numeric risk factors
-num.rf <- sapply(loans, is.numeric)
-num.rf <- names(num.rf)[!names(num.rf)\%in\%"Creditability" & num.rf]
-#discretized numeric risk factors using ndr.bin from monobin package
-loans[, num.rf] <- sapply(num.rf, function(x) 
-ndr.bin(x = loans[, x], y = loans[, "Creditability"])[[2]])
-str(loans)
 #create risk factor priority groups
 rf.all <- names(loans)[-1]
 set.seed(22)
 blocks <- data.frame(rf = rf.all, block = sample(1:3, length(rf.all), rep = TRUE))
 blocks <- blocks[order(blocks$block), ]
 blocks
-#method: stepFWD
-res <- staged.blocks(method = "stepFWD", 
+#method: stepFWDr
+res <- staged.blocks(method = "stepFWDr", 
 		   target = "Creditability",
-		   db = loans,
-		   coding = "WoE",  
-		   blocks = blocks, 
-		   miv.threshold = 0.02,
-		   m.ch.p.val = 0.05)
+		   db = loans,  
+		   blocks = blocks)
 names(res)
 nb <- length(res[["models"]])
 res$models[[nb]]
@@ -95,5 +85,6 @@ Anderson, R.A. (2021). Credit Intelligence & Modelling, Many Paths through the F
 OUP Oxford
 }
 \seealso{
-\code{\link{embedded.blocks}}, \code{\link{ensemble.blocks}}, \code{\link{stepMIV}}, \code{\link{stepFWD}} and \code{\link{stepRPC}}.
+\code{\link{embedded.blocks}}, \code{\link{ensemble.blocks}}, \code{\link{stepMIV}}, \code{\link{stepFWD}},
+\code{\link{stepRPC}}, \code{\link{stepFWDr}} and \code{\link{stepRPCr}}.
 }
