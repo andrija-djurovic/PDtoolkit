@@ -72,3 +72,4 @@ Changes:<br/>
 6. New method available for ```staged.blocks```, ```embedded.blocks```, ```ensemble.blocks``` - "stepFWDr" & "stepRPCr"
 7. Examples modified (```staged.blocks```, ```embedded.blocks```, ```ensemble.blocks```, ```rf.clustering```, ```hhi```, ```evrs```) to decrease the execution time 
 during check_win_release() 
+8. ```stepFWD``` and ```stepRPC``` - additional check for ```dummy``` coding and ```check.start.model``` introduced
