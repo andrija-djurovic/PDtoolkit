@@ -107,6 +107,11 @@ stepFWD <- function(start.model, p.value = 0.05, coding = "WoE", coding.start.mo
 	target <- unname(names.c[target])
 	if	(!is.null(rf.start)) {rf.start <- unname(names.c[rf.start])}
 	rf.rest <- unname(names.c[rf.rest])
+	#check coding, start model and rf.start types
+	if	(check.start.model & coding%in%"dummy" & !is.null(rf.start)) {
+		num.type.start <- sapply(db[, rf.start, drop = FALSE], is.numeric)
+		if	(any(num.type.start)) {check.start.model <- FALSE}
+		}
 	#define warning table
 	warn.tbl <- data.frame()
 	#check num of modalities per risk factor
