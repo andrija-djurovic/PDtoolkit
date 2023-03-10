@@ -116,7 +116,7 @@ stepFWD <- function(start.model, p.value = 0.05, coding = "WoE", coding.start.mo
 		warn.rep <- data.frame(rf = check.mod, comment = "More than 10 modalities.")
 		warn.tbl <- bind_rows(warn.tbl, warn.rep)
 		}
-	#check for numeric risk factors (change the order of numeric check and num of modalities)
+	#check for numeric risk factors
 	num.type <- sapply(db[, rf.rest, drop = FALSE], is.numeric)
 	check.num <- names(num.type)[num.type ]
 	if	(length(check.num) > 0) {
