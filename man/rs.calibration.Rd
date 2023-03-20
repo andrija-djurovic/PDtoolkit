@@ -20,7 +20,8 @@ rs.calibration(rs, dr, w, ct, min.pd, method)
 \item{method}{Calibration method. Available options are \code{"scaling", "log.odds.a", "log.odds.ab"}.}
 }
 \value{
-The command \code{rs.calibration} returns a vector of calibrated PDs.
+The command \code{rs.calibration} returns a list of two elements. The first element is
+vector of calibrated PDs and the second one is dataframe of optimization parameters.
 }
 \description{
 \code{rs.calibration} performs calibration of the observed default rates for a given rating scale.
