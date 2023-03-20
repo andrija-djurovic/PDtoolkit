@@ -16,7 +16,8 @@
 #'portfolio default rate equal to selected central tendency (\code{ct}). 
 #'For respecting selected constrain of minimum PD (\code{min.pd}), two-stage iterative procedure is implemented.
 #'Additional constrain of maximum PD (100%) is also implemented.
-#'@return The command \code{rs.calibration} returns a vector of calibrated PDs.
+#'@return The command \code{rs.calibration} returns a list of two elements. The first element is 
+#'vector of calibrated PDs and the second one is dataframe of optimization parameters.
 #'@examples
 #'suppressMessages(library(PDtoolkit))
 #'data(loans)
