@@ -613,7 +613,7 @@ handy if analyst wants to perform clustering before any binning
 procedures and to decrease the number of risk factors. More examples of
 the clustering can be found in help page `?rf.clustering`, while the
 details about `x2y` metric are presented in this
-[link](https://rama100.github.io/lecture-notes/x2y.nb.html).
+[link](https://rviews.rstudio.com/2021/04/15/an-alternative-to-the-correlation-coefficient-that-works-for-numeric-and-categorical-variables).
 
 Due to the fact that for this example we don’t have too many risk
 factors, we will not use the results of cluster analysis to shorten the
