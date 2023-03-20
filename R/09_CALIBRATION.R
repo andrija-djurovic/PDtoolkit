@@ -22,7 +22,7 @@
 #'data(loans)
 #'#estimate some dummy model
 #'mod.frm <- `Creditability` ~ `Account Balance` + `Duration of Credit (month)` +
-#'					`Age (years)`
+#'				`Age (years)`
 #'lr.mod <- glm(mod.frm, family = "binomial", data = loans)
 #'summary(lr.mod)$coefficients
 #'#model predictions
@@ -33,35 +33,41 @@
 #'loans$rating <- sts.bin(x = round(loans$score), y = loans$Creditability, y.type = "bina")[[2]]
 #'#create rating scale
 #'rs <- loans %>%
-#'	group_by(rating) %>%
-#'	summarise(no = n(),
-#'		    nb = sum(Creditability),
-#'		    ng = sum(1 - Creditability)) %>%
-#'	mutate(dr = nb / no)
+#'group_by(rating) %>%
+#'summarise(no = n(),
+#'	    nb = sum(Creditability),
+#'	    ng = sum(1 - Creditability)) %>%
+#'mutate(dr = nb / no)
 #'rs
 #'#calcualte portfolio default rate
 #'sum(rs$dr * rs$no / sum(rs$no))
 #'#calibrate rating scale to central tendency of 27% with minimum PD of 5%
 #'ct <- 0.33
 #'min.pd <- 0.05
-#'rs$pd.scaling <- rs.calibration(rs = rs, 
-#'					  dr = "dr", 
-#'					  w = "no", 
-#'					  ct = ct, 
-#'					  min.pd = min.pd,
-#'					  method = "scaling")
-#'rs$pd.log.a <- rs.calibration(rs = rs, 
-#'					dr = "dr", 
-#'					w = "no", 
-#'					ct = ct, 
-#'					min.pd = min.pd,
-#'					method = "log.odds.a")
-#'rs$pd.log.ab <- rs.calibration(rs = rs, 
-#'					 dr = "dr", 
-#'					 w = "no", 
-#'					 ct = ct, 
-#'					 min.pd = min.pd,
-#'					 method = "log.odds.ab")
+#'#scaling
+#'pd.calib.s <- rs.calibration(rs = rs, 
+#'				     dr = "dr", 
+#'				     w = "no", 
+#'				     ct = ct, 
+#'				     min.pd = min.pd,
+#'				     method = "scaling")
+#'rs$pd.scaling <- pd.calib.s[[1]]
+#'#log-odds a
+#'pd.calib.a <- rs.calibration(rs = rs, 
+#'				     dr = "dr", 
+#'			 	     w = "no", 
+#'				     ct = ct, 
+#'				     min.pd = min.pd,
+#'				     method = "log.odds.a")
+#'rs$pd.log.a <- pd.calib.a[[1]]
+#'#log-odds ab
+#'pd.calib.ab <- rs.calibration(rs = rs, 
+#'				      dr = "dr", 
+#'			 	      w = "no", 
+#'				      ct = ct, 
+#'				      min.pd = min.pd,
+#'				      method = "log.odds.ab")
+#'rs$pd.log.ab <- pd.calib.ab[[1]]
 #'#checks
 #'rs
 #'sum(rs$pd.scaling * rs$no / sum(rs$no))
@@ -93,8 +99,10 @@ return(pd.calib)
 }
 
 calib.scaling <- function(dr, w, port.dr, ct, min.pd) {
+	params <- data.frame(iter = 1:2, scaling.factor = c(NA, NA))
 	port.dr <- sum(dr * w / sum(w))
 	sf <- ct / port.dr
+	params[1, 2] <- sf
 	pd.calib <- dr * sf
 	check.min <- pd.calib < min.pd 
 	check.max <- pd.calib > 1
@@ -109,15 +117,17 @@ calib.scaling <- function(dr, w, port.dr, ct, min.pd) {
 		pd.calib[max.indx] <- 1
 		ct.n <- ct - sum((pd.calib[rc.indx ] * w[rc.indx] / sum(w)))
 		sf.n <- ct.n / sum((dr.n * w / sum(w)), na.rm = TRUE)
+		params[2, 2] <- sf.n
 		pd.calib.r <- dr.n * sf.n	
 		pd.calib.f <- ifelse(is.na(pd.calib.r), pd.calib, pd.calib.r)
 		} else {
 		pd.calib.f <- pd.calib
 		}
-return(pd.calib.f)
+return(list(pd.calib = pd.calib.f, params = params))
 }
 
 calib.log.odds.a <- function(dr, w, ct, min.pd) {	
+	params <- data.frame(iter = 1:2, a = c(NA, NA))
 	dr <- ifelse(dr == 1, 1 - 1 / 1e6, dr)
 	log.odds <- log(dr / (1 - dr))	
 	opt.f <- function(a, lo, w, ct, corr = 0) {
@@ -130,6 +140,7 @@ calib.log.odds.a <- function(dr, w, ct, min.pd) {
 				}
 	lo.a <- uniroot(f = opt.f, lo = log.odds, w = w, ct = ct, interval = c(-10, 10))
 	a <- lo.a$root
+	params[1, 2] <- a
 	pd.calib <- exp(a + log.odds) / (1 + exp(a + log.odds))
 	check <- pd.calib < min.pd
 	if	(any(check)) {
@@ -141,15 +152,17 @@ calib.log.odds.a <- function(dr, w, ct, min.pd) {
 		lo.a <- uniroot(f = opt.f, lo = log.odds.n, w = w, ct = ct.n, 
 				    corr = sum(w[is.na(log.odds.n)]), interval = c(-5, 5))
 		a <- lo.a$root	
+		params[2, 2] <- a
 		pd.calib.r <- exp(a + log.odds.n) / (1 + exp(a + log.odds.n))			
 		pd.calib.f <- ifelse(is.na(pd.calib.r), pd.calib, pd.calib.r)
 		} else {
 		pd.calib.f <- pd.calib
 		}
-return(pd.calib.f)
+return(list(pd.calib = pd.calib.f, params = params))
 }
 
 calib.log.odds.ab <- function(dr, w, ct, min.pd) {
+	params <- data.frame(iter = 1:2, a = c(NA, NA), b = c(NA, NA))
 	dr <- ifelse(dr == 1, 1 - 1 / 1e6, dr)
 	log.odds <- log(dr / (1 - dr))
 	opt.f <- function(x, lo, w, ct, corr = 0) {
@@ -171,6 +184,7 @@ calib.log.odds.ab <- function(dr, w, ct, min.pd) {
 	ab <- lo.ab$par
 	a <- ab[1]
 	b <- ab[2]
+	params[1, 2:3] <- c(a, b)
 	pd.calib <- exp(a + b * log.odds) / (1 + exp(a + b * log.odds))
 	check <- pd.calib < min.pd
 	if	(any(check)) {
@@ -189,12 +203,13 @@ calib.log.odds.ab <- function(dr, w, ct, min.pd) {
 		ab <- lo.ab$par
 		a <- ab[1]
 		b <- ab[2]
+		params[2, 2:3] <- c(a, b)
 		pd.calib.r <- exp(a + b * log.odds.n) / (1 + exp(a + b * log.odds.n))			
 		pd.calib.f <- ifelse(is.na(pd.calib.r), pd.calib, pd.calib.r)
 		} else {
 		pd.calib.f <- pd.calib
 		}	
-return(pd.calib.f)
+return(list(pd.calib = pd.calib.f, params = params))
 }
 
 
