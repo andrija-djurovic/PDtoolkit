@@ -58,7 +58,7 @@
 #'				w = "no", 
 #'				ct = ct, 
 #'				min.pd = min.pd,
-#'				method = "log.odds.ab")
+#'				method = "log.odds.ab")[[1]]
 #'#checks
 #'rs
 #'sum(rs$pd * rs$no / sum(rs$no))
