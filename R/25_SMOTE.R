@@ -84,7 +84,7 @@ smote <- function(db, target, minority.class, osr, ordinal.rf = NULL, num.rf.con
 		stop("target contains only unavailable values")
 		} 
 	if	(!minority.class%in%target.mod[!excl.ind]) {
-		stop("monority.class does not exists in target inidicator.")
+		stop("minority.class does not exists in target inidicator.")
 		}
 	if	(!is.numeric(osr) | !is.numeric(k)) {
 		stop("osr and k has to be of numeric type.")
