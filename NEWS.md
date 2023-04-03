@@ -73,4 +73,4 @@ Changes:<br/>
 7. Examples modified (```staged.blocks```, ```embedded.blocks```, ```ensemble.blocks```, ```rf.clustering```, ```hhi```, ```evrs```) to decrease the execution time 
 during check_win_release() 
 8. ```stepFWD``` and ```stepRPC``` - additional check for ```dummy``` coding and ```check.start.model``` introduced
-9. ```rs.calibration``` output exteneded. Now it returns calibrated values but also parameters
+9. ```rs.calibration``` output exteneded. Now, besides calibrated values it returns also parameters
