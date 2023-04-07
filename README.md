@@ -858,7 +858,7 @@ rs$pd <- rs.calibration(rs = rs,
                 w = "no", 
                 ct = 0.27, 
                 min.pd = 0.05,
-                method = "log.odds.ab")
+                method = "log.odds.ab")[[1]]
 rs
 ```
 
