@@ -74,3 +74,8 @@ Changes:<br/>
 during check_win_release() 
 8. ```stepFWD``` and ```stepRPC``` - additional check for ```dummy``` coding and ```check.start.model``` introduced
 9. ```rs.calibration``` output exteneded. Now, besides calibrated values it returns also parameters
+
+# PDtoolkit 1.1.1
+Changes:<br/>
+
+1. ```cat.bin``` function adjusted in part after dealing with special cases. 
