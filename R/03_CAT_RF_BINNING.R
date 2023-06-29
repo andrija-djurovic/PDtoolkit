@@ -148,6 +148,9 @@ cat.bin <- function(x, y, sc = NA, sc.merge = "none", min.pct.obs = 0.05, min.av
 					    nb = sum(y))%>%
 				ungroup() %>%
 				mutate(dr = nb / no)
+			if	(force.trend%in%"dr") {
+		                ds <- ds[order(ds$dr), ]	
+		                }
 			}
 		}
 	ds$group <- 1:nrow(ds)
