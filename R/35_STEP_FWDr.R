@@ -111,7 +111,7 @@ stepFWDr <- function(start.model, p.value = 0.05, db, check.start.model = TRUE, 
 	rf.c <- rf.a[!rf.a%in%names(rf.n)[rf.n]]
 	rf.cl <- length(rf.c)
 	rf.cat.o <- vector("list", rf.cl) 
-	if	(length(rf.c) > 0) {
+	if	(rf.cl > 0) {
 		for	(i in 1:rf.cl) {
 			rf.c.l <- rf.c[i]
 	 		cat.o <- summary.tbl(tbl = db, x = rf.c.l, y = target)
