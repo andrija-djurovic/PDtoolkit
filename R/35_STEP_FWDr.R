@@ -125,7 +125,7 @@ stepFWDr <- function(start.model, p.value = 0.05, db, check.start.model = TRUE, 
 		} else {
 		rf.cat.o <- data.frame()
 		}
-	#observed correlation for numerical risk factor
+	#observed correlation for numeric risk factor
 	rf.n <- names(rf.n)[rf.n]
 	rf.nl <- length(rf.n)
 	if	(rf.nl > 0) {
