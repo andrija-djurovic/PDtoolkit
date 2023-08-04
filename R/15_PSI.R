@@ -69,7 +69,7 @@ num.bt <- function(base, target, bin) {
 	if	(length(bu) <= bin) {
 		base.cut <- base
 		} else {
-		base.cut <- cut(base, breaks = bin, incluse.lowest = TRUE, labels = FALSE, right = FALSE)
+		base.cut <- cut(base, breaks = bin, include.lowest = TRUE, labels = FALSE, right = FALSE)
 		}
 	base.df <- data.frame(base = base, bin = base.cut)
 	base.tbl <- base.df %>%
