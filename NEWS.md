@@ -78,4 +78,5 @@ during check_win_release()
 # PDtoolkit 1.1.1
 Changes:<br/>
 
-1. ```cat.bin``` function adjusted in part after dealing with special cases. 
+1. ```cat.bin``` function adjusted in part after dealing with special cases.
+2. ```psi``` - typo in helper function ```num.bt``` corrected (instead of ```incluse.lowest = TRUE```, now ```include.lower = TRUE```), This change should not affect previous usage of the ```psi``` function because argument ```breaks``` is a single number which already ensures inclusion of extreme values (for details see ```?cut```) 
