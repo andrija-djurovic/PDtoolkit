@@ -81,5 +81,5 @@ Changes:<br/>
 1. ```cat.bin``` function adjusted in part after dealing with special cases.
 2. ```psi``` - typo in helper function ```num.bt``` corrected (instead of ```incluse.lowest = TRUE```, now ```include.lower = TRUE```), This change should not affect previous usage of the ```psi``` function because argument ```breaks``` is a single number which already ensures inclusion of extreme values (for details see ```?cut```)
 3. The following helper functions renamed to avoid S3 method mismatches: ```tbl.correction``` (```tbl_correction```), ```summary.tbl``` (```summary_tbl```),
-   ```log.likelihood```(```log_likelihood```), ```best.split.num```(```best_split_num```), ```best_split```(```best_split```), ```best.split.cat```(```best_split_cat```),
-   ```sum.adjacent``` (```sum_adjacent```)
+   ```log.likelihood```(```log_likelihood```), ```best.split.num```(```best_split_num```), ```best.split```(```best_split```), ```best.split.cat```(```best_split_cat```),
+   ```sum.adjacent``` (```sum_adjacent```), ```c.best.split.num```(```c_best_split_num```), ```c.best.split```(```c_best_split```), ```c.best.split.cat```(```c_best_split_cat```)
