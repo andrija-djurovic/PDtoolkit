@@ -114,7 +114,7 @@ stepFWDr <- function(start.model, p.value = 0.05, db, check.start.model = TRUE, 
 	if	(rf.cl > 0) {
 		for	(i in 1:rf.cl) {
 			rf.c.l <- rf.c[i]
-	 		cat.o <- summary.tbl(tbl = db, x = rf.c.l, y = target)
+	 		cat.o <- summary_tbl(tbl = db, x = rf.c.l, y = target)
 			cat.o$bin <- as.character(cat.o$bin)
 			cat.o <- cbind.data.frame(rf = rf.c.l, cat.o)
 			pct.check <- any(cat.o$pct.o < 0.05)
@@ -309,7 +309,7 @@ return(cc)
 }
 
 #summary table 
-summary.tbl <- function(tbl, x, y) {
+summary_tbl <- function(tbl, x, y) {
 	if	(!is.data.frame(tbl)) {
 		stop("tbl is not a data frame.")
 		}

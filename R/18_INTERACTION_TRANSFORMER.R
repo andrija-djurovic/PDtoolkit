@@ -124,7 +124,7 @@ dt.algo <- function(d, rf, target, min.obs, min.rate, max.depth, monotonicity) {
         			tbl.l <- d
       			}	
 			splitting <- lapply(rf, function(x) {
-							best.split(tbl = tbl.l, 
+							best_split(tbl = tbl.l, 
 								     rf.l = x, 
 								     target = target, 
 								     min.obs = min.obs, 
@@ -170,10 +170,10 @@ dt.algo <- function(d, rf, target, min.obs, min.rate, max.depth, monotonicity) {
 return(tree.info)
 }
 #node split functions
-best.split <- function(tbl, rf.l, target, min.obs, min.rate, monodir) {
+best_split <- function(tbl, rf.l, target, min.obs, min.rate, monodir) {
 	rf.c <- is.numeric(tbl[, rf.l])
 	if	(rf.c) {
-		 bs <- best.split.num(tbl = tbl, 
+		 bs <- best_split_num(tbl = tbl, 
 				      rf.l = rf.l, 
 			  	      target = target, 
 				      min.obs = min.obs, 
@@ -181,7 +181,7 @@ best.split <- function(tbl, rf.l, target, min.obs, min.rate, monodir) {
 				      monodir = monodir)
 		bs <- cbind.data.frame(rf.t = "numeric", bs)	
 		} else {
-		bs <- best.split.cat(tbl = tbl, 
+		bs <- best_split_cat(tbl = tbl, 
 				     rf.l = rf.l, 
 				     target = target, 
 				     min.obs = min.obs, 
@@ -190,7 +190,7 @@ best.split <- function(tbl, rf.l, target, min.obs, min.rate, monodir) {
 		}
 return(bs)
 }
-best.split.num <- function(tbl, rf.l, target, min.obs, min.rate, monodir) {
+best_split_num <- function(tbl, rf.l, target, min.obs, min.rate, monodir) {
 	g <- unname(quantile(tbl[, rf.l],seq(1 / 50, 1, length.out = 50), type = 3, na.rm = TRUE))
 	g <- unique(c(min(tbl[, rf.l], na.rm = TRUE), g))
 	if	(length(g) == 1 | all(is.na(tbl[, rf.l]))) {
@@ -248,7 +248,7 @@ best.split.num <- function(tbl, rf.l, target, min.obs, min.rate, monodir) {
 	res <- data.frame(rf = paste0("`", rf.l, "`"), ssv = min(ssv), split = split.at, y.l = y.l, y.r = y.r)
 return(res)
 }
-best.split.cat <- function(tbl, rf.l, target, min.obs, min.rate) {
+best_split_cat <- function(tbl, rf.l, target, min.obs, min.rate) {
 	if	(all(is.na(tbl[, rf.l]))) {
 		res <- data.frame(rf = paste0("`", rf.l, "`"), ssv = NA, split = NA, y.l = NA, y.r = NA)
 		return(res)

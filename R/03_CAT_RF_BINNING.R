@@ -155,10 +155,10 @@ cat.bin <- function(x, y, sc = NA, sc.merge = "none", min.pct.obs = 0.05, min.av
 		}
 	ds$group <- 1:nrow(ds)
 	#correction for num of obs
-	ds.no <- tbl.correction(tbl = ds[!ds$bin%in%sc, ], mno = min.obs, mrate = min.rate, what = "obs")
+	ds.no <- tbl_correction(tbl = ds[!ds$bin%in%sc, ], mno = min.obs, mrate = min.rate, what = "obs")
 	ds.no.1 <- ds.no[[1]]
 	#correction for min num of bads
-	ds.nb <- tbl.correction(tbl = ds.no[[2]], mno = min.obs, mrate = min.rate, what = "bad")
+	ds.nb <- tbl_correction(tbl = ds.no[[2]], mno = min.obs, mrate = min.rate, what = "bad")
 	ds.nb.1 <- ds.nb[[1]]
 	ds.cor <- merge(ds.no.1, ds.nb.1[, c("bin", "group")], 
 			    by.x = "label", by.y = "bin", all.x = TRUE)
@@ -223,7 +223,7 @@ checks <- function(d, d.cc) {
 return(list(which.cond, msger))
 }
 
-tbl.correction <- function(tbl, mno, mrate, what) {
+tbl_correction <- function(tbl, mno, mrate, what) {
 	if	(what == "obs") {
 		cn <- "no"; thr <- mno
 		} else {
@@ -261,7 +261,7 @@ return(list(tbl.s, tbl.np))
 }
 
 #adjacent pooling alogirthm
-sum.adjacent <- function(x, n) stats::filter(x, rep(1, n))[-length(x)]
+sum_adjacent <- function(x, n) stats::filter(x, rep(1, n))[-length(x)]
 woe.adjacent <- function(tbl, no.sc, ng.sc, nb.sc) {
 	tbl.nr <- nrow(tbl)
 	so = sum(tbl$no) + no.sc
@@ -313,7 +313,7 @@ apa <- function(tbl, no.sc, ng.sc, nb.sc, mg) {
 	nb.sc <- sum(nb.sc)
 	repeat {
 		if	(nrow(tbl) == mg) {break}
-		tbl$f2.1 <- c(NA, sum.adjacent(x = tbl$iv.b, n = 2))
+		tbl$f2.1 <- c(NA, sum_adjacent(x = tbl$iv.b, n = 2))
 		tbl$f21 <- woe.adjacent(tbl = tbl, no.sc = no.sc, ng.sc = ng.sc, nb.sc = nb.sc)
 		tbl$iv.loss <- tbl$f2.1 - tbl$f21
 		mg.loc <- which.min(tbl$iv.loss)

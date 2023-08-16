@@ -61,7 +61,7 @@ constrained.logit <- function(db, x, y, lower, upper) {
 	ym <- as.matrix(db[, y, drop = FALSE])
 	b.start <- rep(0, length(lr.coef))
 	opt.logit <- try(optim(par = b.start, 
-				     fn = log.likelihood, 
+				     fn = log_likelihood, 
 				     x = xm, 
 				     y = ym, 
 				     method = "L-BFGS-B",
@@ -80,7 +80,7 @@ constrained.logit <- function(db, x, y, lower, upper) {
 return(list(beta = b.opt, prediction = pred.opt))
 }
 
-log.likelihood <- function(b, x, y) {
+log_likelihood <- function(b, x, y) {
 	-sum(y * (x%*%b - log(1 + exp(x%*%b))) + (1 - y) * (-log(1 + exp(x%*%b)))) 
 }
 
