@@ -128,7 +128,7 @@ cdt.algo <- function(d, rf, target, min.obs, min.rate, p.value, max.depth, monot
         			tbl.l <- d
       			}	
 			splitting <- lapply(rf, function(x) {
-							c.best.split(tbl = tbl.l, 
+							c_best_split(tbl = tbl.l, 
 									 rf.l = x, 
 									 target = target, 
 									 min.obs = min.obs, 
@@ -175,10 +175,10 @@ cdt.algo <- function(d, rf, target, min.obs, min.rate, p.value, max.depth, monot
 return(tree.info)
 }
 #customized node split functions
-c.best.split <- function(tbl, rf.l, target, min.obs, min.rate, p.value, monodir) {
+c_best_split <- function(tbl, rf.l, target, min.obs, min.rate, p.value, monodir) {
 	rf.c <- is.numeric(tbl[, rf.l])
 	if	(rf.c) {
-		 bs <- c.best.split.num(tbl = tbl, 
+		 bs <- c_best_split_num(tbl = tbl, 
 						rf.l = rf.l, 
 			  			target = target, 
 						min.obs = min.obs, 
@@ -187,7 +187,7 @@ c.best.split <- function(tbl, rf.l, target, min.obs, min.rate, p.value, monodir)
 						monodir = monodir)
 		bs <- cbind.data.frame(rf.t = "numeric", bs)	
 		} else {
-		bs <- c.best.split.cat(tbl = tbl, 
+		bs <- c_best_split_cat(tbl = tbl, 
 					     rf.l = rf.l, 
 					     target = target, 
 					     min.obs = min.obs, 
@@ -197,7 +197,7 @@ c.best.split <- function(tbl, rf.l, target, min.obs, min.rate, p.value, monodir)
 		}
 return(bs)
 }
-c.best.split.num <- function(tbl, rf.l, target, min.obs, min.rate, p.value, monodir) {
+c_best_split_num <- function(tbl, rf.l, target, min.obs, min.rate, p.value, monodir) {
 	g <- unname(quantile(tbl[, rf.l],seq(1 / 50, 1, length.out = 50), type = 3, na.rm = TRUE))
 	g <- unique(c(min(tbl[, rf.l], na.rm = TRUE), g))
 	if	(length(g) == 1 | all(is.na(tbl[, rf.l]))) {
@@ -259,7 +259,7 @@ c.best.split.num <- function(tbl, rf.l, target, min.obs, min.rate, p.value, mono
 	res <- data.frame(rf = paste0("`", rf.l, "`"), p.val = p.val, split = split.at)
 return(res)
 }
-c.best.split.cat <- function(tbl, rf.l, target, min.obs, min.rate, p.value) {
+c_best_split_cat <- function(tbl, rf.l, target, min.obs, min.rate, p.value) {
 	if	(all(is.na(tbl[, rf.l]))) {
 		res <- data.frame(rf = paste0("`", rf.l, "`"), p.val = NA, split = NA)
 		return(res)
