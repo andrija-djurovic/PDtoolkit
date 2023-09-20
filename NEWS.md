@@ -83,3 +83,8 @@ Changes:<br/>
 3. The following helper functions renamed to avoid S3 method mismatches: ```tbl.correction``` (```tbl_correction```), ```summary.tbl``` (```summary_tbl```),
    ```log.likelihood```(```log_likelihood```), ```best.split.num```(```best_split_num```), ```best.split```(```best_split```), ```best.split.cat```(```best_split_cat```),
    ```sum.adjacent``` (```sum_adjacent```), ```c.best.split.num```(```c_best_split_num```), ```c.best.split```(```c_best_split```), ```c.best.split.cat```(```c_best_split_cat```)
+
+# PDtoolkit 1.2.0
+Changes:<br/>
+1. ```pp.testing``` - description of the Hosmer-Lemeshow test results changed
+2. ```power``` - 
