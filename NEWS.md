@@ -87,4 +87,4 @@ Changes:<br/>
 # PDtoolkit 1.2.0
 Changes:<br/>
 1. ```pp.testing``` - description of the Hosmer-Lemeshow test results changed
-2. ```power``` - 
+2. ```power``` - for the Hosmer-Lemeshow test removed condition which checks if the observed portfolio default rate is less than predicted one. 
