@@ -1138,8 +1138,8 @@ the predictive ability of PD model in use. The `PDtoolkit` package has
 supported in this validation function: three of them refer to testing on
 the rating grade level (binomial, Jeffreys, z-score), while one refers
 to the complete rating scale (Hosmer-Lemeshow test). The null hypothesis
-for the binomial, Jeffreys, and z-score test is that calibrated PDs are
-not underestimated, i.e. they are not significantly lower than observed
+for the binomial, Jeffreys, and z-score test is that the calibrated PDs are
+not underestimated, i.e. they are not significantly lower than the observed
 default rate, while for the Hosmer-Lemeshow test is that the calibrated
 PD is the true one.
 
