@@ -4,8 +4,9 @@
 #' on the level of the rating scale. 
 #' Four tests are implemented: binomial, Jeffreys, z-score and Hosmer-Lemeshow test.
 #' Only Hosmer-Lemeshow test refers to complete rating scale, while the remaining three are implemented on the 
-#' rating grade level. The null hypothesis for all tests is that observed default rate 
-#' \eqn{\frac{n_b}{n_o}} is less or equal to the calibrated PD (\code{pdc}).
+#' rating grade level. The null hypothesis for binomial, Jeffreys, and z-score tests is that the observed default rate 
+#' \eqn{\frac{n_b}{n_o}} is less or equal to the calibrated PD (\code{pdc}) while for the Hosmer-Lemeshow test is that 
+#' the calibrated PD (\code{pdc}) is the true one.
 #'@param rating.label Vector of rating labels.
 #'@param pdc Vector of calibrated probabilities of default (PD).
 #'@param no Number of observations per rating grade.
@@ -117,7 +118,7 @@ pp.testing <- function(rating.label, pdc, no, nb, alpha = 0.05) {
 		hosm.test.res <- "Only one rating grade."
 		} else {
 		hosm.test <- hl.test(pdc = pdc, no = no, nb = nb)
-		hosm.test.res <- ifelse(hosm.test >= alpha, "H0: ODR <= PDC", "H1: ODR > PDC")
+		hosm.test.res <- ifelse(hosm.test >= alpha, "H0: PDC is TRUE", "H1: PDC is not TRUE")
 		}
 	res <- data.frame(rating = rating.label,
 				no = no,
