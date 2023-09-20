@@ -28,8 +28,9 @@ the rating grades as well as the test results.
 on the level of the rating scale.
 Four tests are implemented: binomial, Jeffreys, z-score and Hosmer-Lemeshow test.
 Only Hosmer-Lemeshow test refers to complete rating scale, while the remaining three are implemented on the
-rating grade level. The null hypothesis for all tests is that observed default rate
-\eqn{\frac{n_b}{n_o}} is less or equal to the calibrated PD (\code{pdc}).
+rating grade level. The null hypothesis for binomial, Jeffreys, and z-score tests is that the observed default rate
+\eqn{\frac{n_b}{n_o}} is less or equal to the calibrated PD (\code{pdc}) while for the Hosmer-Lemeshow test is that
+the calibrated PD (\code{pdc}) is the true one.
 }
 \details{
 Due to the fact that test of predictive power is usually implemented on the application portfolio,

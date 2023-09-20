@@ -32,10 +32,12 @@ will not be performed.
 }
 \description{
 \code{power} performs Monte Carlo simulation of power of statistical test used for testing the predictive
-ability of the PD rating model. It covers fours tests: binomial, Jeffreys, z-score and Hosmer-Lemeshow test.
-This procedure is applied under assumption that observed default rate is the true one and it make sense
-to use it in order to check if calibrated PDs are underestimated. Therefore, for the cases where observed
-default rate is lower than calibrated PD, power calculation is not performed and will report the comment.
+ability of the PD rating model. It covers fours tests: the binomial, Jeffreys, z-score and Hosmer-Lemeshow test.
+This procedure is applied under assumption that the observed default rate is the true one and it is
+used to check if calibrated PDs are underestimated for the binomial, Jeffreys, and z-score.
+Therefore, for the cases where observed default rate is lower than calibrated PD, power calculation is not performed and will report the comment.
+For the Hosmer-Lemeshow test is used to test if the calibrated PD is the true one regardless the difference between the observed and calibrated
+portfolio default rate.
 }
 \details{
 Due to the fact that test of predictive power is usually implemented on the application portfolio,
