@@ -57,6 +57,5 @@ summary(final.model)$coefficients
 }
 \references{
 Scallan, G. (2011). Class(ic) Scorecards: Selecting Characteristics and Attributes in Logistic Regression,
-Edinburgh Credit Scoring Conference, downloaded from
-\href{https://www.scoreplus.com/papers/papers}{here}.
+Edinburgh Credit Scoring Conference.
 }
