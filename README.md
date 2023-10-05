@@ -1,5 +1,5 @@
 
-## PDtoolkit 1.2.0
+## PDtoolkit 1.2.1
 
 `PDtoolkit` provides collection of tools for probability of default (PD)
 rating model development and validation.</br> Keeping in mind the fact
