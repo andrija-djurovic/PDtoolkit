@@ -92,7 +92,7 @@ pp.testing <- function(rating.label, pdc, no, nb, alpha = 0.05) {
 		stop("arguments rating.label, pdc, no and nb have to be of the same length.")
 		}
 	if	(any(!(is.numeric(pdc) | is.numeric(no) | is.numeric(nb)))) {
-		stop("All arguments have to of numeric type.")
+		stop("Arguments pdc, no, and nb have to of numeric type.")
 		}
 	if	(any(pdc > 1 | pdc < 0)) {
 		stop("pdc and odr have to be between 0 and 1.")
