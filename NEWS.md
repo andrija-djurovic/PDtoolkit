@@ -87,4 +87,8 @@ Changes:<br/>
 # PDtoolkit 1.2.0
 Changes:<br/>
 1. ```pp.testing``` - description of the Hosmer-Lemeshow test results changed
-2. ```power``` - for the Hosmer-Lemeshow test removed condition which checks if the observed portfolio default rate is less than predicted one. 
+2. ```power``` - for the Hosmer-Lemeshow test removed condition which checks if the observed portfolio default rate is less than predicted one.
+
+# PDtoolkit 1.2.1
+Changes:<br/>
+1. ```pp.testing``` - typo in the part of the arguments checks (```is.numeric(n)``` converted to ```is.numeric(no)```). This change does not impact the function output.
