@@ -75,6 +75,9 @@ rf.interaction.transformer <- function(db, rf, target, num.rf = NA, num.tree, mi
 		for	(i in 1:1:num.tree) {
 			ti.l <- tree.info[[i]]
 			inter.l <- extract.interactions(db = db, tree.info = ti.l)
+			if    (nrow(inter.l) == 0) {
+                               inter.l <- data.frame(x = rep(1, nrow(db)))
+                               }
 			names(inter.l) <- paste0("tree.", i)
 			interaction[[i]] <- inter.l
 			}
