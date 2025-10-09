@@ -120,7 +120,7 @@ dp.testing <- function(app.port, def.ind, pdc, auc.test, alternative, alpha = 0.
 					        "two.sided" = 2 * pnorm(abs(test.stat), lower.tail = FALSE))
 	h.sign <- switch(alternative[1], "less" = c(" >= ", " < "),
 				  	     	   "greater" = c(" <= ", " > "), 
-					    	   "two.sided" = c(" != ", " != "))
+					    	   "two.sided" = c(" == ", " != "))
 	res <- data.frame(auc = auc,
 				auc.test = auc.test,
 				estimate = auc - auc.test,
@@ -133,6 +133,7 @@ dp.testing <- function(app.port, def.ind, pdc, auc.test, alternative, alpha = 0.
 						 paste0("H1: AUC", h.sign[2], " AUC test")))
 return(res)
 }
+
 
 
 
