@@ -94,4 +94,9 @@ Changes:<br/>
 1. ```pp.testing``` - typo in the part of the arguments checks (```is.numeric(n)``` converted to ```is.numeric(no)```). This change does not impact the function output.
                       Erorr message adjusted (instead of ```stop("All arguemnts have to of numeric type.")``` new message is ```stop("Arguments pdc, no, and nb have to of numeric 
                       type.")```)
+
+# PDtoolkit 1.2.2
+Changes:<br/>
+1. ```pp.testing``` - typo corrected in the column `res` for `two.sided` version - `H0: AUC != AUC test` corrected to `H0: AUC == AUC tes`
 2. fix in ```rf.interaction.transformer``` function when tree cannot be generated based on the selected criteria
+
