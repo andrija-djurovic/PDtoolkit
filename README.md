@@ -1,5 +1,5 @@
 
-## PDtoolkit 1.2.1
+## PDtoolkit 1.2.2
 
 `PDtoolkit` provides collection of tools for probability of default (PD)
 rating model development and validation.</br> Keeping in mind the fact
@@ -1234,3 +1234,4 @@ the Hosmer-Lemeshow test is the only test applied to the complete rating
 scale, there is no other test to be compared with.</br></br> For
 additional package features that are implemented but not presented in
 the above examples, please, check `help(package = "PDtoolkit")`.
+
