@@ -97,4 +97,5 @@ Changes:<br/>
 
 # PDtoolkit 1.2.2
 Changes:<br/>
-1. ```pp.testing``` - typo corrected in the column `res` for `two.sided` version - `H0: AUC != AUC test` corrected to `H0: AUC == AUC tes`
+1. ```dp.testing``` - typo corrected in the column `res` for `two.sided` version - `H0: AUC != AUC test` corrected to `H0: AUC == AUC tes`
+
